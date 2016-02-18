@@ -1,0 +1,64 @@
+\documentclass{article}
+
+\usepackage{amssymb}
+
+\begin{document}
+   \title{The Bayesian Discriminator}
+   \author{Douglas Cardoso}
+   \date{\today}
+   \maketitle
+
+   \section{First try}
+
+      $$
+      A = \
+         \left(
+            \prod_{i \in H} \frac{D_i(P_i)}{t}
+            \left( 1 - \frac{|D_i|}{t+1} \right)
+         \right)
+         \left(
+            %\prod_{i \in M} \frac{1}{t \log t}
+            \frac{1}{t \log t}
+         \right) ^ {|M|}
+      $$
+
+      $$
+      \log A = \
+         \left(
+            \sum_{i \in H} \log D_i(P_i) +
+            \log \left(t + 1 - |D_i|\right)
+         \right)
+         - |H| \log (t^2 + t)
+         - |M| \log (t \log t)
+      $$
+
+   \section{Second one}
+
+      $$
+      A = \
+         \left(
+            \prod_{i \in H} \frac{D_i(P_i)}{t}
+            \left( 1 - \frac{|D_i|}{t+1} \right)
+         \right)
+         \left(
+            \prod_{i \in M} \frac{1}{t \log t}
+            \left( 1 - \frac{|D_i|}{t+1} \right)
+         \right)
+      $$
+
+      $$
+      \log A = \
+         \left(
+            \sum_{i \in H} \log D_i(P_i) +
+            \log \left(t + 1 - |D_i|\right)
+         \right)
+         - |H| \log (t^2 + t)
+      $$
+
+      $$
+         + \left(\sum_{i \in M} \log \left(t + 1 - |D_i|\right)
+         \right)
+         - |M| (\log (t \log t) + \log (t + 1))
+      $$
+
+\end{document}

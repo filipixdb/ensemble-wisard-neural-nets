@@ -1,0 +1,27 @@
+# Modules descriptions
+
+## encoding.py
+ Contains classes for encoding data to a binary format and from that to addresses.
+
+### Classes
+
+* BitStringEncoder
+* MinchintonEncoder
+* UnaryEncoder
+* EncoderSequencer
+* QualitativeEncoder
+* DummyEncoder
+* ClusteringEncoder
+* ClusteringEncoder2
+* SplitEncoder
+* SortEncoder
+
+## datafeed.py
+ Contains classes for data access.
+
+### Classes
+
+* DataFeed
+* FilesDirsFeed
+* TxtFileFeed
+* PixelsFeed

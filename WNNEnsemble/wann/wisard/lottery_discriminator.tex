@@ -1,0 +1,88 @@
+\documentclass{article}
+
+\usepackage{amssymb}
+
+\begin{document}
+   \title{The Lottery Discriminator}
+   \author{Douglas Cardoso}
+   \date{\today}
+   \maketitle
+
+   \begin{abstract}
+      Abstract here.
+   \end{abstract}
+
+   \section{Introduction}
+
+      Let $D$ be a WiSARD discriminator composed of $|D|$ neurons. For a
+      location $l$ in neuron $D_i$, how many times $l$ was written is
+      represented as $D_i(l)$.  Consider that $D$ recorded $w$ inputs. An input
+      $P$ is a vector of $|D|$ integers, each represented as $P_i$.
+
+      Now consider that an input $P$ is used to query $D$. Let $H$ be the set
+      of indexes of the neurons which positively answered (hits) to the query,
+      and $M$ be the complement of $H$ (misses):
+      
+      $$H = \{\, i \, | \, D_i(P_i) > 0 \, \}, \quad M = D \setminus H.$$
+
+      The answer $D$ gives to this query is
+
+      $$
+      A = \
+      \overbrace{
+         \left( \prod_{i \in H} \frac{D_i(P_i)}{1 + w} \right)^{|H|^{-1}}
+      }^\alpha \
+      \overbrace{\left( \frac{1}{1 + w} \right)^{|M|^k}}^\beta \
+      $$
+
+      This answer is an attempt to represent the original answer $D$ gives to a
+      query as a scalar, translating a better answer in a greater value. That
+      led to the definition of the two parts of the equation:
+
+      \begin{itemize}
+
+         \item $\alpha$ represents how good were the hits the discriminator
+            made: it is the geometric mean of the rating of each hit. Each hit
+            is rated according to $D_i(P_i)$. The innovation here is to make
+            this score relative to $w$, what enables a better handling of
+            unbalanced datasets by a WiSARD system;
+
+         \item $\beta$ penalizes the answer according to the misses of the
+            discriminator. The penalty increases with $w$, but its major
+            influence is $|M|$. The parameter $k \in \mathbb{R}$ allows the
+            adjustment of the importance of the misses in an answer.
+
+      \end{itemize}
+
+      Targeting an easier computation without giving way any property, $\log A$
+      could be used:
+
+      $$
+      \log A = \
+      \frac{1}{|H|}\left(\sum_{i \in H} \log D_i(P_i)\right) - \
+      \log(1 + w) (1 + |M|^k) .
+      $$
+
+      Two interesting questions arise, targeting a better interpretation of an
+      hypothetical raw value of $\log A = A'$. For the first question consider
+      that all hits have the same grade $\delta$:
+
+      $$ \forall\, i \in H, \quad \frac{D_i(P_i)}{1 + w} = \delta. $$
+
+      Given $|M|$, what is this grade? It is
+
+      $$ \delta = \exp\left( A' + \log(1 + w) |M|^k \right).$$
+
+      The second question is: what is the maximum number of misses $\mu \in
+      \mathbb{N}$ possible, considering that all hits were as good as possible:
+
+      $$ \forall\, i \in H, \quad \frac{D_i(P_i)}{1 + w} \simeq 1. $$
+
+      A good estimation of this is
+
+      $$
+      \mu = \
+      \left\lfloor \left(\frac{A'}{-\log(1+w)}\right)^{1/k} \right\rfloor.
+      $$
+
+\end{document}
