@@ -1,6 +1,7 @@
 '''
 @author: filipi
 '''
+import pprint
 
 '''
 Testar os classificadores no dataset german credit
@@ -9,6 +10,7 @@ Testar os classificadores no dataset german credit
 
 import time
 import sys
+sys.path.append("../")
 
 import wann.util as util
 import ensemble.composition as compo
@@ -55,7 +57,16 @@ def main(nmbr_neurons_list=[16], data=None, bagging=None, percent=None):
     # Cria os folds
     _, _, fold_data_dict = prtt.cria_folds(selected_features, data_names_dict, nmbr_neurons_list, n_folds = n_folds)
 
-
+    #pprint.pprint("Fold Data Dict[0]:")
+    #pprint.pprint(fold_data_dict[str(0)])
+    '''
+    fold_data_dict possui:
+    pra cada classificador
+      pra cada fold
+        list features, classe
+    '''
+    
+    
 
 #    Inicializa e treina os classificadores, inicializa as matrizes e os cv_gen
     confusion_mat, times, cv_gen = e_clss.inicializa_classificadores(classificadores, fold_data_dict, bagging, percent)
