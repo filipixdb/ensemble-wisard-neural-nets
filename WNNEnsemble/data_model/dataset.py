@@ -3,6 +3,7 @@ Created on 18 de fev de 2016
 
 @author: filipi
 '''
+from ensemble.partition import cria_folds
 
 
 '''
@@ -53,15 +54,26 @@ class Fold(object):
             self.inst_treino.append(instancia)
         else:
             self.inst_test.append(instancia)
+            
+    def adiciona_pesos(self, pesos):
+        for i, peso in enumerate(pesos):
+            self.inst_treino[i].peso = peso
+    
+    def retorna_pesos(self):
+        pesos = []
+        for inst in self.inst_treino:
+            pesos.append(inst.peso)
 
 
 
 class DataSet(object):
     
-    def __init__(self, nome, features, folds):
+    def __init__(self, data, tam_features, n_folds, nome=None):
         self.nome = nome
-        self.features = features
-        self.folds = folds
+        self.features = tam_features
+        self.folds = n_folds
+        
+        self.cria_folds(data, tam_features, n_folds)
     
 
     def cria_folds(self, data, tam_features, n_folds = 10):
@@ -70,22 +82,27 @@ class DataSet(object):
         #n_folds eh o total de folds a criar
         #as leituras aqui jah estao embaralhadas ou nao
         # criar os folds
-        folds = []
+        self.folds = []
         for f in xrange(n_folds):
-            folds.append(Fold([], []))
+            self.folds.append(Fold([], []))
+        
         
         for i, entrada in enumerate(data):
-            classe, representacao = entrada
-            instancia = Instancia(classe, representacao, tam_features, id=i)
+            numero, classe, representacao = entrada
+            instancia = Instancia(classe, representacao, tam_features, identificador=numero)
             
             # adicionar nos folds
             for f in xrange(n_folds):
                 if (i % n_folds) == f:
-                    folds[f].adiciona_instancia(instancia, 'teste')
+                    self.folds[f].adiciona_instancia(instancia, 'teste')
                 else:
-                    folds[f].adiciona_instancia(instancia, 'treino')
+                    self.folds[f].adiciona_instancia(instancia, 'treino')
+        
+        #inicializa pesos iguais
+        for fold in self.folds:
+            peso = 1.0 / len(fold.inst_treino)
+            fold.adiciona_pesos([peso] * len(fold.inst_treino))
 
-        return folds
         
         
 

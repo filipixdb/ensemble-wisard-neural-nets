@@ -11,6 +11,7 @@ import wann.wisard.discriminators as wann_wis_dsc
 import wann.util as util
 import wann.crossval as wann_xval
 import ensemble.composition as compo
+from data_process.encoding import BitStringEncoder
 
 def cria_classificadores(selected_features, nmbr_neurons_list, tipos_classi=3):
     
@@ -88,7 +89,7 @@ class BaseLearner(object):
         n_neurons
         mat_confusao
         mat_confusao_folds
-        selected features
+        selected tam_features
         '''
         self.classificador = cria_classificador(classificador, discriminador)
         self.n_neurons = n_neurons
@@ -99,8 +100,10 @@ class BaseLearner(object):
         self.mat_confusao_folds = []
         for _ in xrange(n_folds):
             self.mat_confusao_folds.append(util.ConfusionMatrix)
+            
+        self.encoder = BitStringEncoder(self.n_neurons)
         
-        self.label = discriminador+" - neuronios= "+n_neurons+" - rank= "+rank_method+" - features= "+selected_features
+        self.label = discriminador+" - neuronios= "+str(n_neurons)+" - rank= "+rank_method+" - tam_features= "+str(selected_features)
         
     
 def cria_classificador(classificador, discriminador):
@@ -114,16 +117,17 @@ def cria_classificador(classificador, discriminador):
     
     return wann_wis_clf.WiSARD(disc)
     
-def cria_base_learners(configs_classificadores, n_folds):
+def cria_base_learners(configs_base_learners, n_folds):
     
     '''
     recebe uma lista de tuplas com as configs dos base learners
     retorna uma lista com os base learners
+    configs sao tuplas (classificador, discriminador, n_neurons, rank_method, selected_features)
     '''
     
     base_leaners = []
     
-    for classificador, discriminador, n_neurons, rank_method, selected_features in configs_classificadores:
+    for classificador, discriminador, n_neurons, rank_method, selected_features in configs_base_learners:
         base_leaners.append(BaseLearner(discriminador, n_neurons, rank_method, n_folds, classificador, selected_features))
     
     return base_leaners
