@@ -99,7 +99,7 @@ class BaseLearner(object):
         self.mat_confusao = util.ConfusionMatrix()
         self.mat_confusao_folds = []
         for _ in xrange(n_folds):
-            self.mat_confusao_folds.append(util.ConfusionMatrix)
+            self.mat_confusao_folds.append(util.ConfusionMatrix())
             
         self.encoder = BitStringEncoder(self.n_neurons)
         

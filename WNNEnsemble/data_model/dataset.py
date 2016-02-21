@@ -45,9 +45,10 @@ class Instancia(object):
 
 class Fold(object):
     
-    def __init__(self, inst_treino, inst_test):
+    def __init__(self, inst_treino, inst_test, numero):
         self.inst_treino = inst_treino
         self.inst_test = inst_test
+        self.numero = numero
         
     def adiciona_instancia(self, instancia, conjunto):
         if conjunto == 'treino':
@@ -84,7 +85,7 @@ class DataSet(object):
         # criar os folds
         self.folds = []
         for f in xrange(n_folds):
-            self.folds.append(Fold([], []))
+            self.folds.append(Fold([], [], f))
         
         
         for i, entrada in enumerate(data):
