@@ -45,13 +45,13 @@ def main():
     # especifica configs classificadores
     configs_base_learners = []
     configs_base_learners.append(('wisard', 'lottery', 16, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'lottery', 16, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'lottery', 16, 'answers', (x for x in xrange(len(tam_features)))))
     configs_base_learners.append(('wisard', 'wisard', 16, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'wisard', 16, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 16, 'answers', (x for x in xrange(len(tam_features)))))
     configs_base_learners.append(('wisard', 'lottery', 20, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'lottery', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'lottery', 10, 'answers', (x for x in xrange(len(tam_features)))))
     configs_base_learners.append(('wisard', 'wisard', 20, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
     # criar os classificadores
     base_learners = e_clss.cria_base_learners(configs_base_learners, n_folds)
     
@@ -66,7 +66,7 @@ def main():
 
     #NOVO
     # criar o AdaBoost
-    algoritmo = AdaBoost(dataset, base_learners, ensembles, tam_treino=0.5)
+    algoritmo = AdaBoost(dataset, base_learners, ensembles, tam_treino=0.6)
     algoritmo.executa_folds()
 
         
