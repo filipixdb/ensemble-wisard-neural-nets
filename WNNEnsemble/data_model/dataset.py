@@ -75,6 +75,8 @@ class DataSet(object):
         self.folds = n_folds
         
         self.cria_folds(data, tam_features, n_folds)
+        #TODO: colocar pra descobrir sozinho
+        self.n_classes = 2
     
 
     def cria_folds(self, data, tam_features, n_folds = 10):
@@ -99,14 +101,19 @@ class DataSet(object):
                 else:
                     self.folds[f].adiciona_instancia(instancia, 'treino')
         
+        '''
         #inicializa pesos iguais
         for fold in self.folds:
             peso = 1.0 / len(fold.inst_treino)
             fold.adiciona_pesos([peso] * len(fold.inst_treino))
-
+        '''
+        self.reseta_pesos()
         
+    def reseta_pesos(self):
+        for fold in self.folds:
+            peso = 1.0 / len(fold.inst_treino)
+            fold.adiciona_pesos([peso] * len(fold.inst_treino))
         
-
 
         
         

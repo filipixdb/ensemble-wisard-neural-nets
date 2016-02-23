@@ -141,16 +141,42 @@ class Ensemble(object):
     def __init__(self, tipo_voto, n_folds):
         self.tipo_voto = tipo_voto
         
-        self.mat_confusao = util.ConfusionMatrix
+        self.mat_confusao = util.ConfusionMatrix()
         self.mat_confusao_folds = []
         for _ in xrange(n_folds):
-            self.mat_confusao_folds.append(util.ConfusionMatrix)
+            self.mat_confusao_folds.append(util.ConfusionMatrix())
+        
+        self.combined_votes = []
+        self.votos = None
+        self.pesos_learners = None
         
         self.label = "Ensemble voting= "+tipo_voto
         
-    def inicia_agregador(self, votos, n_classes=2, pesos=None):
-        self.agregador = compo.VotingAggregator(votos, len(votos), len(votos[0]), n_classes, self.tipo_voto,
-                                                      weights=pesos)
+    def inicia_agregador(self, n_classes=2):
+        self.agregador = compo.VotingAggregator(self.votos, len(self.votos), len(self.votos[0]), n_classes, vote=self.tipo_voto,
+                                                      weights=self.pesos_learners)
     
     def predict(self):
-        self.agregador.predict()
+        self.combined_votes = self.agregador.predict()
+        
+    def inicia_votos_e_pesos(self, n_learners, n_instancias):
+        self.votos = []
+        for _ in xrange(n_instancias):
+            learners = []
+            for l in xrange(n_learners):
+                x = 0
+                learners.append(x)
+            self.votos.append(learners)
+        
+        self.pesos_learners = []
+        for _ in xrange(n_learners):
+            p = 0
+            self.pesos_learners.append(p)
+        
+    def guarda_voto(self, learner, instancia, voto):
+        self.votos[int(instancia)][int(learner)] = int(voto)
+        
+    def guarda_peso(self, learner, peso):
+        self.pesos_learners[learner] = peso
+        
+    
