@@ -1,12 +1,11 @@
 '''
 @author: filipi
 '''
-from ensemble.boost import AdaBoost
+
 
 '''
 Testar os classificadores no dataset german credit
 '''
-
 
 import sys
 sys.path.append("../")
@@ -15,20 +14,21 @@ import ensemble.classifiers as e_clss
 import data_process.file_reader as frdr
 from data_model.dataset import DataSet
 from ensemble.classifiers import Ensemble
+from ensemble.boost import AdaBoost, Bagging
 
 
 def main():
 
     # escolher parametros
     
-    n_folds = 4
+    n_folds = 6
     arquivo = 'encoded_german.data'
     
     print "Boosting"
     print "Folds= ", n_folds
     print arquivo
     
-    # NOVO
+    
     # informar o tamanho das features
     tam_features = [8] * 20
     # le as entradas
@@ -37,9 +37,7 @@ def main():
     dataset = DataSet(data, tam_features, n_folds, nome='german dataset')
     
     
-    
-    #NOVO
-    # especifica configs classificadores
+    # configs classificadores
     configs_base_learners = []
 
     configs_base_learners.append(('wisard', 'lottery', 8, 'counts', (x for x in xrange(len(tam_features)))))
@@ -63,21 +61,23 @@ def main():
     configs_base_learners.append(('wisard', 'wisard', 32, 'counts', (x for x in xrange(len(tam_features)))))
     #configs_base_learners.append(('wisard', 'wisard', 32, 'answers', (x for x in xrange(len(tam_features)))))
 
+
     # criar os classificadores
     base_learners = e_clss.cria_base_learners(configs_base_learners, n_folds)
     
-    
-    #NOVO
+
     # cria os ensembles
     ensembles = []
     ensembles.append(Ensemble('majority', n_folds))
     ensembles.append(Ensemble('weightedClassifiers', n_folds))
        
-    
 
-    #NOVO
     # criar o AdaBoost
-    algoritmo = AdaBoost(dataset, base_learners, ensembles, 0.5)
+#    algoritmo = AdaBoost(dataset, base_learners, ensembles, 0.5)
+#    algoritmo.executa_folds()
+
+    # criar o Bagging
+    algoritmo = Bagging(dataset, base_learners, ensembles, 0.3)
     algoritmo.executa_folds()
 
 
