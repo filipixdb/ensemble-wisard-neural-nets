@@ -21,10 +21,9 @@ def main():
 
     # escolher parametros
     
-    n_folds = 6
+    n_folds = 5
     arquivo = 'encoded_german.data'
     
-    print "Boosting"
     print "Folds= ", n_folds
     print arquivo
     
@@ -40,14 +39,35 @@ def main():
     # configs classificadores
     configs_base_learners = []
 
+    '''
     configs_base_learners.append(('wisard', 'lottery', 8, 'counts', (x for x in xrange(len(tam_features)))))
     #configs_base_learners.append(('wisard', 'lottery', 8, 'answers', (x for x in xrange(len(tam_features)))))
     configs_base_learners.append(('wisard', 'wisard', 8, 'counts', (x for x in xrange(len(tam_features)))))
     #configs_base_learners.append(('wisard', 'wisard', 8, 'answers', (x for x in xrange(len(tam_features)))))
     configs_base_learners.append(('wisard', 'lottery', 10, 'counts', (x for x in xrange(len(tam_features)))))
     #configs_base_learners.append(('wisard', 'lottery', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    '''
     configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
     #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
+    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
+    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
+    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
+    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
+    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
+    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
+    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
+    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
+    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    '''
     configs_base_learners.append(('wisard', 'lottery', 16, 'counts', (x for x in xrange(len(tam_features)))))
     #configs_base_learners.append(('wisard', 'lottery', 16, 'answers', (x for x in xrange(len(tam_features)))))
     configs_base_learners.append(('wisard', 'wisard', 16, 'counts', (x for x in xrange(len(tam_features)))))
@@ -60,7 +80,7 @@ def main():
     #configs_base_learners.append(('wisard', 'lottery', 32, 'answers', (x for x in xrange(len(tam_features)))))
     configs_base_learners.append(('wisard', 'wisard', 32, 'counts', (x for x in xrange(len(tam_features)))))
     #configs_base_learners.append(('wisard', 'wisard', 32, 'answers', (x for x in xrange(len(tam_features)))))
-
+    '''
 
     # criar os classificadores
     base_learners = e_clss.cria_base_learners(configs_base_learners, n_folds)
@@ -70,15 +90,17 @@ def main():
     ensembles = []
     ensembles.append(Ensemble('majority', n_folds))
     ensembles.append(Ensemble('weightedClassifiers', n_folds))
-       
+    
 
     # criar o AdaBoost
-#    algoritmo = AdaBoost(dataset, base_learners, ensembles, 0.5)
-#    algoritmo.executa_folds()
+    print "AdaBoost"
+    algoritmo = AdaBoost(dataset, base_learners, ensembles, 0.5, False)
+    algoritmo.executa_folds()
 
     # criar o Bagging
-    algoritmo = Bagging(dataset, base_learners, ensembles, 0.3)
-    algoritmo.executa_folds()
+#    print "Bagging"
+#    algoritmo = Bagging(dataset, base_learners, ensembles, 0.3, True)
+#    algoritmo.executa_folds()
 
 
 
