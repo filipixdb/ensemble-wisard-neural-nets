@@ -39,52 +39,31 @@ def main():
     # configs classificadores
     configs_base_learners = []
 
-    '''
-    configs_base_learners.append(('wisard', 'lottery', 8, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'lottery', 8, 'answers', (x for x in xrange(len(tam_features)))))
-    configs_base_learners.append(('wisard', 'wisard', 8, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'wisard', 8, 'answers', (x for x in xrange(len(tam_features)))))
-    configs_base_learners.append(('wisard', 'lottery', 10, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'lottery', 10, 'answers', (x for x in xrange(len(tam_features)))))
-    '''
-    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
-    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
-    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
-    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
-    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
-    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
-    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
-    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
-    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
-    configs_base_learners.append(('wisard', 'wisard', 10, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
-    '''
-    configs_base_learners.append(('wisard', 'lottery', 16, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'lottery', 16, 'answers', (x for x in xrange(len(tam_features)))))
-    configs_base_learners.append(('wisard', 'wisard', 16, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'wisard', 16, 'answers', (x for x in xrange(len(tam_features)))))
-    configs_base_learners.append(('wisard', 'lottery', 20, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'lottery', 20, 'answers', (x for x in xrange(len(tam_features)))))
-    configs_base_learners.append(('wisard', 'wisard', 20, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'wisard', 20, 'answers', (x for x in xrange(len(tam_features)))))
-    configs_base_learners.append(('wisard', 'lottery', 32, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'lottery', 32, 'answers', (x for x in xrange(len(tam_features)))))
-    configs_base_learners.append(('wisard', 'wisard', 32, 'counts', (x for x in xrange(len(tam_features)))))
-    #configs_base_learners.append(('wisard', 'wisard', 32, 'answers', (x for x in xrange(len(tam_features)))))
-    '''
+    configs_base_learners.append(('wisard', 'wisard', 8, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 16, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 8, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 16, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 8, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 16, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 8, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 16, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 8, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+    configs_base_learners.append(('wisard', 'wisard', 16, 'answers', (x for x in xrange(len(tam_features)))))
+#    configs_base_learners.append(('wisard', 'wisard', 10, 'answers', (x for x in xrange(len(tam_features)))))
+#    configs_base_learners.append(('wisard', 'wisard', 16, 'answers', (x for x in xrange(len(tam_features)))))
+#    configs_base_learners.append(('wisard', 'wisard', 20, 'answers', (x for x in xrange(len(tam_features)))))
+#    configs_base_learners.append(('wisard', 'wisard', 32, 'answers', (x for x in xrange(len(tam_features)))))
 
-    # criar os classificadores
-    base_learners = e_clss.cria_base_learners(configs_base_learners, n_folds)
-    
+    # criar os base learners
+    base_learners = e_clss.cria_learners(configs_base_learners, n_folds)
+
+    # criar os single learners
+    single_learners = e_clss.cria_learners(configs_base_learners, n_folds)
 
     # cria os ensembles
     ensembles = []
@@ -94,12 +73,12 @@ def main():
 
     # criar o AdaBoost
     print "AdaBoost"
-    algoritmo = AdaBoost(dataset, base_learners, ensembles, 0.5, False)
+    algoritmo = AdaBoost(dataset, base_learners, single_learners, ensembles, 0.5, False)
     algoritmo.executa_folds()
 
     # criar o Bagging
 #    print "Bagging"
-#    algoritmo = Bagging(dataset, base_learners, ensembles, 0.3, True)
+#    algoritmo = Bagging(dataset, base_learners, single_learners, ensembles, 0.3, True)
 #    algoritmo.executa_folds()
 
 

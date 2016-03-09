@@ -91,7 +91,10 @@ class BaseLearner(object):
         mat_confusao_folds
         selected tam_features
         '''
+        self.param_classificador = classificador
+        self.param_discriminador = discriminador
         self.classificador = cria_classificador(classificador, discriminador)
+        
         self.n_neurons = n_neurons
         self.rank_method = rank_method
         self.selected_features = selected_features
@@ -104,7 +107,18 @@ class BaseLearner(object):
         self.encoder = BitStringEncoder(self.n_neurons)
         
         self.label = discriminador+" - neuronios= "+str(n_neurons)+" - rank= "+rank_method+" - tam_features= "+str(selected_features)
+
+    def reseta_classificador(self):
         
+        if self.param_discriminador == 'wisard':
+            disc = wann_wis_dsc.Discriminator
+        if self.param_discriminador == 'lottery':
+            disc = wann_wis_dsc.LotteryDiscriminator
+        if self.param_discriminador == 'vgwisard':
+            disc = wann_vgram.VGWiSARDDiscriminator
+        
+        self.classificador = wann_wis_clf.WiSARD(disc)
+
     
 def cria_classificador(classificador, discriminador):
     
@@ -117,7 +131,7 @@ def cria_classificador(classificador, discriminador):
     
     return wann_wis_clf.WiSARD(disc)
     
-def cria_base_learners(configs_base_learners, n_folds):
+def cria_learners(configs_learners, n_folds):
     
     '''
     recebe uma lista de tuplas com as configs dos base learners
@@ -125,12 +139,12 @@ def cria_base_learners(configs_base_learners, n_folds):
     configs sao tuplas (classificador, discriminador, n_neurons, rank_method, selected_features)
     '''
     
-    base_leaners = []
+    learners = []
     
-    for classificador, discriminador, n_neurons, rank_method, selected_features in configs_base_learners:
-        base_leaners.append(BaseLearner(discriminador, n_neurons, rank_method, n_folds, classificador, selected_features))
+    for classificador, discriminador, n_neurons, rank_method, selected_features in configs_learners:
+        learners.append(BaseLearner(discriminador, n_neurons, rank_method, n_folds, classificador, selected_features))
     
-    return base_leaners
+    return learners
 
 
 class Ensemble(object):

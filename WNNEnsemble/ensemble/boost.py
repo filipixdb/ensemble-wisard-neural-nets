@@ -12,19 +12,19 @@ import wann.util as util
 
 class EnsembleAlgorithm(object):
     
-    def __init__(self, dataset, base_learners, ensembles, tam_treino, com_repeticao=True):
-        '''
-        receber:
-          dataset
-          classificadores
-          ensembles
-          ** talvez as configs de voting
-        '''
+    def __init__(self, dataset, base_learners, single_learners, ensembles, tam_treino, com_repeticao=True):
+        
+        #TODO: alterar o init pra receber uma lista de single learners pra comparacao
+        
         self.dataset = dataset
         self.base_learners = base_learners
+        self.single_learners = single_learners
         self.ensembles = ensembles
         self.tam_treino = tam_treino
         self.com_repeticao = com_repeticao
+        
+        # TEMP Debug
+        #self.debuga = []
 
 
     def executa_folds(self):
@@ -58,23 +58,41 @@ class EnsembleAlgorithm(object):
 
 
     def exibe_resultados(self):
+        '''
+        print "Folds (Single Learners) ------------"
+        for f in self.dataset.folds:
+            print "FOLD ", f.numero
+            for learner in self.single_learners:
+                print learner.mat_confusao_folds[f.numero]
+                print learner.mat_confusao_folds[f.numero].stats()
+                print learner.label
+        '''
+        
+        print "Single Learners --------------------"
+        for single_learner in self.single_learners:
+            print single_learner.mat_confusao
+            print single_learner.mat_confusao.stats()
+            print single_learner.label
+        
+        print "Base Learners ----------------------"
         for base_learner in self.base_learners:
             print base_learner.mat_confusao
             print base_learner.mat_confusao.stats()
             print base_learner.label
             
+        print "Ensembles --------------------------"
         for ens in self.ensembles:
             print ens.mat_confusao
             print ens.mat_confusao.stats()
             print ens.label
 
 
-    def avalia_learner(self, fold, base_learner, n_learner):
+    def avalia_base_learner(self, fold, learner, n_learner):
         erro = 0.0
         # avaliar o learner no conjunto de test do fold
         for n_inst, inst_test in enumerate(fold.inst_test):
             #classifica
-            resposta = getattr(base_learner.classificador, base_learner.rank_method)(base_learner.encoder(inst_test.representacao))
+            resposta = getattr(learner.classificador, learner.rank_method)(learner.encoder(inst_test.representacao))
             rank = util.ranked(resposta) # rank recebe varias tuplas ordenadas ('classe', somaRespostasDosDiscriminadores)
             
             # top_score recebe a maior soma dos discriminadores
@@ -84,8 +102,8 @@ class EnsembleAlgorithm(object):
                 top_score = rank[0][1]
         
             # coloca na matriz de confusao
-            base_learner.mat_confusao.add(inst_test.classe, rank[0][0], top_score)
-            base_learner.mat_confusao_folds[fold.numero].add(inst_test.classe, rank[0][0], top_score)
+            learner.mat_confusao.add(inst_test.classe, rank[0][0], top_score)
+            learner.mat_confusao_folds[fold.numero].add(inst_test.classe, rank[0][0], top_score)
             
             # guarda os votos do classificador
             for ens in self.ensembles:
@@ -97,6 +115,33 @@ class EnsembleAlgorithm(object):
             
             
         return erro
+
+
+    def avalia_single_learner(self, fold, learner, n_learner):
+        # avaliar o learner no conjunto de test do fold
+        for n_inst, inst_test in enumerate(fold.inst_test):
+            #classifica
+            resposta = getattr(learner.classificador, learner.rank_method)(learner.encoder(inst_test.representacao))
+            rank = util.ranked(resposta) # rank recebe varias tuplas ordenadas ('classe', somaRespostasDosDiscriminadores)
+            
+            # top_score recebe a maior soma dos discriminadores
+            try:
+                top_score = len(rank[0][1])
+            except TypeError:
+                top_score = rank[0][1]
+        
+            # coloca na matriz de confusao
+            learner.mat_confusao.add(inst_test.classe, rank[0][0], top_score)
+            learner.mat_confusao_folds[fold.numero].add(inst_test.classe, rank[0][0], top_score)
+            
+            # TEMP Debug
+            #if n_learner == 0:
+            #    self.debuga.append(rank[0][0])
+            #elif rank[0][0] != self.debuga[n_inst]:
+            #    print "Diferente! Fold: ", fold.numero, " - Learner: ", n_learner, " - Inst: ", n_inst, " - Classe: ", inst_test.classe, " - Voto: ", rank[0][0]
+                
+                
+
 
 
     def avalia_ensembles(self, fold):
@@ -114,7 +159,7 @@ class EnsembleAlgorithm(object):
                 ens.mat_confusao.add(y1, y2, 0)
 
 
-    def treina_learner(self, fold, base_learner, com_repeticao):
+    def treina_base_learner(self, fold, base_learner, com_repeticao):
         # samplear
         tam_sample = (len(fold.inst_treino) * self.tam_treino)
         pesos = fold.retorna_pesos()
@@ -125,6 +170,16 @@ class EnsembleAlgorithm(object):
             base_learner.classificador.record(base_learner.encoder(inst.representacao), inst.classe)
 
 
+    def treina_single_learner(self, fold, single_learner):
+        # itera em todo conj treino
+        for inst_treino in fold.inst_treino:
+            single_learner.classificador.record(single_learner.encoder(inst_treino.representacao), inst_treino.classe)
+
+    def reseta_classificadores(self, learners):
+        # itera na lista de learners para reseta-los a cada fold
+        for learner in learners:
+            learner.reseta_classificador()
+
 
 class AdaBoost(EnsembleAlgorithm):
     
@@ -132,9 +187,9 @@ class AdaBoost(EnsembleAlgorithm):
     Classe responsavel por rodar o algoritmo e armazenar os resultados e metricas
     '''
     
-    def __init__(self, dataset, base_learners, ensembles, tam_treino, com_repeticao=True):
+    def __init__(self, dataset, base_learners, single_learners, ensembles, tam_treino, com_repeticao=True):
         
-        super(AdaBoost, self).__init__(dataset, base_learners, ensembles, tam_treino, com_repeticao)
+        super(AdaBoost, self).__init__(dataset, base_learners, single_learners, ensembles, tam_treino, com_repeticao)
 
 
     def executa_folds(self):
@@ -142,12 +197,25 @@ class AdaBoost(EnsembleAlgorithm):
             
             self.dataset.reseta_pesos()
             
+            # reseta os classificadores a cada novo fold
+            self.reseta_classificadores(self.base_learners)
+            self.reseta_classificadores(self.single_learners)
+            
+            ## TEMP debug
+            #self.debuga = []
+            
+            # treinar e avaliar os single learners
+            for n_single_learner, single_learner in enumerate(self.single_learners):
+                self.treina_single_learner(fold, single_learner)
+                self.avalia_single_learner(fold, single_learner, n_single_learner)
+            
+            
             for ens in self.ensembles:
                 ens.inicia_votos_e_pesos(len(self.base_learners), len(fold.inst_test))
             
             for n_learner, base_learner in enumerate(self.base_learners):
                 
-                self.treina_learner(fold, base_learner, self.com_repeticao)
+                self.treina_base_learner(fold, base_learner, self.com_repeticao)
 
                 erro, set_corretas = self.avalia_instancias_treino(fold, base_learner)
                 
@@ -155,7 +223,7 @@ class AdaBoost(EnsembleAlgorithm):
                 
                 self.atualiza_pesos_instancias_treino(fold, set_corretas, erro)
                 
-                _ = self.avalia_learner(fold, base_learner, n_learner)
+                _ = self.avalia_base_learner(fold, base_learner, n_learner)
                 
             self.avalia_ensembles(fold)            
         
@@ -184,8 +252,8 @@ class Bagging(EnsembleAlgorithm):
     Classe responsavel por rodar o algoritmo e armazenar os resultados e metricas
     '''
     
-    def __init__(self, dataset, base_learners, ensembles, tam_treino, com_repeticao=True):
-        super(Bagging, self).__init__(dataset, base_learners, ensembles, tam_treino, com_repeticao)
+    def __init__(self, dataset, base_learners, single_learners, ensembles, tam_treino, com_repeticao=True):
+        super(Bagging, self).__init__(dataset, base_learners, single_learners, ensembles, tam_treino, com_repeticao)
     
 
     def executa_folds(self):
@@ -193,14 +261,23 @@ class Bagging(EnsembleAlgorithm):
             
             self.dataset.reseta_pesos()
             
+            # reseta os classificadores a cada novo fold
+            self.reseta_classificadores(self.base_learners)
+            self.reseta_classificadores(self.single_learners)
+            
+            # treinar e avaliar os single learners
+            for n_single_learner, single_learner in enumerate(self.single_learners):
+                self.treina_single_learner(fold, single_learner)
+                self.avalia_single_learner(fold, single_learner, n_single_learner)
+                        
             for ens in self.ensembles:
                 ens.inicia_votos_e_pesos(len(self.base_learners), len(fold.inst_test))
             
             for n_learner, base_learner in enumerate(self.base_learners):
                 
-                self.treina_learner(fold, base_learner, self.com_repeticao)
+                self.treina_base_learner(fold, base_learner, self.com_repeticao)
 
-                erro = self.avalia_learner(fold, base_learner, n_learner)
+                erro = self.avalia_base_learner(fold, base_learner, n_learner)
                 if erro == 0.0:
                     erro += 0.00001
                     print "Erro zero"
