@@ -58,34 +58,26 @@ class EnsembleAlgorithm(object):
 
 
     def exibe_resultados(self):
-        '''
-        print "Folds (Single Learners) ------------"
-        for f in self.dataset.folds:
-            print "FOLD ", f.numero
-            for learner in self.single_learners:
-                print learner.mat_confusao_folds[f.numero]
-                print learner.mat_confusao_folds[f.numero].stats()
-                print learner.label
-        '''
         
-        print "Single Learners --------------------"
+        if len(self.single_learners) > 0:
+            print "  Single Learners --------------------"
         for single_learner in self.single_learners:
-            print single_learner.mat_confusao
-            print single_learner.mat_confusao.stats()
-            print single_learner.label
+            print "    ", single_learner.label
+            #print single_learner.mat_confusao
+            print "        ", single_learner.mat_confusao.stats('simples')
         
-        print "Base Learners ----------------------"
+        print "  Base Learners ----------------------"
         for base_learner in self.base_learners:
-            print base_learner.mat_confusao
-            print base_learner.mat_confusao.stats()
-            print base_learner.label
+            print "    ", base_learner.label
+            #print base_learner.mat_confusao
+            print "        ", base_learner.mat_confusao.stats('simples')
             
-        print "Ensembles --------------------------"
+        print "  Ensembles --------------------------"
         for ens in self.ensembles:
-            print ens.mat_confusao
-            print ens.mat_confusao.stats()
-            print ens.label
-
+            print "    ", ens.label
+            #print ens.mat_confusao
+            print "        ", ens.mat_confusao.stats('simples')
+            
 
     def avalia_base_learner(self, fold, learner, n_learner):
         erro = 0.0

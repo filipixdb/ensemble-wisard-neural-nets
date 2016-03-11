@@ -6,31 +6,14 @@ Created on 18 de fev de 2016
 from ensemble.partition import cria_folds
 
 
-'''
-Aqui fazer as classes para
-  dataset
-    nome
-    features
-    folds
-  fold
-    instancias treino
-    instancias teste
-  instancia
-    id
-    classe
-    representacao
-    features
-    peso
-'''
-
 
 class Instancia(object):
     
-    def __init__(self, classe, representacao, features, peso=1, identificador=None):
+    def __init__(self, classe, representacao, tam_features, peso=1, identificador=None):
         #fazer auto gerar identificador unico
         self.classe = classe
         self.representacao = representacao
-        self.features = features
+        self.tam_features = tam_features
         self.peso = peso
         
         if identificador is not None:
@@ -39,9 +22,22 @@ class Instancia(object):
             # autogerar ids unicos
             #TODO: criar metodo estatico que gera os ids
             pass
+        
+        self.features = self.separa_features()
 
-
+    def separa_features(self):
+        features = []
+        k = 0
+        for tam in self.tam_features:
+            features.append(self.representacao[k:(k+tam)])
+            k += tam
+        return features
     
+    def junta_features(self, indices):
+        saida = ""
+        for i in indices:
+            saida += self.features[int(i)]
+        return saida
 
 class Fold(object):
     
@@ -69,21 +65,17 @@ class Fold(object):
 
 class DataSet(object):
     
-    def __init__(self, data, tam_features, n_folds, nome=None):
+    def __init__(self, data, tam_features, n_folds, n_classes, nome=None):
         self.nome = nome
-        self.features = tam_features
+        self.tam_features = tam_features
         self.folds = n_folds
+        self.n_classes = n_classes
         
         self.cria_folds(data, tam_features, n_folds)
-        #TODO: colocar pra descobrir sozinho
-        self.n_classes = 2
     
 
     def cria_folds(self, data, tam_features, n_folds = 10):
-        #aqui data eh um monte de coisas jah lidas
         #tam_features eh uma lista com o tamanho (bits) de cada feature
-        #n_folds eh o total de folds a criar
-        #as leituras aqui jah estao embaralhadas ou nao
         # criar os folds
         self.folds = []
         for f in xrange(n_folds):
@@ -101,12 +93,6 @@ class DataSet(object):
                 else:
                     self.folds[f].adiciona_instancia(instancia, 'treino')
         
-        '''
-        #inicializa pesos iguais
-        for fold in self.folds:
-            peso = 1.0 / len(fold.inst_treino)
-            fold.adiciona_pesos([peso] * len(fold.inst_treino))
-        '''
         self.reseta_pesos()
         
     def reseta_pesos(self):

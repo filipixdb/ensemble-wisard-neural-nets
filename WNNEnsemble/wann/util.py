@@ -164,7 +164,7 @@ class ConfusionMatrix:
 
         return ''.join(''.join(ax) for ax in (header, table, footer))
 
-    def stats(self):
+    def stats(self, tipo=None):
         """Return a list of popular classification quality measures."""
         total = sum(self.tc_counts.values())
         hits = 0
@@ -182,6 +182,13 @@ class ConfusionMatrix:
             f1_score.append(ratio * 2. * tp / (2*tp + fp + fn))
 
             hits += tp
+
+        if tipo == 'simples':
+            return [
+                ('accuracy', hits * 1. / total),
+                ('avg_f1_score', "{0:.3f}".format(sum(f1_score))),
+                ]
+            
 
         return [
             ('total', total),

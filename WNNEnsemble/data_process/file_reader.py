@@ -72,3 +72,28 @@ def le_entradas(name, tam_features, shuffle=True):
     else:
         return entradas_list.tolist()
     
+
+def le_informacoes(arquivo):
+    with open(arquivo) as infos:
+        n_classes = int(infos.readline())
+        temp = infos.readline()
+        tamanhos = list(int(x) for x in temp[:-1].split(','))
+        n_params = int(infos.readline())
+        temp = infos.readline()
+        list_n_folds = list(int(x) for x in temp[:-1].split(','))
+    return n_classes, tamanhos, n_params, list_n_folds
+
+
+def le_parametros(arquivo):
+    configs_single_learners = []
+    configs_base_learners = []
+    with open(arquivo) as params:
+        for line in params:
+            learner, classificador, discriminador, neuronios, resposta, features = line.split(',')
+            features = list(int(x) for x in features[:-1].split('-'))
+            config = (classificador, discriminador, int(neuronios), resposta, features)
+            if learner == "single_learner":
+                configs_single_learners.append(config)
+            elif learner == "base_learner":
+                configs_base_learners.append(config)
+    return configs_single_learners, configs_base_learners

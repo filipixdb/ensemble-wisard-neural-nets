@@ -106,7 +106,7 @@ class BaseLearner(object):
             
         self.encoder = BitStringEncoder(self.n_neurons)
         
-        self.label = discriminador+" - neuronios= "+str(n_neurons)+" - rank= "+rank_method+" - tam_features= "+str(selected_features)
+        self.label = discriminador+" - neuronios= "+str(n_neurons)+" - rank= "+rank_method+" - features= "+str(selected_features)
 
     def reseta_classificador(self):
         

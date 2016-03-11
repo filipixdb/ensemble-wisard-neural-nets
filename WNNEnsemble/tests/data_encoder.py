@@ -23,7 +23,7 @@ max_values = [3, 100, 4, 9, 20000, 4, 4, 4, 3, 2, 4, 3, 100, 2, 2, 4, 3, 2, 1, 1
 
 # criar o encoder de cada coluna unaria
 encoders_unarios = {}
-bits = 8
+bits = 24
 for i in range(20):
     if (i+1) in ordinais.union(numericos):
         encoder = enc.UnaryEncoder(0, max_values[i], bits)
@@ -46,7 +46,7 @@ for i in range(20):
 
 # criar o encoder de cada coluna nao ordinal
 encoders_qualitativos = {}
-bits = 8
+bits = 24
 for i in range(20):
     if (i+1) in nao_ordinais:
         encoder = enc.QualitativeEncoder(bits)
@@ -89,5 +89,5 @@ for coluna in range(19):
 
 # escrever arquivo
 encoded_data = pd.concat([classes, instancias], axis=1)
-output_file_name = "files/encoded_german.data"
-encoded_data.to_csv(output_file_name, header=False, index=False, na_rep=" ", sep=" ")
+output_file_name = "files/encoded_german_24_bits.data"
+encoded_data.to_csv(output_file_name, header=False, index=False, sep=" ")
