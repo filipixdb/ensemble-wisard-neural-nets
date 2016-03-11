@@ -185,7 +185,7 @@ class ConfusionMatrix:
 
         if tipo == 'simples':
             return [
-                ('accuracy', hits * 1. / total),
+                ('accuracy', "{0:.3f}".format(hits * 1. / total)),
                 ('avg_f1_score', "{0:.3f}".format(sum(f1_score))),
                 ]
             

@@ -82,7 +82,7 @@ class BaseLearner(object):
     '''
     static_encoder = None
     
-    def __init__(self, discriminador, n_neurons, rank_method, n_folds, classificador='wisard', mapping_igual = False, selected_features = None):
+    def __init__(self, discriminador, n_neurons, rank_method, n_folds, confusion_matrix_geral, classificador='wisard', mapping_igual = False, selected_features = None):
         '''
         classifier
         label
@@ -101,6 +101,7 @@ class BaseLearner(object):
         self.selected_features = selected_features
         
         self.mat_confusao = util.ConfusionMatrix()
+        self.mat_confusao_geral = confusion_matrix_geral
         self.mat_confusao_folds = []
         for _ in xrange(n_folds):
             self.mat_confusao_folds.append(util.ConfusionMatrix())
@@ -114,7 +115,6 @@ class BaseLearner(object):
             self.encoder = BaseLearner.static_encoder
         else:
             self.encoder = BitStringEncoder(self.n_neurons)
-        
         
 
     def reseta_classificador(self):
@@ -158,8 +158,12 @@ def cria_learners(configs_learners, n_folds, mapping_igual=False):
     
     learners = []
     
-    for classificador, discriminador, n_neurons, rank_method, selected_features in configs_learners:
-        learners.append(BaseLearner(discriminador, n_neurons, rank_method, n_folds, classificador, mapping_igual, selected_features))
+    # forcar resetar o mapping a cada execucao de um numero de folds
+    if mapping_igual:
+        BaseLearner.static_encoder = None
+    
+    for classificador, discriminador, n_neurons, rank_method, selected_features, confusion_matrix_geral in configs_learners:
+        learners.append(BaseLearner(discriminador, n_neurons, rank_method, n_folds, confusion_matrix_geral, classificador, mapping_igual, selected_features))
     
     return learners
 

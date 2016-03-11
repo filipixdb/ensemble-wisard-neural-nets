@@ -43,7 +43,7 @@ def main():
             executa_algoritmo("Bagging", dataset, n_folds, configs_single_learners, configs_base_learners, 0.3, True)
             
             print "\n  AdaBoost"
-            executa_algoritmo("AdaBoost", dataset, n_folds, [], configs_base_learners, 0.5, False)
+            executa_algoritmo("AdaBoost", dataset, n_folds, [], configs_base_learners, 0.5, True)
 
 
 

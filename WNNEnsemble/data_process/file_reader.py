@@ -5,6 +5,8 @@
 import random as rnd
 import pandas as pd
 
+import wann.util as util
+
 def read_and_shuffle_dataset(name):
     try:
     #data = open(data)
@@ -91,7 +93,7 @@ def le_parametros(arquivo):
         for line in params:
             learner, classificador, discriminador, neuronios, resposta, features = line.split(',')
             features = list(int(x) for x in features[:-1].split('-'))
-            config = (classificador, discriminador, int(neuronios), resposta, features)
+            config = (classificador, discriminador, int(neuronios), resposta, features, util.ConfusionMatrix())
             if learner == "single_learner":
                 configs_single_learners.append(config)
             elif learner == "base_learner":

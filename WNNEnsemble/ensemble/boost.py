@@ -66,6 +66,15 @@ class EnsembleAlgorithm(object):
             #print single_learner.mat_confusao
             print "        ", single_learner.mat_confusao.stats('simples')
         
+        '''
+        if len(self.single_learners) > 0:
+            print "  Single Learners (GERAL)--------------------"
+        for single_learner in self.single_learners:
+            print "    ", single_learner.label
+            #print single_learner.mat_confusao
+            print "        ", single_learner.mat_confusao_geral.stats('simples')
+        '''
+        
         if len(self.base_learners) > 0:
             print "  Base Learners ----------------------"
         for base_learner in self.base_learners:
@@ -98,6 +107,7 @@ class EnsembleAlgorithm(object):
             # coloca na matriz de confusao
             learner.mat_confusao.add(inst_test.classe, rank[0][0], top_score)
             learner.mat_confusao_folds[fold.numero].add(inst_test.classe, rank[0][0], top_score)
+            learner.mat_confusao_geral.add(inst_test.classe, rank[0][0], top_score)
             
             # guarda os votos do classificador
             for ens in self.ensembles:
@@ -127,6 +137,7 @@ class EnsembleAlgorithm(object):
             # coloca na matriz de confusao
             learner.mat_confusao.add(inst_test.classe, rank[0][0], top_score)
             learner.mat_confusao_folds[fold.numero].add(inst_test.classe, rank[0][0], top_score)
+            learner.mat_confusao_geral.add(inst_test.classe, rank[0][0], top_score)
             
             # TEMP Debug
             #if n_learner == 0:
