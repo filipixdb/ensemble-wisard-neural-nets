@@ -37,7 +37,7 @@ class EnsembleAlgorithm(object):
         # itera nas instancias de treino pra ver quais devem aumentar ou diminuir o pesos
         for inst_treino in fold.inst_treino:
             #classifica
-            resposta = getattr(base_learner.classificador, base_learner.rank_method)(base_learner.encoder(inst_treino.representacao))
+            resposta = getattr(base_learner.classificador, base_learner.rank_method)(base_learner.encoder(inst_treino.junta_features(base_learner.selected_features)))
             rank = util.ranked(resposta) # rank recebe varias tuplas ordenadas ('classe', somaRespostasDosDiscriminadores)
 
             # guardar instancias corretas, calcular erro
@@ -66,13 +66,15 @@ class EnsembleAlgorithm(object):
             #print single_learner.mat_confusao
             print "        ", single_learner.mat_confusao.stats('simples')
         
-        print "  Base Learners ----------------------"
+        if len(self.base_learners) > 0:
+            print "  Base Learners ----------------------"
         for base_learner in self.base_learners:
             print "    ", base_learner.label
             #print base_learner.mat_confusao
             print "        ", base_learner.mat_confusao.stats('simples')
             
-        print "  Ensembles --------------------------"
+        if len(self.ensembles) > 0:
+            print "  Ensembles --------------------------"
         for ens in self.ensembles:
             print "    ", ens.label
             #print ens.mat_confusao
@@ -84,7 +86,7 @@ class EnsembleAlgorithm(object):
         # avaliar o learner no conjunto de test do fold
         for n_inst, inst_test in enumerate(fold.inst_test):
             #classifica
-            resposta = getattr(learner.classificador, learner.rank_method)(learner.encoder(inst_test.representacao))
+            resposta = getattr(learner.classificador, learner.rank_method)(learner.encoder(inst_test.junta_features(learner.selected_features)))
             rank = util.ranked(resposta) # rank recebe varias tuplas ordenadas ('classe', somaRespostasDosDiscriminadores)
             
             # top_score recebe a maior soma dos discriminadores
@@ -113,7 +115,7 @@ class EnsembleAlgorithm(object):
         # avaliar o learner no conjunto de test do fold
         for n_inst, inst_test in enumerate(fold.inst_test):
             #classifica
-            resposta = getattr(learner.classificador, learner.rank_method)(learner.encoder(inst_test.representacao))
+            resposta = getattr(learner.classificador, learner.rank_method)(learner.encoder(inst_test.junta_features(learner.selected_features)))
             rank = util.ranked(resposta) # rank recebe varias tuplas ordenadas ('classe', somaRespostasDosDiscriminadores)
             
             # top_score recebe a maior soma dos discriminadores
@@ -159,13 +161,13 @@ class EnsembleAlgorithm(object):
         
         # itera na parte sampleada do conj treino
         for inst in sample:
-            base_learner.classificador.record(base_learner.encoder(inst.representacao), inst.classe)
+            base_learner.classificador.record(base_learner.encoder(inst.junta_features(base_learner.selected_features)), inst.classe)
 
 
     def treina_single_learner(self, fold, single_learner):
         # itera em todo conj treino
         for inst_treino in fold.inst_treino:
-            single_learner.classificador.record(single_learner.encoder(inst_treino.representacao), inst_treino.classe)
+            single_learner.classificador.record(single_learner.encoder(inst_treino.junta_features(single_learner.selected_features)), inst_treino.classe)
 
     def reseta_classificadores(self, learners):
         # itera na lista de learners para reseta-los a cada fold

@@ -80,8 +80,9 @@ class BaseLearner(object):
     '''
     Classe que guarda o classifier, seus parametros e matriz de confusao
     '''
+    static_encoder = None
     
-    def __init__(self, discriminador, n_neurons, rank_method, n_folds, classificador='wisard', selected_features = None):
+    def __init__(self, discriminador, n_neurons, rank_method, n_folds, classificador='wisard', mapping_igual = False, selected_features = None):
         '''
         classifier
         label
@@ -104,12 +105,28 @@ class BaseLearner(object):
         for _ in xrange(n_folds):
             self.mat_confusao_folds.append(util.ConfusionMatrix())
             
-        self.encoder = BitStringEncoder(self.n_neurons)
-        
         self.label = discriminador+" - neuronios= "+str(n_neurons)+" - rank= "+rank_method+" - features= "+str(selected_features)
 
-    def reseta_classificador(self):
+        self.mapping_igual = mapping_igual#necessario se quiser resetar o mapping estatico a cada fold
+        if mapping_igual:
+            if BaseLearner.static_encoder == None:
+                BaseLearner.static_encoder = BitStringEncoder(self.n_neurons)
+            self.encoder = BaseLearner.static_encoder
+        else:
+            self.encoder = BitStringEncoder(self.n_neurons)
         
+        
+
+    def reseta_classificador(self):
+        '''
+        se quiser resetar o mapping estatico a cada fold
+        if self.mapping_igual:
+            if BaseLearner.static_encoder == self.encoder:
+                BaseLearner.static_encoder = BitStringEncoder(self.n_neurons)
+                self.encoder = BaseLearner.static_encoder
+            else:
+                self.encoder = BaseLearner.static_encoder
+        '''    
         if self.param_discriminador == 'wisard':
             disc = wann_wis_dsc.Discriminator
         if self.param_discriminador == 'lottery':
@@ -131,7 +148,7 @@ def cria_classificador(classificador, discriminador):
     
     return wann_wis_clf.WiSARD(disc)
     
-def cria_learners(configs_learners, n_folds):
+def cria_learners(configs_learners, n_folds, mapping_igual=False):
     
     '''
     recebe uma lista de tuplas com as configs dos base learners
@@ -142,7 +159,7 @@ def cria_learners(configs_learners, n_folds):
     learners = []
     
     for classificador, discriminador, n_neurons, rank_method, selected_features in configs_learners:
-        learners.append(BaseLearner(discriminador, n_neurons, rank_method, n_folds, classificador, selected_features))
+        learners.append(BaseLearner(discriminador, n_neurons, rank_method, n_folds, classificador, mapping_igual, selected_features))
     
     return learners
 

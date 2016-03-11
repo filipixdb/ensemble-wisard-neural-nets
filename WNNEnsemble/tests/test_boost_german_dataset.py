@@ -21,7 +21,7 @@ def main():
 
     
     # ler informacoes
-    arquivo = 'encoded_german_8_bits'
+    arquivo = 'encoded_german_24_bits'
     n_classes, tam_features, n_params, list_n_folds = frdr.le_informacoes('../tests/files/'+arquivo+'.info')
     
     
@@ -49,14 +49,15 @@ def main():
 
 def executa_algoritmo(algoritmo, dataset, n_folds, configs_single_learners, configs_base_learners, amostragem, repeticao):
     # criar os single learners
-    single_learners = e_clss.cria_learners(configs_single_learners, n_folds)
+    single_learners = e_clss.cria_learners(configs_single_learners, n_folds, mapping_igual=False)
     # criar os base learners
     base_learners = e_clss.cria_learners(configs_base_learners, n_folds)
     
     # cria os ensembles
     ensembles = []
-    ensembles.append(Ensemble('majority', n_folds))
-    ensembles.append(Ensemble('weightedClassifiers', n_folds))
+    if len(base_learners) > 0:
+        ensembles.append(Ensemble('majority', n_folds))
+        ensembles.append(Ensemble('weightedClassifiers', n_folds))
     
 
     if algoritmo=='AdaBoost':
