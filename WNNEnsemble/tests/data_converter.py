@@ -116,8 +116,21 @@ def corrigeOrdinalA1(x):
     return (valor % 4)
 def corrigeOrdinalA6(x):
     valor = int(x[5])
-    valor += 1
-    return (valor % 5)
+    
+    if valor == 0:
+        return valor
+    elif valor == 1:
+        return valor
+    elif valor == 2:
+        valor = 3
+        return valor
+    elif valor == 3:
+        valor = 4
+        return valor
+    elif valor == 4:
+        valor = 2
+        return valor
+    return valor
 def corrigeOrdinalA10(x):
     valor = int(x[9])
     if valor == 0:
@@ -127,20 +140,29 @@ def corrigeOrdinalA10(x):
     elif valor == 2:
         pass
     return valor
+def corrigeOrdinalA14(x):
+    valor = int(x[13])
+    valor += 1
+    return (valor % 3)
 def corrigeOrdinalA15(x):
     valor = int(x[14])
     valor += 2
     return (valor % 3)
+def corrigeOrdinalA17(x):
+    valor = int(x[16])
+    valor += 1
+    return (valor % 4)
 
 #na verdade do jeito original esta melhor
 #data[0] = data.apply(corrigeOrdinalA1, axis=1)
 data[5] = data.apply(corrigeOrdinalA6, axis=1)
 data[9] = data.apply(corrigeOrdinalA10, axis=1)
+data[13] = data.apply(corrigeOrdinalA14, axis=1)
 data[14] = data.apply(corrigeOrdinalA15, axis=1)
+data[16] = data.apply(corrigeOrdinalA17, axis=1)
 
 
 # escrever
-'''
+
 output_file_name = "files/new_german_TEMP.data"
 data.to_csv(output_file_name, header=False, index=False, na_rep=" ", sep=" ")
-'''

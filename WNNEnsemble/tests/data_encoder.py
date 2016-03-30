@@ -12,9 +12,9 @@ data = pd.read_csv(file_name, delim_whitespace=True, header=None, names=range(21
 
 
 # separar os tipos de atributos
-ordinais = set([1, 3, 6, 7, 10, 12, 17])
+ordinais = set([1, 3, 6, 7, 10, 12])
 numericos = set([2, 5, 8, 11, 13, 16, 18])
-nao_ordinais = set([4, 9, 14, 15, 19, 20])
+nao_ordinais = set([4, 9, 14, 15, 17, 19, 20])
 binarios = set([19, 20])
 max_values = [3, 72, 4, 9, 18424, 4, 4, 4, 3, 2, 4, 3, 75, 2, 2, 4, 3, 2, 1, 1]
 min_values = [0, 4, 0, 0, 250, 0, 0, 1, 0, 0, 1, 0, 19, 0, 0, 1, 0, 1, 0, 0]
@@ -26,14 +26,14 @@ for feature in range(20):
     if feature+1 in ordinais.union(nao_ordinais):
         matriz = []
         for i in range(max_values[feature] +1):
-            matriz.append([0, 0, 0])
+            matriz.append([0.0, 0.0, 0])
         for numero, instancia in enumerate(data[feature+1]):
             matriz[data[feature+1][numero]][data[0][numero]] += 1
             matriz[data[feature+1][numero]][2] += 1
             
         print "Feature ", feature
         for i in range(max_values[feature] +1):
-            print "Valor ", i, ":    ", matriz[i][0], "    ", matriz[i][1], "    Total: ", matriz[i][2]
+            print "Valor ", i, ":    ", matriz[i][0], "    ", matriz[i][1], "    Total: ", matriz[i][2], "    P/N: ", matriz[i][0]/matriz[i][1]
 
 
 
@@ -144,8 +144,7 @@ for coluna in range(19):
 
 
 # escrever arquivo
-'''
+
 encoded_data = pd.concat([classes, instancias], axis=1)
 output_file_name = "files/encoded_german_24_bits_TEMP.data"
 encoded_data.to_csv(output_file_name, header=False, index=False, sep=" ")
-'''
