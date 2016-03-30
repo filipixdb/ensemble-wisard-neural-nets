@@ -82,7 +82,7 @@ class BaseLearner(object):
     '''
     static_encoder = None
     
-    def __init__(self, discriminador, n_neurons, rank_method, n_folds, confusion_matrix_geral, classificador='wisard', mapping_igual = False, selected_features = None):
+    def __init__(self, discriminador, n_neurons, bits_endereco, rank_method, n_folds, confusion_matrix_geral, classificador='wisard', mapping_igual = False, selected_features = None):
         '''
         classifier
         label
@@ -97,6 +97,7 @@ class BaseLearner(object):
         self.classificador = cria_classificador(classificador, discriminador)
         
         self.n_neurons = n_neurons
+        self.bits_endereco = bits_endereco
         self.rank_method = rank_method
         self.selected_features = selected_features
         
@@ -106,7 +107,7 @@ class BaseLearner(object):
         for _ in xrange(n_folds):
             self.mat_confusao_folds.append(util.ConfusionMatrix())
             
-        self.label = discriminador+" - neuronios= "+str(n_neurons)+" - rank= "+rank_method+" - features= "+str(selected_features)
+        self.label = discriminador+" - neuronios= "+str(n_neurons)+ " - endereco= "+str(bits_endereco)+" - rank= "+rank_method+" - features= "+str(selected_features)
 
         self.mapping_igual = mapping_igual#necessario se quiser resetar o mapping estatico a cada fold
         if mapping_igual:
@@ -148,7 +149,7 @@ def cria_classificador(classificador, discriminador):
     
     return wann_wis_clf.WiSARD(disc)
     
-def cria_learners(configs_learners, n_folds, mapping_igual=False):
+def cria_learners(configs_learners, n_folds, tam_features, mapping_igual=False):
     
     '''
     recebe uma lista de tuplas com as configs dos base learners
@@ -162,8 +163,17 @@ def cria_learners(configs_learners, n_folds, mapping_igual=False):
     if mapping_igual:
         BaseLearner.static_encoder = None
     
-    for classificador, discriminador, n_neurons, rank_method, selected_features, confusion_matrix_geral in configs_learners:
-        learners.append(BaseLearner(discriminador, n_neurons, rank_method, n_folds, confusion_matrix_geral, classificador, mapping_igual, selected_features))
+    # usar o tamanho das features pra calcular o numero de neuronios
+    for classificador, discriminador, bits_endereco, rank_method, selected_features, confusion_matrix_geral in configs_learners:
+        totalBits = 0
+        for f in selected_features:
+            totalBits += tam_features[f]
+        #calcular numero de neuronios
+        neuronios = totalBits/bits_endereco
+        if totalBits % bits_endereco > 0:
+            neuronios += 1
+        
+        learners.append(BaseLearner(discriminador, neuronios, bits_endereco, rank_method, n_folds, confusion_matrix_geral, classificador, mapping_igual, selected_features))
     
     return learners
 

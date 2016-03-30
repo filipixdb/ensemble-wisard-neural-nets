@@ -49,9 +49,9 @@ def main():
 
 def executa_algoritmo(algoritmo, dataset, n_folds, configs_single_learners, configs_base_learners, amostragem, repeticao):
     # criar os single learners
-    single_learners = e_clss.cria_learners(configs_single_learners, n_folds, mapping_igual=False)
+    single_learners = e_clss.cria_learners(configs_single_learners, n_folds, dataset.tam_features, mapping_igual=False)
     # criar os base learners
-    base_learners = e_clss.cria_learners(configs_base_learners, n_folds)
+    base_learners = e_clss.cria_learners(configs_base_learners, n_folds, dataset.tam_features)
     
     # cria os ensembles
     ensembles = []
