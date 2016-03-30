@@ -1,7 +1,4 @@
 '''
-@author: filipi
-'''
-'''
 Converter o german dataset para um formato numerico
 '''
 
@@ -102,9 +99,9 @@ Col 19:  Max: 1   Min 0
 
 '''
 Tipos de atributos (numero do atributo e nao da coluna do dataframe)
-ordinais [1, 3, 6, 7, 10, 12, 15, 17]
+ordinais [1, 3, 6, 7, 10, 12, 17]
 numericos [2, 5, 8, 11, 13, 16, 18]
-nao ordinais [4, 9, 14, 19, 20]
+nao ordinais [4, 9, 14, 15, 19, 20]
 '''
 
 
@@ -121,16 +118,29 @@ def corrigeOrdinalA6(x):
     valor = int(x[5])
     valor += 1
     return (valor % 5)
+def corrigeOrdinalA10(x):
+    valor = int(x[9])
+    if valor == 0:
+        valor = 1
+    elif valor == 1:
+        valor = 0
+    elif valor == 2:
+        pass
+    return valor
 def corrigeOrdinalA15(x):
     valor = int(x[14])
     valor += 2
     return (valor % 3)
 
-data[0] = data.apply(corrigeOrdinalA1, axis=1)
+#na verdade do jeito original esta melhor
+#data[0] = data.apply(corrigeOrdinalA1, axis=1)
 data[5] = data.apply(corrigeOrdinalA6, axis=1)
+data[9] = data.apply(corrigeOrdinalA10, axis=1)
 data[14] = data.apply(corrigeOrdinalA15, axis=1)
 
 
 # escrever
-output_file_name = "files/new_german.data"
+'''
+output_file_name = "files/new_german_TEMP.data"
 data.to_csv(output_file_name, header=False, index=False, na_rep=" ", sep=" ")
+'''

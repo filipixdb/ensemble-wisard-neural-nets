@@ -58,14 +58,13 @@ class EnsembleAlgorithm(object):
 
 
     def exibe_resultados(self):
-        
+        '''
         if len(self.single_learners) > 0:
             print "  Single Learners --------------------"
         for single_learner in self.single_learners:
             print "    ", single_learner.label
             #print single_learner.mat_confusao
             print "        ", single_learner.mat_confusao.stats('simples')
-        
         '''
         if len(self.single_learners) > 0:
             print "  Single Learners (GERAL)--------------------"
@@ -73,7 +72,6 @@ class EnsembleAlgorithm(object):
             print "    ", single_learner.label
             #print single_learner.mat_confusao
             print "        ", single_learner.mat_confusao_geral.stats('simples')
-        '''
         
         if len(self.base_learners) > 0:
             print "  Base Learners ----------------------"

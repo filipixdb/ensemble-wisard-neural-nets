@@ -26,7 +26,7 @@ def main():
     
     
     # le as entradas
-    data = frdr.le_entradas('../tests/files/'+arquivo+'.data', tam_features)
+    data = frdr.le_entradas('../tests/files/'+arquivo+'_TEMP.data', tam_features)
     
     
     for x in range(n_params):
@@ -40,10 +40,10 @@ def main():
             dataset = DataSet(data, tam_features, n_folds, n_classes, nome='german dataset')
             
             print "\n  Bagging"
-            executa_algoritmo("Bagging", dataset, n_folds, configs_single_learners, configs_base_learners, 0.3, True)
+            executa_algoritmo("Bagging", dataset, n_folds, configs_single_learners, configs_base_learners, 0.3, False)
             
             print "\n  AdaBoost"
-            executa_algoritmo("AdaBoost", dataset, n_folds, [], configs_base_learners, 0.5, True)
+            executa_algoritmo("AdaBoost", dataset, n_folds, [], configs_base_learners, 0.5, False)
 
 
 
