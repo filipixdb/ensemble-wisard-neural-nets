@@ -21,7 +21,7 @@ def main():
 
     
     # ler informacoes
-    arquivo = 'encoded_german_24_bits'
+    arquivo = 'encoded_german_20_bits'
     n_classes, tam_features, n_params, list_n_folds = frdr.le_informacoes('../tests/files/'+arquivo+'.info')
     
     

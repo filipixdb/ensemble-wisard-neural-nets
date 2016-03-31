@@ -41,9 +41,23 @@ for feature in range(20):
 
 # criar o encoder de cada coluna unaria
 encoders_unarios = {}
-bits = 24
+bits = 20
 for i in range(20):
     if (i+1) in ordinais.union(numericos):
+        
+        if (i+1) == 1:
+            bits = 24
+        #elif (i+1) == 3:
+        #    bits = 24
+        #elif (i+1) == 6:
+        #    bits = 24
+        #elif (i+1) == 2:
+        #    bits = 24
+        #elif (i+1) == 5:
+        #    bits = 24
+        else:
+            bits = 20
+        
         encoder = enc.UnaryEncoder(min_values[i], max_values[i], bits)
         encoders_unarios[i+1] = encoder
 
@@ -79,9 +93,15 @@ def hamdist(str1, str2):
 
 # criar o encoder de cada coluna nao ordinal
 encoders_qualitativos = {}
-bits = 24
+bits = 20
 for i in range(20):
     if (i+1) in nao_ordinais:
+        
+        if (i+1) == 4:
+            bits = 24
+        else:
+            bits = 20
+        
         encoder = enc.QualitativeEncoder(bits)
         # colocar um dummie pra ser a distancia diferente
         # para o atributo 4, sera o valor 'others'
@@ -146,5 +166,5 @@ for coluna in range(19):
 # escrever arquivo
 
 encoded_data = pd.concat([classes, instancias], axis=1)
-output_file_name = "files/encoded_german_24_bits_TEMP.data"
+output_file_name = "files/encoded_german_20_bits_TEMP.data"
 encoded_data.to_csv(output_file_name, header=False, index=False, sep=" ")
