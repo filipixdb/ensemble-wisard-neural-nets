@@ -33,6 +33,10 @@ def main():
         print "\nParams ", x, " ========================================"
         # ler configs dos single e base learners
         configs_single_learners, configs_base_learners = frdr.le_parametros('../tests/files/'+arquivo+'.params'+str(x))
+        
+        # aqui criar as matrizes de confusao dos dois ensembles dos dois algoritmos
+        matrizes_ensemble = e_clss.cria_matriz_confusao_geral_ensemble()
+        
     
         for n_folds in list_n_folds:
             print "\nFolds = ", n_folds
@@ -40,14 +44,14 @@ def main():
             dataset = DataSet(data, tam_features, n_folds, n_classes, nome='german dataset')
             
             print "\n  Bagging"
-            executa_algoritmo("Bagging", dataset, n_folds, configs_single_learners, configs_base_learners, 0.3, False)
+            executa_algoritmo("Bagging", dataset, n_folds, configs_single_learners, configs_base_learners, matrizes_ensemble['Bagging'], 0.3, False)
             
             print "\n  AdaBoost"
-            executa_algoritmo("AdaBoost", dataset, n_folds, [], configs_base_learners, 0.5, False)
+            executa_algoritmo("AdaBoost", dataset, n_folds, [], configs_base_learners, matrizes_ensemble['AdaBoost'], 0.5, False)
 
 
 
-def executa_algoritmo(algoritmo, dataset, n_folds, configs_single_learners, configs_base_learners, amostragem, repeticao):
+def executa_algoritmo(algoritmo, dataset, n_folds, configs_single_learners, configs_base_learners, matrizes_ensemble, amostragem, repeticao):
     # criar os single learners
     single_learners = e_clss.cria_learners(configs_single_learners, n_folds, dataset.tam_features, mapping_igual=False)
     # criar os base learners
@@ -56,8 +60,8 @@ def executa_algoritmo(algoritmo, dataset, n_folds, configs_single_learners, conf
     # cria os ensembles
     ensembles = []
     if len(base_learners) > 0:
-        ensembles.append(Ensemble('majority', n_folds))
-        ensembles.append(Ensemble('weightedClassifiers', n_folds))
+        ensembles.append(Ensemble('majority', n_folds, matrizes_ensemble['majority']))
+        ensembles.append(Ensemble('weightedClassifiers', n_folds, matrizes_ensemble['weightedClassifiers']))
     
 
     if algoritmo=='AdaBoost':

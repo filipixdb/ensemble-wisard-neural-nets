@@ -164,7 +164,8 @@ for coluna in range(19):
 
 
 # escrever arquivo
-
+'''
 encoded_data = pd.concat([classes, instancias], axis=1)
 output_file_name = "files/encoded_german_20_bits_TEMP.data"
 encoded_data.to_csv(output_file_name, header=False, index=False, sep=" ")
+'''

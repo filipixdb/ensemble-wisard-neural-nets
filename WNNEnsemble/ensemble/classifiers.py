@@ -183,9 +183,10 @@ class Ensemble(object):
     classe para guardar informacoes e metricas de um ensemble
     '''
     
-    def __init__(self, tipo_voto, n_folds):
+    def __init__(self, tipo_voto, n_folds, mat_confusao_geral):
         self.tipo_voto = tipo_voto
         
+        self.mat_confusao_geral = mat_confusao_geral
         self.mat_confusao = util.ConfusionMatrix()
         self.mat_confusao_folds = []
         for _ in xrange(n_folds):
@@ -224,4 +225,19 @@ class Ensemble(object):
     def guarda_peso(self, learner, peso):
         self.pesos_learners[learner] = peso
         
+
+def cria_matriz_confusao_geral_ensemble():
+    matrizes = {}
+    mat_boost = {}
+    mat_bagging = {}
     
+    mat_boost['majority'] = util.ConfusionMatrix()
+    mat_boost['weightedClassifiers'] = util.ConfusionMatrix()
+    
+    mat_bagging['majority'] = util.ConfusionMatrix()
+    mat_bagging['weightedClassifiers'] = util.ConfusionMatrix()
+    
+    matrizes['AdaBoost'] = mat_boost
+    matrizes['Bagging'] = mat_bagging
+    
+    return matrizes

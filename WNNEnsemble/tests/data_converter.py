@@ -163,6 +163,7 @@ data[16] = data.apply(corrigeOrdinalA17, axis=1)
 
 
 # escrever
-
+'''
 output_file_name = "files/new_german_TEMP.data"
 data.to_csv(output_file_name, header=False, index=False, na_rep=" ", sep=" ")
+'''

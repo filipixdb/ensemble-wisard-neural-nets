@@ -53,6 +53,8 @@ class EnsembleAlgorithm(object):
         beta = erro/(1.0-erro)
         log_erro = np.log(1/beta)
         
+        print "  Log Erro: ", log_erro
+        
         for ens in self.ensembles:
             ens.guarda_peso(n_learner, log_erro)
 
@@ -80,13 +82,23 @@ class EnsembleAlgorithm(object):
             #print base_learner.mat_confusao
             print "        ", base_learner.mat_confusao.stats('simples')
             
+        '''
         if len(self.ensembles) > 0:
             print "  Ensembles --------------------------"
         for ens in self.ensembles:
             print "    ", ens.label
             #print ens.mat_confusao
             print "        ", ens.mat_confusao.stats('simples')
-            
+        
+        
+        '''
+        if len(self.ensembles) > 0:
+            print "  Ensembles (GERAL)--------------------------"
+        for ens in self.ensembles:
+            print "    ", ens.label
+            #print ens.mat_confusao_geral
+            print "        ", ens.mat_confusao_geral.stats('simples')
+        
 
     def avalia_base_learner(self, fold, learner, n_learner):
         erro = 0.0
@@ -160,6 +172,7 @@ class EnsembleAlgorithm(object):
                 y2 = str(ens.combined_votes[n_inst])
                 ens.mat_confusao_folds[fold.numero].add(y1, y2, 0)
                 ens.mat_confusao.add(y1, y2, 0)
+                ens.mat_confusao_geral.add(y1, y2, 0)
 
 
     def treina_base_learner(self, fold, base_learner, com_repeticao):
@@ -281,6 +294,7 @@ class Bagging(EnsembleAlgorithm):
                 self.treina_base_learner(fold, base_learner, self.com_repeticao)
 
                 erro = self.avalia_base_learner(fold, base_learner, n_learner)
+                print "Erro: ", erro
                 if erro == 0.0:
                     erro += 0.00001
                     print "Erro zero"
