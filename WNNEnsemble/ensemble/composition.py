@@ -27,10 +27,11 @@ class VotingAggregator(object):
     
     """
 
-    def __init__(self, votes, n_instances, n_classifiers, n_classes, classifiers=None,
+    def __init__(self, votes, confiancas, n_instances, n_classifiers, n_classes, classifiers=None,
                  vote='majority', weights=None):
         
         self.votes = votes
+        self.confiancas = confiancas
         self.classifiers = classifiers
         self.vote = vote
         self.weights = weights
@@ -53,7 +54,8 @@ class VotingAggregator(object):
             for i in range(dim1):
                 for j in range(dim2):
                     prediction = int(self.votes[i][j])
-                    self.vote_count[i,prediction] += 1
+                    #TODO: substituir o 1 pela confianca
+                    self.vote_count[i,prediction] += self.confiancas[i][j]
                 # preencher a resposta final considerando sorteio para empate
                 max_value_index = np.where(self.vote_count[i,:] == self.vote_count[i,:].max())
                 max_value_index = max_value_index[0]
@@ -63,13 +65,15 @@ class VotingAggregator(object):
         
         elif self.vote == 'weightedClassifiers': # use weights como aray dim1
             #media_pesos = sum(self.weights)/len(self.weights)
+            
             for i in range(dim1):
                 for j in range(dim2):
                     prediction = int(self.votes[i][j])
                     #peso = (self.weights[j]/media_pesos)
                     #peso = peso**5
                     peso = self.weights[j]
-                    self.vote_count[i,prediction] += (1*peso)
+                    #TODO: substituir o 1 pela confianca
+                    self.vote_count[i,prediction] += (self.confiancas[i][j]*peso)
                 # preencher a resposta final considerando sorteio para empate
                 max_value_index = np.where(self.vote_count[i,:] == self.vote_count[i,:].max())
                 max_value_index = max_value_index[0]
@@ -83,7 +87,8 @@ class VotingAggregator(object):
             for i in range(dim1):
                 for j in range(dim2):
                     prediction = self.votes[i][j]
-                    self.vote_count[i][prediction] += (1*self.weights[i][j])
+                    #TODO: substituir o 1 pela confianca
+                    self.vote_count[i][prediction] += (self.confiancas[i][j]*self.weights[i][j])
                 # preencher a resposta final considerando sorteio para empate
                 max_value_index = np.where(self.vote_count[i,:] == self.vote_count[i,:].max())
                 max_value_index = max_value_index[0]

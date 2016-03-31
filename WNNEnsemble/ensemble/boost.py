@@ -53,11 +53,39 @@ class EnsembleAlgorithm(object):
         beta = erro/(1.0-erro)
         log_erro = np.log(1/beta)
         
-        print "  Log Erro: ", log_erro
+        #print "  Log Erro: ", log_erro
         
         for ens in self.ensembles:
             ens.guarda_peso(n_learner, log_erro)
 
+    '''
+    def atualiza_peso_learner_erro_relativo(self, erro, n_learner):
+        beta = erro/(1.0-erro)
+        log_erro = np.log(1/beta)
+        
+        #print "  Log Erro: ", log_erro
+        
+        for ens in self.ensembles:
+            ens.guarda_peso(n_learner, log_erro)
+    '''
+
+    '''
+    def ajusta_pesos_ensemble(self):
+        for ens in self.ensembles:
+            pesoTotal = 0.0
+            for n_learner, learner in enumerate(self.base_learners):
+                pesoTotal += ens.pesos_learners[n_learner]
+            
+            media = pesoTotal/len(self.base_learners)
+            
+            for n_learner, learner in enumerate(self.base_learners):
+                peso = ens.pesos_learners[n_learner] - media
+                #peso = ens.pesos_learners[n_learner]/pesoTotal
+                ens.guarda_peso(n_learner, peso)
+            
+            print "  Pesos Learners: "
+            print ens.pesos_learners
+    '''
 
     def exibe_resultados(self):
         '''
@@ -102,11 +130,37 @@ class EnsembleAlgorithm(object):
 
     def avalia_base_learner(self, fold, learner, n_learner):
         erro = 0.0
+        erroTotal = 0.0
         # avaliar o learner no conjunto de test do fold
         for n_inst, inst_test in enumerate(fold.inst_test):
             #classifica
             resposta = getattr(learner.classificador, learner.rank_method)(learner.encoder(inst_test.junta_features(learner.selected_features)))
             rank = util.ranked(resposta) # rank recebe varias tuplas ordenadas ('classe', somaRespostasDosDiscriminadores)
+            
+            
+            # calcular a confianca do base learner
+            confianca0 = resposta['0']*1.0
+            confianca1 = resposta['1']*1.0
+            
+            if (confianca0 == 0) and (confianca1 == 0):
+                confianca0 = 0.5
+                confianca1 = 0.5
+            elif (confianca0 == 0) or (confianca1 == 0):
+                if (confianca0 == 0):
+                    confianca0 = 0.1
+                    confianca1 = 0.9
+                else:
+                    confianca0 = 0.9
+                    confianca1 = 0.1
+            
+            somaConfiancas = confianca0+confianca1
+            confianca0 = confianca0/somaConfiancas
+            confianca1 = confianca1/somaConfiancas
+            if confianca0 > confianca1:
+                confiancaCorreta = confianca0
+            else:
+                confiancaCorreta = confianca1
+            
             
             # top_score recebe a maior soma dos discriminadores
             try:
@@ -119,16 +173,23 @@ class EnsembleAlgorithm(object):
             learner.mat_confusao_folds[fold.numero].add(inst_test.classe, rank[0][0], top_score)
             learner.mat_confusao_geral.add(inst_test.classe, rank[0][0], top_score)
             
+            
+            #TODO: aqui colocar para guardar tbm a confianca do base learner no voto
             # guarda os votos do classificador
             for ens in self.ensembles:
-                ens.guarda_voto(n_learner, n_inst, rank[0][0])
+                if ens.com_confiancas == True:
+                    ens.guarda_voto(n_learner, n_inst, rank[0][0], confiancaCorreta)
+                else:
+                    ens.guarda_voto(n_learner, n_inst, rank[0][0], 1)
             
+            # calcular total possivel para o erro
+            erroTotal += inst_test.peso
             # calcular erro
             if inst_test.classe != rank[0][0]:
                 erro += inst_test.peso
             
             
-        return erro
+        return erro/erroTotal
 
 
     def avalia_single_learner(self, fold, learner, n_learner):
@@ -235,11 +296,21 @@ class AdaBoost(EnsembleAlgorithm):
 
                 erro, set_corretas = self.avalia_instancias_treino(fold, base_learner)
                 
+                #TODO: restaurar essa parte do codigo
+                '''
                 self.atualiza_peso_learner(erro, n_learner)
                 
                 self.atualiza_pesos_instancias_treino(fold, set_corretas, erro)
                 
                 _ = self.avalia_base_learner(fold, base_learner, n_learner)
+                '''
+                
+                self.atualiza_pesos_instancias_treino(fold, set_corretas, erro)
+                
+                erro = self.avalia_base_learner(fold, base_learner, n_learner)
+                
+                self.atualiza_peso_learner(erro, n_learner)
+                
                 
             self.avalia_ensembles(fold)            
         
@@ -288,18 +359,19 @@ class Bagging(EnsembleAlgorithm):
                         
             for ens in self.ensembles:
                 ens.inicia_votos_e_pesos(len(self.base_learners), len(fold.inst_test))
+                
             
             for n_learner, base_learner in enumerate(self.base_learners):
                 
                 self.treina_base_learner(fold, base_learner, self.com_repeticao)
 
                 erro = self.avalia_base_learner(fold, base_learner, n_learner)
-                print "Erro: ", erro
                 if erro == 0.0:
                     erro += 0.00001
                     print "Erro zero"
                 
                 self.atualiza_peso_learner(erro, n_learner)
+            
                 
             self.avalia_ensembles(fold)            
         

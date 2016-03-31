@@ -183,8 +183,10 @@ class Ensemble(object):
     classe para guardar informacoes e metricas de um ensemble
     '''
     
-    def __init__(self, tipo_voto, n_folds, mat_confusao_geral):
+    def __init__(self, tipo_voto, n_folds, mat_confusao_geral, com_confiancas=False):
         self.tipo_voto = tipo_voto
+        
+        self.com_confiancas = com_confiancas
         
         self.mat_confusao_geral = mat_confusao_geral
         self.mat_confusao = util.ConfusionMatrix()
@@ -194,12 +196,14 @@ class Ensemble(object):
         
         self.combined_votes = []
         self.votos = None
+        self.confiancas = None
         self.pesos_learners = None
         
-        self.label = "Ensemble voting= "+tipo_voto
+        self.label = "Ensemble voting= "+tipo_voto+"  confiancas= "+str(self.com_confiancas)
         
     def inicia_agregador(self, n_classes=2):
-        self.agregador = compo.VotingAggregator(self.votos, len(self.votos), len(self.votos[0]), n_classes, vote=self.tipo_voto,
+        #TODO: colocar pra receber as confiancas
+        self.agregador = compo.VotingAggregator(self.votos, self.confiancas, len(self.votos), len(self.votos[0]), n_classes, vote=self.tipo_voto,
                                                       weights=self.pesos_learners)
     
     def predict(self):
@@ -207,20 +211,26 @@ class Ensemble(object):
         
     def inicia_votos_e_pesos(self, n_learners, n_instancias):
         self.votos = []
+        self.confiancas = []
         for _ in xrange(n_instancias):
             learners = []
+            confs = []
             for l in xrange(n_learners):
                 x = 0
                 learners.append(x)
+                confs.append(x)
             self.votos.append(learners)
+            self.confiancas.append(confs)
         
         self.pesos_learners = []
         for _ in xrange(n_learners):
             p = 0
             self.pesos_learners.append(p)
         
-    def guarda_voto(self, learner, instancia, voto):
+    def guarda_voto(self, learner, instancia, voto, confianca):
+        #TODO: colocar para ter a confianca
         self.votos[int(instancia)][int(learner)] = int(voto)
+        self.confiancas[int(instancia)][int(learner)] = confianca
         
     def guarda_peso(self, learner, peso):
         self.pesos_learners[learner] = peso

@@ -62,6 +62,8 @@ def executa_algoritmo(algoritmo, dataset, n_folds, configs_single_learners, conf
     if len(base_learners) > 0:
         ensembles.append(Ensemble('majority', n_folds, matrizes_ensemble['majority']))
         ensembles.append(Ensemble('weightedClassifiers', n_folds, matrizes_ensemble['weightedClassifiers']))
+        ensembles.append(Ensemble('majority', n_folds, matrizes_ensemble['majority'], com_confiancas=True))
+        ensembles.append(Ensemble('weightedClassifiers', n_folds, matrizes_ensemble['weightedClassifiers'], com_confiancas=True))
     
 
     if algoritmo=='AdaBoost':
