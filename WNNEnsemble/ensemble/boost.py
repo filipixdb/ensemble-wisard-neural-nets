@@ -1,8 +1,4 @@
 '''
-@author: filipi
-'''
-
-'''
 fazer os metodos para rodar o treino e o test do boost
 '''
 
@@ -14,17 +10,12 @@ class EnsembleAlgorithm(object):
     
     def __init__(self, dataset, base_learners, single_learners, ensembles, tam_treino, com_repeticao=True):
         
-        #TODO: alterar o init pra receber uma lista de single learners pra comparacao
-        
         self.dataset = dataset
         self.base_learners = base_learners
         self.single_learners = single_learners
         self.ensembles = ensembles
         self.tam_treino = tam_treino
         self.com_repeticao = com_repeticao
-        
-        # TEMP Debug
-        #self.debuga = []
 
 
     def executa_folds(self):
@@ -52,8 +43,6 @@ class EnsembleAlgorithm(object):
     def atualiza_peso_learner(self, erro, n_learner):
         beta = erro/(1.0-erro)
         log_erro = np.log(1/beta)
-        
-        #print "  Log Erro: ", log_erro
         
         for ens in self.ensembles:
             ens.guarda_peso(n_learner, log_erro)
@@ -173,8 +162,7 @@ class EnsembleAlgorithm(object):
             learner.mat_confusao_folds[fold.numero].add(inst_test.classe, rank[0][0], top_score)
             learner.mat_confusao_geral.add(inst_test.classe, rank[0][0], top_score)
             
-            
-            #TODO: aqui colocar para guardar tbm a confianca do base learner no voto
+
             # guarda os votos do classificador
             for ens in self.ensembles:
                 if ens.com_confiancas == True:
@@ -210,14 +198,6 @@ class EnsembleAlgorithm(object):
             learner.mat_confusao_folds[fold.numero].add(inst_test.classe, rank[0][0], top_score)
             learner.mat_confusao_geral.add(inst_test.classe, rank[0][0], top_score)
             
-            # TEMP Debug
-            #if n_learner == 0:
-            #    self.debuga.append(rank[0][0])
-            #elif rank[0][0] != self.debuga[n_inst]:
-            #    print "Diferente! Fold: ", fold.numero, " - Learner: ", n_learner, " - Inst: ", n_inst, " - Classe: ", inst_test.classe, " - Voto: ", rank[0][0]
-                
-                
-
 
 
     def avalia_ensembles(self, fold):
@@ -277,9 +257,7 @@ class AdaBoost(EnsembleAlgorithm):
             # reseta os classificadores a cada novo fold
             self.reseta_classificadores(self.base_learners)
             self.reseta_classificadores(self.single_learners)
-            
-            ## TEMP debug
-            #self.debuga = []
+
             
             # treinar e avaliar os single learners
             for n_single_learner, single_learner in enumerate(self.single_learners):
@@ -296,21 +274,22 @@ class AdaBoost(EnsembleAlgorithm):
 
                 erro, set_corretas = self.avalia_instancias_treino(fold, base_learner)
                 
-                #TODO: restaurar essa parte do codigo
-                '''
+                # usando da forma abaixo consideraria o erro no conj de treino para calcular o peso do classificador
+                # usando da outra forma, considera o erro no conj de test
+                
                 self.atualiza_peso_learner(erro, n_learner)
                 
                 self.atualiza_pesos_instancias_treino(fold, set_corretas, erro)
                 
                 _ = self.avalia_base_learner(fold, base_learner, n_learner)
-                '''
                 
+                '''
                 self.atualiza_pesos_instancias_treino(fold, set_corretas, erro)
                 
                 erro = self.avalia_base_learner(fold, base_learner, n_learner)
                 
                 self.atualiza_peso_learner(erro, n_learner)
-                
+                '''
                 
             self.avalia_ensembles(fold)            
         
@@ -366,6 +345,8 @@ class Bagging(EnsembleAlgorithm):
                 self.treina_base_learner(fold, base_learner, self.com_repeticao)
 
                 erro = self.avalia_base_learner(fold, base_learner, n_learner)
+                # Na pratica nunca cai aqui, mas isso existe pq se o conj de teste ficar pequeno, pode nao ter erro
+                # Se nao der erro, quebra por divisao por zero
                 if erro == 0.0:
                     erro += 0.00001
                     print "Erro zero"

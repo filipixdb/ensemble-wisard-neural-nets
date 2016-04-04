@@ -1,11 +1,10 @@
 '''
-Created on 18 de fev de 2016
-
-@author: filipi
+Estruturas de um dataset
+  folds
+  instancias
+  infos das features
+  etc
 '''
-from ensemble.partition import cria_folds
-
-
 
 class Instancia(object):
     
@@ -75,7 +74,6 @@ class DataSet(object):
     
 
     def cria_folds(self, data, tam_features, n_folds = 10):
-        #tam_features eh uma lista com o tamanho (bits) de cada feature
         # criar os folds
         self.folds = []
         for f in xrange(n_folds):
@@ -99,7 +97,4 @@ class DataSet(object):
         for fold in self.folds:
             peso = 1.0 / len(fold.inst_treino)
             fold.adiciona_pesos([peso] * len(fold.inst_treino))
-        
-
-        
         

@@ -1,7 +1,3 @@
-'''
-@author: filipi
-'''
-
 # Metodos para compor a resposta final
 # fazer um metodo que compoe os votos com peso
 # receber um array[][] de [n_instancias][n_classificadores]
@@ -47,57 +43,38 @@ class VotingAggregator(object):
         self.combined_votes = [0] * n_instances
 
     def predict(self):
-        
-        dim1, dim2 = self.n_instances, self.n_classifiers
             
         if self.vote == 'majority':
-            for i in range(dim1):
-                for j in range(dim2):
-                    prediction = int(self.votes[i][j])
-                    #TODO: substituir o 1 pela confianca
-                    self.vote_count[i,prediction] += self.confiancas[i][j]
+            for i in range(self.n_instances):
+                for c in range(self.n_classifiers):
+                    prediction = int(self.votes[i][c])
+                    self.vote_count[i,prediction] += self.confiancas[i][c]
                 # preencher a resposta final considerando sorteio para empate
                 max_value_index = np.where(self.vote_count[i,:] == self.vote_count[i,:].max())
                 max_value_index = max_value_index[0]
-#                if len(max_value_index)>1:
-#                    print ('DEBUG: empate no majority voting -- '), max_value_index
                 self.combined_votes[i] = int(np.random.choice(max_value_index))
         
         elif self.vote == 'weightedClassifiers': # use weights como aray dim1
-            #media_pesos = sum(self.weights)/len(self.weights)
-            
-            for i in range(dim1):
-                for j in range(dim2):
-                    prediction = int(self.votes[i][j])
-                    #peso = (self.weights[j]/media_pesos)
-                    #peso = peso**5
-                    peso = self.weights[j]
-                    #TODO: substituir o 1 pela confianca
-                    self.vote_count[i,prediction] += (self.confiancas[i][j]*peso)
+            for i in range(self.n_instances):
+                for c in range(self.n_classifiers):
+                    prediction = int(self.votes[i][c])
+                    peso = self.weights[c]
+                    self.vote_count[i,prediction] += (self.confiancas[i][c]*peso)
                 # preencher a resposta final considerando sorteio para empate
                 max_value_index = np.where(self.vote_count[i,:] == self.vote_count[i,:].max())
                 max_value_index = max_value_index[0]
-#                if len(max_value_index)>1:
-#                    print ('DEBUG: empate no majority voting -- '), max_value_index
-                self.combined_votes[i] = int(np.random.choice(max_value_index))
-        else: # use weights como array[instancias][classificadores]
-            
-            print "Weighted Instances"
-            
-            for i in range(dim1):
-                for j in range(dim2):
-                    prediction = self.votes[i][j]
-                    #TODO: substituir o 1 pela confianca
-                    self.vote_count[i][prediction] += (self.confiancas[i][j]*self.weights[i][j])
-                # preencher a resposta final considerando sorteio para empate
-                max_value_index = np.where(self.vote_count[i,:] == self.vote_count[i,:].max())
-                max_value_index = max_value_index[0]
-                if len(max_value_index)>1:
-                    print ('DEBUG: empate no majority voting -- '), max_value_index
                 self.combined_votes[i] = int(np.random.choice(max_value_index))
                 
-        #print self.vote_count
-        #print self.combined_votes
+        else: # use weights como array[instancias][classificadores]
+            for i in range(self.n_instances):
+                for c in range(self.n_classifiers):
+                    prediction = self.votes[i][c]
+                    self.vote_count[i][prediction] += (self.confiancas[i][c]*self.weights[i][c])
+                # preencher a resposta final considerando sorteio para empate
+                max_value_index = np.where(self.vote_count[i,:] == self.vote_count[i,:].max())
+                max_value_index = max_value_index[0]
+                self.combined_votes[i] = int(np.random.choice(max_value_index))
+                
         return self.combined_votes
         
 

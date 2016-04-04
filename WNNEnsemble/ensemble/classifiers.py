@@ -1,5 +1,9 @@
 '''
-@author: filipi
+  Base-learners
+  Singles-learners
+  Ensembles
+  
+
 '''
 
 import time
