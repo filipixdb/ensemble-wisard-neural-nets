@@ -59,6 +59,7 @@ class Fold(object):
         pesos = []
         for inst in self.inst_treino:
             pesos.append(inst.peso)
+        return pesos
 
 
 

@@ -222,19 +222,18 @@ class Ensemble(object):
             for l in xrange(n_learners):
                 x = 0
                 learners.append(x)
-                confs.append(x)
+                confs.append(float(x))
             self.votos.append(learners)
             self.confiancas.append(confs)
         
         self.pesos_learners = []
         for _ in xrange(n_learners):
-            p = 0
+            p = 0.0
             self.pesos_learners.append(p)
         
     def guarda_voto(self, learner, instancia, voto, confianca):
-        #TODO: colocar para ter a confianca
         self.votos[int(instancia)][int(learner)] = int(voto)
-        self.confiancas[int(instancia)][int(learner)] = confianca
+        self.confiancas[int(instancia)][int(learner)] = float(confianca)
         
     def guarda_peso(self, learner, peso):
         self.pesos_learners[learner] = peso
