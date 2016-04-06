@@ -198,15 +198,16 @@ class Ensemble(object):
         for _ in xrange(n_folds):
             self.mat_confusao_folds.append(util.ConfusionMatrix())
         
-        self.combined_votes = []
+        self.combined_votes = None
         self.votos = None
         self.confiancas = None
         self.pesos_learners = None
         
+        self.agregador = None
+        
         self.label = "Ensemble voting= "+tipo_voto+"  confiancas= "+str(self.com_confiancas)
         
     def inicia_agregador(self, n_classes=2):
-        #TODO: colocar pra receber as confiancas
         self.agregador = compo.VotingAggregator(self.votos, self.confiancas, len(self.votos), len(self.votos[0]), n_classes, vote=self.tipo_voto,
                                                       weights=self.pesos_learners)
     
@@ -246,9 +247,13 @@ def cria_matriz_confusao_geral_ensemble():
     
     mat_boost['majority'] = util.ConfusionMatrix()
     mat_boost['weightedClassifiers'] = util.ConfusionMatrix()
+    mat_boost['majorityConfianca'] = util.ConfusionMatrix()
+    mat_boost['weightedClassifiersConfianca'] = util.ConfusionMatrix()
     
     mat_bagging['majority'] = util.ConfusionMatrix()
     mat_bagging['weightedClassifiers'] = util.ConfusionMatrix()
+    mat_bagging['majorityConfianca'] = util.ConfusionMatrix()
+    mat_bagging['weightedClassifiersConfianca'] = util.ConfusionMatrix()
     
     matrizes['AdaBoost'] = mat_boost
     matrizes['Bagging'] = mat_bagging

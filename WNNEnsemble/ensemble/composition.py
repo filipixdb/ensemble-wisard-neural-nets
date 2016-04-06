@@ -74,6 +74,10 @@ class VotingAggregator(object):
                 max_value_index = np.where(self.vote_count[i,:] == self.vote_count[i,:].max())
                 max_value_index = max_value_index[0]
                 self.combined_votes[i] = int(np.random.choice(max_value_index))
+        
+        #print "Confiancas: ", self.confiancas
+        #print "Vote Counts: ", self.vote_count
+        #print "Votos: ", self.votes
                 
         return self.combined_votes
         

@@ -53,6 +53,9 @@ class EnsembleAlgorithm(object):
             resposta = getattr(base_learner.classificador, base_learner.rank_method)(base_learner.encoder(inst.junta_features(base_learner.selected_features)))
             rank = util.ranked(resposta) # rank recebe varias tuplas ordenadas ('classe', somaRespostasDosDiscriminadores)
 
+            #TODO: colocar pra pedir a confianca da forma desejada
+            confianca, ativados = self.calcula_confianca_voto(resposta, base_learner.n_neurons)
+
             # guardar instancias corretas, calcular erro
             if inst.classe == rank[0][0]:
                 pass
@@ -64,7 +67,9 @@ class EnsembleAlgorithm(object):
             totalPesos +=inst.peso
             
         #print "Acuracia: ", (certas/(certas+erradas)), "    Peso Certas: ", totalPesos-erro, "    Peso Erradas: ", erro, "    Total Pesos: ", totalPesos, "    Erro Percentual: ", erro/totalPesos
-            
+        
+        #TODO: aqui preencher e retornar um dict com os valores de cada tipo de erro
+        
         return erro/totalPesos
         #return erradas/(certas+erradas)
 
@@ -76,39 +81,14 @@ class EnsembleAlgorithm(object):
         
         inverso_beta = (1.0-erro)/erro
         
+        
         for ens in self.ensembles:
+            #TODO: aqui colocar pra guardar o peso de acordo com o tipo de erro q o ensemble usar
             ens.guarda_peso(n_learner, log_inverso_beta)
             
         #print " Erro: ", erro, "    Inverso Beta: ", inverso_beta, "    Log Inverso Beta: ", log_inverso_beta
 
-    '''
-    def atualiza_peso_learner_erro_relativo(self, erro, n_learner):
-        beta = erro/(1.0-erro)
-        log_erro = np.log(1/beta)
-        
-        #print "  Log Erro: ", log_erro
-        
-        for ens in self.ensembles:
-            ens.guarda_peso(n_learner, log_erro)
-    '''
 
-    '''
-    def ajusta_pesos_ensemble(self):
-        for ens in self.ensembles:
-            pesoTotal = 0.0
-            for n_learner, learner in enumerate(self.base_learners):
-                pesoTotal += ens.pesos_learners[n_learner]
-            
-            media = pesoTotal/len(self.base_learners)
-            
-            for n_learner, learner in enumerate(self.base_learners):
-                peso = ens.pesos_learners[n_learner] - media
-                #peso = ens.pesos_learners[n_learner]/pesoTotal
-                ens.guarda_peso(n_learner, peso)
-            
-            print "  Pesos Learners: "
-            print ens.pesos_learners
-    '''
 
     def exibe_resultados(self):
         '''
@@ -153,6 +133,55 @@ class EnsembleAlgorithm(object):
             print "        ", ens.mat_confusao_geral.stats('simples')
         
 
+
+
+    def calcula_confianca_voto(self, resposta, n_neuronios):
+        # calcular a confianca do base learner
+        confianca0 = resposta['0']*1.0
+        confianca1 = resposta['1']*1.0
+        
+        ativados0 = resposta['0']*1.0
+        ativados1 = resposta['1']*1.0
+        
+        '''
+        if (confianca0 == 0) and (confianca1 == 0):
+            confianca0 = 0.5
+            confianca1 = 0.5
+        elif (confianca0 == 0) or (confianca1 == 0):
+            if (confianca0 == 0):
+                confianca0 = 0.01
+                confianca1 = 0.99
+            else:
+                confianca0 = 0.99
+                confianca1 = 0.01
+        '''
+        
+        if (confianca0 == 0) or (confianca1 == 0):
+            confianca0 += 1.0
+            confianca1 += 1.0
+        
+        
+        somaConfiancas = confianca0+confianca1
+        confianca0 = confianca0/somaConfiancas
+        confianca1 = confianca1/somaConfiancas
+        if confianca0 > confianca1:
+            #confiancaCorreta = confianca0
+            confiancaCorreta = confianca0/confianca1
+            ativadosCorreto = ativados0/n_neuronios
+        else:
+            #confiancaCorreta = confianca1
+            confiancaCorreta = confianca1/confianca0
+            ativadosCorreto = ativados1/n_neuronios
+        
+        #TODO: aqui colocar pra calcular de acordo com o tipo de confianca usado
+        
+        return confiancaCorreta, ativadosCorreto
+
+
+
+
+
+
     def avalia_base_learner(self, fold, learner, n_learner):
         erro = 0.0
         erroTotal = 0.0
@@ -163,57 +192,41 @@ class EnsembleAlgorithm(object):
             resposta = getattr(learner.classificador, learner.rank_method)(learner.encoder(inst_test.junta_features(learner.selected_features)))
             rank = util.ranked(resposta) # rank recebe varias tuplas ordenadas ('classe', somaRespostasDosDiscriminadores)
             
-            # calcular a confianca do base learner
-            confianca0 = resposta['0']*1.0
-            confianca1 = resposta['1']*1.0
+            #TODO: colocar pra pegar a confianca da forma desejada
+            confianca, ativados = self.calcula_confianca_voto(resposta, learner.n_neurons)
             
-            if (confianca0 == 0) and (confianca1 == 0):
-                confianca0 = 0.5
-                confianca1 = 0.5
-            elif (confianca0 == 0) or (confianca1 == 0):
-                if (confianca0 == 0):
-                    confianca0 = 0.1
-                    confianca1 = 0.9
-                else:
-                    confianca0 = 0.9
-                    confianca1 = 0.1
-            
-            somaConfiancas = confianca0+confianca1
-            confianca0 = confianca0/somaConfiancas
-            confianca1 = confianca1/somaConfiancas
-            if confianca0 > confianca1:
-                confiancaCorreta = confianca0
-            else:
-                confiancaCorreta = confianca1
-            
-            
+            '''
             # top_score recebe a maior soma dos discriminadores
             try:
                 top_score = len(rank[0][1])
             except TypeError:
                 top_score = rank[0][1]
-        
+            '''
+            
             # coloca na matriz de confusao
-            learner.mat_confusao.add(inst_test.classe, rank[0][0], top_score)
-            learner.mat_confusao_folds[fold.numero].add(inst_test.classe, rank[0][0], top_score)
-            learner.mat_confusao_geral.add(inst_test.classe, rank[0][0], top_score)
+            learner.mat_confusao.add(inst_test.classe, rank[0][0], 1)
+            learner.mat_confusao_folds[fold.numero].add(inst_test.classe, rank[0][0], 1)
+            learner.mat_confusao_geral.add(inst_test.classe, rank[0][0], 1)
             
 
             # guarda os votos do classificador
+            #TODO: aqui colocar pra guardar o voto de acordo com o tipo de confianca usado
             for ens in self.ensembles:
                 if ens.com_confiancas == True:
-                    ens.guarda_voto(n_learner, n_inst, rank[0][0], confiancaCorreta)
+                    ens.guarda_voto(n_learner, n_inst, rank[0][0], confianca*ativados)
+                    #print "Resposta: ", resposta, "    Confianca: ", confiancaCorreta, "    Ativados: ", ativadosCorreto, "    Conf*Ativ: ", confiancaCorreta*ativadosCorreto
                 else:
                     ens.guarda_voto(n_learner, n_inst, rank[0][0], 1)
             
+            
+            #TODO: verificar, acho que esse err o nunca e usado
             # calcular total possivel para o erro
             erroTotal += inst_test.peso
             # calcular erro
             if inst_test.classe != rank[0][0]:
                 erro += inst_test.peso
-            
-            
         return erro/erroTotal
+
 
 
     def avalia_single_learner(self, fold, learner, n_learner):
@@ -223,33 +236,36 @@ class EnsembleAlgorithm(object):
             resposta = getattr(learner.classificador, learner.rank_method)(learner.encoder(inst_test.junta_features(learner.selected_features)))
             rank = util.ranked(resposta) # rank recebe varias tuplas ordenadas ('classe', somaRespostasDosDiscriminadores)
             
+            '''
             # top_score recebe a maior soma dos discriminadores
             try:
                 top_score = len(rank[0][1])
             except TypeError:
                 top_score = rank[0][1]
-        
+            '''
+            
             # coloca na matriz de confusao
-            learner.mat_confusao.add(inst_test.classe, rank[0][0], top_score)
-            learner.mat_confusao_folds[fold.numero].add(inst_test.classe, rank[0][0], top_score)
-            learner.mat_confusao_geral.add(inst_test.classe, rank[0][0], top_score)
+            learner.mat_confusao.add(inst_test.classe, rank[0][0], 1)
+            learner.mat_confusao_folds[fold.numero].add(inst_test.classe, rank[0][0], 1)
+            learner.mat_confusao_geral.add(inst_test.classe, rank[0][0], 1)
             
 
 
     def avalia_ensembles(self, fold):
-        # inicia combinadores
+
         for ens in self.ensembles:
             ens.inicia_agregador(self.dataset.n_classes)
             ens.predict()
             
-        # avaliar os ensembles
-        for n_inst, inst_test in enumerate(fold.inst_test):
-            for ens in self.ensembles:
+            # avaliar os ensembles
+            for n_inst, inst_test in enumerate(fold.inst_test):
                 y1 = inst_test.classe
                 y2 = str(ens.combined_votes[n_inst])
-                ens.mat_confusao_folds[fold.numero].add(y1, y2, 0)
-                ens.mat_confusao.add(y1, y2, 0)
-                ens.mat_confusao_geral.add(y1, y2, 0)
+                ens.mat_confusao_folds[fold.numero].add(y1, y2, 1)
+                ens.mat_confusao.add(y1, y2, 1)
+                ens.mat_confusao_geral.add(y1, y2, 1)
+
+
 
 
     def treina_base_learner(self, fold, base_learner, com_repeticao):
