@@ -43,7 +43,33 @@ class EnsembleAlgorithm(object):
 
     def avalia_instancias_nao_treinadas(self, instancias_nao_treinadas, base_learner):
         erro = 0.0
+        erroPorcentagem = 0.0
+        erroProporcao = 0.0
+        erroProporcaoDiferenca = 0.0
+        erroAtivacao = 0.0
+        erroPorcentagemAtivacao = 0.0
+        erroProporcaoAtivacao = 0.0
+        erroProporcaoDiferencaAtivacao = 0.0
+        
         totalPesos = 0.0
+        totalPesosPorcentagem = 0.0
+        totalPesosProporcao = 0.0
+        totalPesosProporcaoDiferenca = 0.0
+        totalPesosAtivacao = 0.0
+        totalPesosPorcentagemAtivacao = 0.0
+        totalPesosProporcaoAtivacao = 0.0
+        totalPesosProporcaoDiferencaAtivacao = 0.0
+        
+        erros = {}
+        erros['nenhum'] = 0.0
+        erros['porcentagem'] = 0.0
+        erros['proporcao'] = 0.0
+        erros['proporcaoDiferenca'] = 0.0
+        erros['ativacao'] = 0.0
+        erros['porcentagem+ativacao'] = 0.0
+        erros['porporcao+ativacao'] = 0.0
+        erros['proporcaoDiferenca+ativacao'] = 0.0
+        
         
         certas = 0.0
         erradas = 0.0
@@ -53,37 +79,60 @@ class EnsembleAlgorithm(object):
             resposta = getattr(base_learner.classificador, base_learner.rank_method)(base_learner.encoder(inst.junta_features(base_learner.selected_features)))
             rank = util.ranked(resposta) # rank recebe varias tuplas ordenadas ('classe', somaRespostasDosDiscriminadores)
 
-            #TODO: colocar pra pedir a confianca da forma desejada
-            confianca, ativados = self.calcula_confianca_voto(resposta, base_learner.n_neurons)
+            confiancas, ativacao = self.calcula_confianca_voto(resposta, base_learner.n_neurons)
 
             # guardar instancias corretas, calcular erro
+            
+            #peso_para_o_erro = inst.peso
+            peso_para_o_erro = 1.0
+            
             if inst.classe == rank[0][0]:
                 pass
                 certas+=1
             else:
-                erro += inst.peso
+                erro += peso_para_o_erro
+                erroPorcentagem += peso_para_o_erro*confiancas['porcentagem']
+                erroProporcao += peso_para_o_erro*confiancas['proporcao']
+                erroProporcaoDiferenca += peso_para_o_erro*confiancas['proporcaoDiferenca']
+                erroAtivacao += peso_para_o_erro*ativacao
+                erroPorcentagemAtivacao += peso_para_o_erro*confiancas['porcentagem']*ativacao
+                erroProporcaoAtivacao += peso_para_o_erro*confiancas['proporcao']*ativacao
+                erroProporcaoDiferencaAtivacao += peso_para_o_erro*confiancas['proporcaoDiferenca']*ativacao
                 erradas+=1
             
-            totalPesos +=inst.peso
+            totalPesos += peso_para_o_erro
+            totalPesosPorcentagem += peso_para_o_erro*confiancas['porcentagem']
+            totalPesosProporcao += peso_para_o_erro*confiancas['proporcao']
+            totalPesosProporcaoDiferenca += peso_para_o_erro*confiancas['proporcaoDiferenca']
+            totalPesosAtivacao += peso_para_o_erro*ativacao
+            totalPesosPorcentagemAtivacao += peso_para_o_erro*confiancas['porcentagem']*ativacao
+            totalPesosProporcaoAtivacao += peso_para_o_erro*confiancas['proporcao']*ativacao
+            totalPesosProporcaoDiferencaAtivacao += peso_para_o_erro*confiancas['proporcaoDiferenca']*ativacao
             
         #print "Acuracia: ", (certas/(certas+erradas)), "    Peso Certas: ", totalPesos-erro, "    Peso Erradas: ", erro, "    Total Pesos: ", totalPesos, "    Erro Percentual: ", erro/totalPesos
         
-        #TODO: aqui preencher e retornar um dict com os valores de cada tipo de erro
+        erros['nenhum'] = erradas/(certas+erradas)
+        erros['porcentagem'] = erroPorcentagem/totalPesosPorcentagem
+        erros['proporcao'] = erroProporcao/totalPesosProporcao
+        erros['proporcaoDiferenca'] = erroProporcaoDiferenca/totalPesosProporcaoDiferenca
+        erros['ativacao'] = erroAtivacao/totalPesosAtivacao
+        erros['porcentagem+ativacao'] = erroPorcentagemAtivacao/totalPesosPorcentagemAtivacao
+        erros['proporcao+ativacao'] = erroProporcaoAtivacao/totalPesosProporcaoAtivacao
+        erros['proporcaoDiferenca+ativacao'] = erroProporcaoDiferencaAtivacao/totalPesosProporcaoDiferencaAtivacao
         
-        return erro/totalPesos
-        #return erradas/(certas+erradas)
+        return erros
 
     
     
-    def atualiza_peso_learner(self, erro, n_learner):
-        beta = erro/(1.0-erro)
-        log_inverso_beta = np.log(1/beta)
-        
-        inverso_beta = (1.0-erro)/erro
-        
+    def atualiza_peso_learner(self, erros, n_learner):
         
         for ens in self.ensembles:
-            #TODO: aqui colocar pra guardar o peso de acordo com o tipo de erro q o ensemble usar
+            erro = erros[ens.tipo_erro]
+            
+            beta = erro/(1.0-erro)
+            inverso_beta = 1.0/beta
+            log_inverso_beta = np.log(inverso_beta)
+            
             ens.guarda_peso(n_learner, log_inverso_beta)
             
         #print " Erro: ", erro, "    Inverso Beta: ", inverso_beta, "    Log Inverso Beta: ", log_inverso_beta
@@ -136,46 +185,39 @@ class EnsembleAlgorithm(object):
 
 
     def calcula_confianca_voto(self, resposta, n_neuronios):
+        
+        ativacao = 0.0
+        confiancas = {}
+        confiancas['porcentagem'] = 0.0 
+        confiancas['proporcao'] = 0.0
+        confiancas['proporcaoDiferenca'] = 0.0
+        
         # calcular a confianca do base learner
-        confianca0 = resposta['0']*1.0
-        confianca1 = resposta['1']*1.0
+        confianca0 = float(resposta['0'])
+        confianca1 = float(resposta['1'])
         
-        ativados0 = resposta['0']*1.0
-        ativados1 = resposta['1']*1.0
-        
-        '''
-        if (confianca0 == 0) and (confianca1 == 0):
-            confianca0 = 0.5
-            confianca1 = 0.5
-        elif (confianca0 == 0) or (confianca1 == 0):
-            if (confianca0 == 0):
-                confianca0 = 0.01
-                confianca1 = 0.99
-            else:
-                confianca0 = 0.99
-                confianca1 = 0.01
-        '''
+        ativados0 = float(resposta['0'])
+        ativados1 = float(resposta['1'])
         
         if (confianca0 == 0) or (confianca1 == 0):
             confianca0 += 1.0
             confianca1 += 1.0
         
-        
         somaConfiancas = confianca0+confianca1
-        confianca0 = confianca0/somaConfiancas
-        confianca1 = confianca1/somaConfiancas
+#        confianca0 = confianca0/somaConfiancas
+#        confianca1 = confianca1/somaConfiancas
         if confianca0 > confianca1:
-            #confiancaCorreta = confianca0
-            confiancaCorreta = confianca0/confianca1
-            ativadosCorreto = ativados0/n_neuronios
+            confiancas['porcentagem'] = confianca0/somaConfiancas
+            confiancas['proporcao'] = confianca0/confianca1
+            confiancas['proporcaoDiferenca'] = (confianca0-confianca1)/confianca0
+            ativacao = ativados0/n_neuronios
         else:
-            #confiancaCorreta = confianca1
-            confiancaCorreta = confianca1/confianca0
-            ativadosCorreto = ativados1/n_neuronios
+            confiancas['porcentagem'] = confianca1/somaConfiancas
+            confiancas['proporcao'] = confianca1/confianca0
+            confiancas['proporcaoDiferenca'] = (confianca1-confianca0)/confianca1
+            ativacao = ativados1/n_neuronios
         
-        #TODO: aqui colocar pra calcular de acordo com o tipo de confianca usado
-        
-        return confiancaCorreta, ativadosCorreto
+        return confiancas, ativacao
 
 
 
@@ -183,9 +225,6 @@ class EnsembleAlgorithm(object):
 
 
     def avalia_base_learner(self, fold, learner, n_learner):
-        erro = 0.0
-        erroTotal = 0.0
-        
         # avaliar o learner no conjunto de test do fold
         for n_inst, inst_test in enumerate(fold.inst_test):
             #classifica
@@ -193,7 +232,7 @@ class EnsembleAlgorithm(object):
             rank = util.ranked(resposta) # rank recebe varias tuplas ordenadas ('classe', somaRespostasDosDiscriminadores)
             
             #TODO: colocar pra pegar a confianca da forma desejada
-            confianca, ativados = self.calcula_confianca_voto(resposta, learner.n_neurons)
+            confiancas, ativacao = self.calcula_confianca_voto(resposta, learner.n_neurons)
             
             '''
             # top_score recebe a maior soma dos discriminadores
@@ -212,20 +251,35 @@ class EnsembleAlgorithm(object):
             # guarda os votos do classificador
             #TODO: aqui colocar pra guardar o voto de acordo com o tipo de confianca usado
             for ens in self.ensembles:
+                
+                if ens.tipo_intensidade == 'nenhum':
+                    intensidade = 1.0
+                elif ens.tipo_intensidade == 'porcentagem':
+                    intensidade = confiancas['porcentagem']
+                elif ens.tipo_intensidade == 'proporcao':
+                    intensidade = confiancas['proporcao']
+                elif ens.tipo_intensidade == 'proporcaoDiferenca':
+                    intensidade = confiancas['proporcaoDiferenca']
+                elif ens.tipo_intensidade == 'ativacao':
+                    intensidade = ativacao
+                elif ens.tipo_intensidade == 'porcentagem+ativacao':
+                    intensidade = confiancas['porcentagem']*ativacao
+                elif ens.tipo_intensidade == 'proporcao+ativacao':
+                    intensidade = confiancas['proporcao']*ativacao
+                elif ens.tipo_intensidade == 'proporcaoDiferenca+ativacao':
+                    intensidade = confiancas['proporcaoDiferenca']*ativacao
+                else:
+                    print "Erro, tipo_intensidade nao existe -> ", ens.tipo_intensidade
+                
+                ens.guarda_voto(n_learner, n_inst, rank[0][0], intensidade)
+                
+                '''
                 if ens.com_confiancas == True:
                     ens.guarda_voto(n_learner, n_inst, rank[0][0], confianca*ativados)
                     #print "Resposta: ", resposta, "    Confianca: ", confiancaCorreta, "    Ativados: ", ativadosCorreto, "    Conf*Ativ: ", confiancaCorreta*ativadosCorreto
                 else:
                     ens.guarda_voto(n_learner, n_inst, rank[0][0], 1)
-            
-            
-            #TODO: verificar, acho que esse err o nunca e usado
-            # calcular total possivel para o erro
-            erroTotal += inst_test.peso
-            # calcular erro
-            if inst_test.classe != rank[0][0]:
-                erro += inst_test.peso
-        return erro/erroTotal
+                '''
 
 
 
@@ -341,15 +395,14 @@ class AdaBoost(EnsembleAlgorithm):
                 #TODO: remover esta gambiarra
                 #instancias_nao_treinadas = fold.inst_treino
 
-                erro = self.avalia_instancias_nao_treinadas(instancias_nao_treinadas, base_learner)
-                #self.atualiza_peso_learner(erro, n_learner)
-                self.atualiza_peso_learner(erro, n_learner)
+                erros = self.avalia_instancias_nao_treinadas(instancias_nao_treinadas, base_learner)
+                self.atualiza_peso_learner(erros, n_learner)
                 
                 # nao pode ser antes de avaliar as instancias nao treinadas
                 self.atualiza_pesos_instancias_treino(fold, set_corretas, erroConjTreino)
                 
                                 
-                _ = self.avalia_base_learner(fold, base_learner, n_learner)
+                self.avalia_base_learner(fold, base_learner, n_learner)
                 
                 
             self.avalia_ensembles(fold)            
@@ -406,18 +459,18 @@ class Bagging(EnsembleAlgorithm):
                 instancias_nao_treinadas = self.treina_base_learner(fold, base_learner, self.com_repeticao)
 
                 # calcular o erro do classificador no conj de treino
-                erroConjTreino, _ = self.avalia_instancias_treino(fold, base_learner)
+                #erroConjTreino, _ = self.avalia_instancias_treino(fold, base_learner)
 
                 #TODO: remover esta gambiarra
                 #instancias_nao_treinadas = fold.inst_treino
                 
                 # calcular o erro nas instancias nao treinadas
-                erro = self.avalia_instancias_nao_treinadas(instancias_nao_treinadas, base_learner)
+                erros = self.avalia_instancias_nao_treinadas(instancias_nao_treinadas, base_learner)
                 
-                self.atualiza_peso_learner(erro, n_learner)
+                self.atualiza_peso_learner(erros, n_learner)
                 
                 
-                _ = self.avalia_base_learner(fold, base_learner, n_learner)
+                self.avalia_base_learner(fold, base_learner, n_learner)
                 
                 
             self.avalia_ensembles(fold)            

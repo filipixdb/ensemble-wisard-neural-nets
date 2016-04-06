@@ -187,10 +187,10 @@ class Ensemble(object):
     classe para guardar informacoes e metricas de um ensemble
     '''
     
-    def __init__(self, tipo_voto, n_folds, mat_confusao_geral, com_confiancas=False):
+    def __init__(self, tipo_voto, n_folds, mat_confusao_geral, tipo_erro, tipo_intensidade):
         self.tipo_voto = tipo_voto
-        
-        self.com_confiancas = com_confiancas
+        self.tipo_erro = tipo_erro
+        self.tipo_intensidade = tipo_intensidade
         
         self.mat_confusao_geral = mat_confusao_geral
         self.mat_confusao = util.ConfusionMatrix()
@@ -200,15 +200,15 @@ class Ensemble(object):
         
         self.combined_votes = None
         self.votos = None
-        self.confiancas = None
+        self.intensidades = None
         self.pesos_learners = None
         
         self.agregador = None
         
-        self.label = "Ensemble voting= "+tipo_voto+"  confiancas= "+str(self.com_confiancas)
+        self.label = "Ensemble voting= "+tipo_voto+"  tipo_erro= "+str(self.tipo_erro)+"  tipo_intensidade= "+str(self.tipo_intensidade)
         
     def inicia_agregador(self, n_classes=2):
-        self.agregador = compo.VotingAggregator(self.votos, self.confiancas, len(self.votos), len(self.votos[0]), n_classes, vote=self.tipo_voto,
+        self.agregador = compo.VotingAggregator(self.votos, self.intensidades, len(self.votos), len(self.votos[0]), n_classes, vote=self.tipo_voto,
                                                       weights=self.pesos_learners)
     
     def predict(self):
@@ -216,7 +216,7 @@ class Ensemble(object):
         
     def inicia_votos_e_pesos(self, n_learners, n_instancias):
         self.votos = []
-        self.confiancas = []
+        self.intensidades = []
         for _ in xrange(n_instancias):
             learners = []
             confs = []
@@ -225,7 +225,7 @@ class Ensemble(object):
                 learners.append(x)
                 confs.append(float(x))
             self.votos.append(learners)
-            self.confiancas.append(confs)
+            self.intensidades.append(confs)
         
         self.pesos_learners = []
         for _ in xrange(n_learners):
@@ -234,7 +234,7 @@ class Ensemble(object):
         
     def guarda_voto(self, learner, instancia, voto, confianca):
         self.votos[int(instancia)][int(learner)] = int(voto)
-        self.confiancas[int(instancia)][int(learner)] = float(confianca)
+        self.intensidades[int(instancia)][int(learner)] = float(confianca)
         
     def guarda_peso(self, learner, peso):
         self.pesos_learners[learner] = peso
@@ -245,15 +245,18 @@ def cria_matriz_confusao_geral_ensemble():
     mat_boost = {}
     mat_bagging = {}
     
-    mat_boost['majority'] = util.ConfusionMatrix()
-    mat_boost['weightedClassifiers'] = util.ConfusionMatrix()
-    mat_boost['majorityConfianca'] = util.ConfusionMatrix()
-    mat_boost['weightedClassifiersConfianca'] = util.ConfusionMatrix()
+    tipos_voto = ['majority', 'weightedClassifiers']
+    tipos_erro = ['nenhum', 'porcentagem', 'proporcao', 'proporcaoDiferenca', 'ativacao', 'porcentagem+ativacao', 'proporcao+ativacao', 'proporcaoDiferenca+ativacao']
+    tipos_intensidade = ['nenhum', 'porcentagem', 'proporcao', 'proporcaoDiferenca', 'ativacao', 'porcentagem+ativacao', 'proporcao+ativacao', 'proporcaoDiferenca+ativacao']
     
-    mat_bagging['majority'] = util.ConfusionMatrix()
-    mat_bagging['weightedClassifiers'] = util.ConfusionMatrix()
-    mat_bagging['majorityConfianca'] = util.ConfusionMatrix()
-    mat_bagging['weightedClassifiersConfianca'] = util.ConfusionMatrix()
+    for tipo_voto in tipos_voto:
+        for tipo_erro in tipos_erro:
+            if tipo_voto == 'majority' and tipo_erro != 'nenhum':
+                continue
+            else:
+                for tipo_intensidade in tipos_intensidade:
+                    mat_boost[tipo_voto+tipo_erro+tipo_intensidade] = util.ConfusionMatrix()
+                    mat_bagging[tipo_voto+tipo_erro+tipo_intensidade] = util.ConfusionMatrix()
     
     matrizes['AdaBoost'] = mat_boost
     matrizes['Bagging'] = mat_bagging

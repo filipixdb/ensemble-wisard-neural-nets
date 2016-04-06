@@ -55,11 +55,30 @@ def executa_algoritmo(algoritmo, dataset, n_folds, configs_single_learners, conf
     # cria os ensembles
     ensembles = []
     if len(base_learners) > 0:
+        
+        
+        #TODO: colocar as configuracoes dos ensembles (com as novas composicoes de votos)
+        
+        
+        
+        tipos_voto = ['majority', 'weightedClassifiers']
+        tipos_erro = ['nenhum', 'porcentagem', 'proporcao', 'proporcaoDiferenca', 'ativacao', 'porcentagem+ativacao', 'proporcao+ativacao', 'proporcaoDiferenca+ativacao']
+        tipos_intensidade = ['nenhum', 'porcentagem', 'proporcao', 'proporcaoDiferenca', 'ativacao', 'porcentagem+ativacao', 'proporcao+ativacao', 'proporcaoDiferenca+ativacao']
+        
+        for tipo_voto in tipos_voto:
+            for tipo_erro in tipos_erro:
+                if tipo_voto == 'majority' and tipo_erro != 'nenhum':
+                    continue
+                else:
+                    for tipo_intensidade in tipos_intensidade:
+                        ensembles.append(Ensemble(tipo_voto, n_folds, matrizes_ensemble[tipo_voto+tipo_erro+tipo_intensidade], tipo_erro, tipo_intensidade))
+        
+        '''       
         ensembles.append(Ensemble('majority', n_folds, matrizes_ensemble['majority']))
         ensembles.append(Ensemble('weightedClassifiers', n_folds, matrizes_ensemble['weightedClassifiers']))
         ensembles.append(Ensemble('majority', n_folds, matrizes_ensemble['majorityConfianca'], com_confiancas=True))
         ensembles.append(Ensemble('weightedClassifiers', n_folds, matrizes_ensemble['weightedClassifiersConfianca'], com_confiancas=True))
-    
+        '''    
 
     if algoritmo=='AdaBoost':
         alg = AdaBoost(dataset, base_learners, single_learners, ensembles, amostragem, repeticao)

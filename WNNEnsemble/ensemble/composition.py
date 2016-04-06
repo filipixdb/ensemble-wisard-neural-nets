@@ -27,7 +27,7 @@ class VotingAggregator(object):
                  vote='majority', weights=None):
         
         self.votes = votes
-        self.confiancas = confiancas
+        self.intensidades = confiancas
         self.classifiers = classifiers
         self.vote = vote
         self.weights = weights
@@ -48,7 +48,7 @@ class VotingAggregator(object):
             for i in range(self.n_instances):
                 for c in range(self.n_classifiers):
                     prediction = int(self.votes[i][c])
-                    self.vote_count[i,prediction] += self.confiancas[i][c]
+                    self.vote_count[i,prediction] += self.intensidades[i][c]
                 # preencher a resposta final considerando sorteio para empate
                 max_value_index = np.where(self.vote_count[i,:] == self.vote_count[i,:].max())
                 max_value_index = max_value_index[0]
@@ -59,7 +59,7 @@ class VotingAggregator(object):
                 for c in range(self.n_classifiers):
                     prediction = int(self.votes[i][c])
                     peso = self.weights[c]
-                    self.vote_count[i,prediction] += (self.confiancas[i][c]*peso)
+                    self.vote_count[i,prediction] += (self.intensidades[i][c]*peso)
                 # preencher a resposta final considerando sorteio para empate
                 max_value_index = np.where(self.vote_count[i,:] == self.vote_count[i,:].max())
                 max_value_index = max_value_index[0]
@@ -69,13 +69,13 @@ class VotingAggregator(object):
             for i in range(self.n_instances):
                 for c in range(self.n_classifiers):
                     prediction = self.votes[i][c]
-                    self.vote_count[i][prediction] += (self.confiancas[i][c]*self.weights[i][c])
+                    self.vote_count[i][prediction] += (self.intensidades[i][c]*self.weights[i][c])
                 # preencher a resposta final considerando sorteio para empate
                 max_value_index = np.where(self.vote_count[i,:] == self.vote_count[i,:].max())
                 max_value_index = max_value_index[0]
                 self.combined_votes[i] = int(np.random.choice(max_value_index))
         
-        #print "Confiancas: ", self.confiancas
+        #print "Confiancas: ", self.intensidades
         #print "Vote Counts: ", self.vote_count
         #print "Votos: ", self.votes
                 
