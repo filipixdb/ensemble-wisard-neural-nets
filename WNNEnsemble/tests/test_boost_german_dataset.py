@@ -28,6 +28,9 @@ def main():
     
     for parametrizacao in parametrizacoes:
         print "\nParametrizacao: ", parametrizacao
+        arq_saida = 'files/param_'+parametrizacao+'_german_dataset.saida'
+        with open(arq_saida, 'a') as arq:
+            arq.write("\nParametrizacao: "+parametrizacao+'\n')
         
         # ler configs dos single e base learners
         #configs_single_learners, configs_base_learners = frdr.le_parametros('../tests/files/'+arquivo+'.params'+str(x))
@@ -38,7 +41,16 @@ def main():
         
     
         for execucao in xrange(n_execucoes):
+            if execucao == (n_execucoes-1):
+                exibe_resultados = True
+            else:
+                exibe_resultados = False
+               
             print "\n  execucao: ", execucao
+            if exibe_resultados:
+                with open(arq_saida, 'a') as arq:
+                    arq.write("\n  execucao: "+str(execucao)+'\n')
+            
             
             # embaralhar instancias
             data = random.sample(data, len(data))
@@ -51,13 +63,23 @@ def main():
     
     
             # criar o dataset e folds
-            dataset = DataSet(data, tam_features, n_folds, n_classes, nome='german dataset')
+            dataset = DataSet(data, tam_features, n_folds, n_classes, nome='files/param_'+parametrizacao+'_german_dataset.saida')
+            
             
             print "\n    Bagging"
-            executa_algoritmo("Bagging", dataset, n_folds, configs_single_learners, configs_base_learners_escolhidos, matrizes_ensemble['Bagging'], tamanho_treino_bagging, com_repeticao_bagging, mesmo_mapping_bagging)
+            if exibe_resultados:
+                with open(arq_saida, 'a') as arq:
+                    arq.write("\n    Bagging\n")
+            
+            executa_algoritmo("Bagging", dataset, n_folds, configs_single_learners, configs_base_learners_escolhidos, matrizes_ensemble['Bagging'], tamanho_treino_bagging, com_repeticao_bagging, mesmo_mapping_bagging, exibe_resultados)
+            
             
             print "\n    AdaBoost"
-            executa_algoritmo("AdaBoost", dataset, n_folds, [], configs_base_learners_escolhidos, matrizes_ensemble['AdaBoost'], tamanho_treino_boost, com_repeticao_boost, mesmo_mapping_boost)
+            if exibe_resultados:
+                with open(arq_saida, 'a') as arq:
+                    arq.write("\n    AdaBoost\n")
+            
+            executa_algoritmo("AdaBoost", dataset, n_folds, [], configs_base_learners_escolhidos, matrizes_ensemble['AdaBoost'], tamanho_treino_boost, com_repeticao_boost, mesmo_mapping_boost, exibe_resultados)
 
     
     '''
@@ -83,7 +105,7 @@ def main():
     '''
 
 
-def executa_algoritmo(algoritmo, dataset, n_folds, configs_single_learners, configs_base_learners, matrizes_ensemble, amostragem, repeticao, mapping_igual):
+def executa_algoritmo(algoritmo, dataset, n_folds, configs_single_learners, configs_base_learners, matrizes_ensemble, amostragem, repeticao, mapping_igual, exibe_resultados):
     # criar os single learners
     single_learners = e_clss.cria_learners(configs_single_learners, n_folds, dataset.tam_features, mapping_igual)
     # criar os base learners
@@ -107,9 +129,9 @@ def executa_algoritmo(algoritmo, dataset, n_folds, configs_single_learners, conf
         
 
     if algoritmo=='AdaBoost':
-        alg = AdaBoost(dataset, base_learners, single_learners, ensembles, amostragem, repeticao)
+        alg = AdaBoost(dataset, base_learners, single_learners, ensembles, amostragem, exibe_resultados, repeticao)
     elif algoritmo=='Bagging':
-        alg = Bagging(dataset, base_learners, single_learners, ensembles, amostragem, repeticao)
+        alg = Bagging(dataset, base_learners, single_learners, ensembles, amostragem, exibe_resultados, repeticao)
 
     alg.executa_folds()
 

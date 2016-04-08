@@ -8,13 +8,14 @@ import wann.util as util
 
 class EnsembleAlgorithm(object):
     
-    def __init__(self, dataset, base_learners, single_learners, ensembles, tam_treino, com_repeticao=True):
+    def __init__(self, dataset, base_learners, single_learners, ensembles, tam_treino, mostra_resultados, com_repeticao=True):
         
         self.dataset = dataset
         self.base_learners = base_learners
         self.single_learners = single_learners
         self.ensembles = ensembles
         self.tam_treino = tam_treino
+        self.mostra_resultados = mostra_resultados
         self.com_repeticao = com_repeticao
 
 
@@ -150,24 +151,24 @@ class EnsembleAlgorithm(object):
             #print single_learner.mat_confusao
             print "            ", single_learner.mat_confusao.stats('simples')
         '''
-        '''
+        
         if len(self.single_learners) > 0:
             print "      Single Learners (GERAL)   ------------------"
             print "\n"
         for single_learner in self.single_learners:
             print "        ", single_learner.label
             #print single_learner.mat_confusao
-            print "            ", single_learner.mat_confusao_geral.stats('simples')
-        '''
-        '''
+            print "            ", single_learner.mat_confusao_geral.stats('simples', [1, 5])
+        
+        
         if len(self.base_learners) > 0:
             print "      Base Learners   -----------------"
             print "\n"
         for base_learner in self.base_learners:
             print "        ", base_learner.label
             #print base_learner.mat_confusao
-            print "            ", base_learner.mat_confusao.stats('simples')
-        '''
+            print "            ", base_learner.mat_confusao.stats('simples', [1, 5])
+        
         '''
         if len(self.ensembles) > 0:
             print "      Ensembles   ------------------"
@@ -188,6 +189,63 @@ class EnsembleAlgorithm(object):
             #TODO: colocar pra descobrir sozinho os custos
             print "            ", ens.mat_confusao_geral.stats('simples', [1, 5])
         
+
+
+
+
+    def salva_resultados(self):
+        with open(self.dataset.nome, 'a') as arq:
+            arq.write("\n")
+            '''
+            if len(self.single_learners) > 0:
+                arq.write("\n      Single Learners   -----------------\n")
+                arq.write("\n\n")
+            for single_learner in self.single_learners:
+                arq.write("        "+single_learner.label+'\n')
+                #arq.write(single_learner.mat_confusao+'\n')
+                arq.write("            "+str(single_learner.mat_confusao.stats('simples'))+'\n')
+            '''
+            
+            if len(self.single_learners) > 0:
+                arq.write("\n      Single Learners (GERAL)   ------------------\n")
+                arq.write("\n\n")
+            for single_learner in self.single_learners:
+                arq.write("        "+single_learner.label+'\n')
+                #print single_learner.mat_confusao
+                arq.write("            "+str(single_learner.mat_confusao_geral.stats('simples', [1, 5]))+'\n')
+            
+            
+            if len(self.base_learners) > 0:
+                arq.write("\n      Base Learners   -----------------\n")
+                arq.write("\n\n")
+            for base_learner in self.base_learners:
+                arq.write("        "+base_learner.label+'\n')
+                #arq.write(base_learner.mat_confusao+'\n')
+                arq.write("            "+str(base_learner.mat_confusao.stats('simples', [1, 5]))+'\n')
+            
+            '''
+            if len(self.ensembles) > 0:
+                arq.write("\n      Ensembles   ------------------\n")
+                arq.write("\n\n")
+            for ens in self.ensembles:
+                arq.write("        "+ens.label+'\n')
+                #arq.write(ens.mat_confusao+'\n')
+                arq.write("            "+str(ens.mat_confusao.stats('simples'))+'\n')
+            
+            
+            '''
+            if len(self.ensembles) > 0:
+                arq.write("\n      Ensembles (GERAL)  ------------------\n")
+                arq.write("\n\n")
+            for ens in self.ensembles:
+                arq.write("        "+ens.label+'\n')
+                #arq.write(ens.mat_confusao_geral+'\n')
+                #TODO: colocar pra descobrir sozinho os custos
+                arq.write("            "+str(ens.mat_confusao_geral.stats('simples', [1, 5]))+'\n')
+        
+
+
+
 
 
 
@@ -368,9 +426,9 @@ class AdaBoost(EnsembleAlgorithm):
     Classe responsavel por rodar o algoritmo e armazenar os resultados e metricas
     '''
     
-    def __init__(self, dataset, base_learners, single_learners, ensembles, tam_treino, com_repeticao=True):
+    def __init__(self, dataset, base_learners, single_learners, ensembles, tam_treino, mostra_resultados, com_repeticao=True):
         
-        super(AdaBoost, self).__init__(dataset, base_learners, single_learners, ensembles, tam_treino, com_repeticao)
+        super(AdaBoost, self).__init__(dataset, base_learners, single_learners, ensembles, tam_treino, mostra_resultados, com_repeticao)
 
 
     def executa_folds(self):
@@ -414,7 +472,9 @@ class AdaBoost(EnsembleAlgorithm):
                 
             self.avalia_ensembles(fold)            
         
-        self.exibe_resultados()
+        if (self.mostra_resultados):
+            self.exibe_resultados()
+            self.salva_resultados()
 
         
     def atualiza_pesos_instancias_treino(self, fold, set_corretas, erro):
@@ -439,8 +499,8 @@ class Bagging(EnsembleAlgorithm):
     Classe responsavel por rodar o algoritmo e armazenar os resultados e metricas
     '''
     
-    def __init__(self, dataset, base_learners, single_learners, ensembles, tam_treino, com_repeticao=True):
-        super(Bagging, self).__init__(dataset, base_learners, single_learners, ensembles, tam_treino, com_repeticao)
+    def __init__(self, dataset, base_learners, single_learners, ensembles, tam_treino, mostra_resultados, com_repeticao=True):
+        super(Bagging, self).__init__(dataset, base_learners, single_learners, ensembles, tam_treino, mostra_resultados, com_repeticao)
     
 
     def executa_folds(self):
@@ -482,5 +542,6 @@ class Bagging(EnsembleAlgorithm):
                 
             self.avalia_ensembles(fold)            
         
-        self.exibe_resultados()
-
+        if (self.mostra_resultados):
+            self.exibe_resultados()
+            self.salva_resultados()
