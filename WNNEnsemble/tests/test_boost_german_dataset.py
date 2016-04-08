@@ -14,28 +14,16 @@ from ensemble.boost import AdaBoost, Bagging
 
 
 def main():
-
     
     # ler informacoes
     arquivo = 'encoded_german_20_bits'
     
-    
-    
     # le arquivo de informacoes
     n_classes, tam_features, parametrizacoes = frdr.le_informacoes('../tests/files/'+arquivo+'.info')
-    
-    
     #n_classes, tam_features, n_params, list_n_folds = frdr.le_informacoes('../tests/files/'+arquivo+'.info')
     
-    
     # le as entradas
-    data = frdr.le_entradas('../tests/files/'+arquivo+'_TEMP.data', tam_features)
-    
-    
-    
-    
-    
-    
+    data = frdr.le_entradas('../tests/files/'+arquivo+'_TEMP.data', tam_features, shuffle=True)
     
     
     for parametrizacao in parametrizacoes:
@@ -49,12 +37,12 @@ def main():
         matrizes_ensemble = e_clss.cria_matriz_confusao_geral_ensemble()
         
     
-    
         for execucao in xrange(n_execucoes):
             print "\n  execucao: ", execucao
             
-            #TODO: embaralhar instancias
-            
+            # embaralhar instancias
+            data = random.sample(data, len(data))
+
             # sortear base learners
             if n_base_learners == None:
                 configs_base_learners_escolhidos = configs_base_learners
@@ -71,8 +59,6 @@ def main():
             print "\n    AdaBoost"
             executa_algoritmo("AdaBoost", dataset, n_folds, [], configs_base_learners_escolhidos, matrizes_ensemble['AdaBoost'], tamanho_treino_boost, com_repeticao_boost, mesmo_mapping_boost)
 
-    
-    
     
     '''
     for x in range(n_params):
@@ -126,7 +112,6 @@ def executa_algoritmo(algoritmo, dataset, n_folds, configs_single_learners, conf
         alg = Bagging(dataset, base_learners, single_learners, ensembles, amostragem, repeticao)
 
     alg.executa_folds()
-
 
 
 if __name__ == '__main__':
