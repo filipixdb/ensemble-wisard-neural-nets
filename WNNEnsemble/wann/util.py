@@ -164,7 +164,7 @@ class ConfusionMatrix:
 
         return ''.join(''.join(ax) for ax in (header, table, footer))
 
-    def stats(self, tipo=None):
+    def stats(self, tipo=None, custos=None):
         """Return a list of popular classification quality measures."""
         total = sum(self.tc_counts.values())
         hits = 0
@@ -183,12 +183,27 @@ class ConfusionMatrix:
 
             hits += tp
 
+        
+        # calcular as penalidades do problema
+        tuplaCusto = None
+        if custos != None:
+            penalizado = 0.0
+            totalCusto = 0.0
+            for classe, custo in zip(self.mat, custos):
+                tp = len(self.mat[classe][classe])
+                fp = self.sc_counts[classe] - tp
+                fn = self.tc_counts[classe] - tp
+                penalizado += fn*custo
+                totalCusto += self.tc_counts[classe]*custo
+            tuplaCusto = ('custo', "{0:.3f}".format(penalizado/totalCusto))
+            
+
         if tipo == 'simples':
             return [
                 ('accuracy', "{0:.3f}".format(hits * 1. / total)),
                 ('avg_f1_score', "{0:.3f}".format(sum(f1_score))),
+                tuplaCusto
                 ]
-            
 
         return [
             ('total', total),
@@ -197,6 +212,7 @@ class ConfusionMatrix:
             ('avg_precision', sum(precision)),
             ('avg_recall', sum(recall)),
             ('avg_f1_score', sum(f1_score)),
+            tuplaCusto
             ]
 
 

@@ -140,46 +140,53 @@ class EnsembleAlgorithm(object):
 
 
     def exibe_resultados(self):
+        print "\n"
         '''
         if len(self.single_learners) > 0:
-            print "  Single Learners --------------------"
+            print "      Single Learners   -----------------"
+            print "\n"
         for single_learner in self.single_learners:
-            print "    ", single_learner.label
+            print "        ", single_learner.label
             #print single_learner.mat_confusao
-            print "        ", single_learner.mat_confusao.stats('simples')
+            print "            ", single_learner.mat_confusao.stats('simples')
         '''
         '''
         if len(self.single_learners) > 0:
-            print "  Single Learners (GERAL)--------------------"
+            print "      Single Learners (GERAL)   ------------------"
+            print "\n"
         for single_learner in self.single_learners:
-            print "    ", single_learner.label
+            print "        ", single_learner.label
             #print single_learner.mat_confusao
-            print "        ", single_learner.mat_confusao_geral.stats('simples')
+            print "            ", single_learner.mat_confusao_geral.stats('simples')
         '''
         '''
         if len(self.base_learners) > 0:
-            print "  Base Learners ----------------------"
+            print "      Base Learners   -----------------"
+            print "\n"
         for base_learner in self.base_learners:
-            print "    ", base_learner.label
+            print "        ", base_learner.label
             #print base_learner.mat_confusao
-            print "        ", base_learner.mat_confusao.stats('simples')
+            print "            ", base_learner.mat_confusao.stats('simples')
         '''
         '''
         if len(self.ensembles) > 0:
-            print "  Ensembles --------------------------"
+            print "      Ensembles   ------------------"
+            print "\n"
         for ens in self.ensembles:
-            print "    ", ens.label
+            print "        ", ens.label
             #print ens.mat_confusao
-            print "        ", ens.mat_confusao.stats('simples')
+            print "            ", ens.mat_confusao.stats('simples')
         
         
         '''
         if len(self.ensembles) > 0:
-            print "  Ensembles (GERAL)--------------------------"
+            print "      Ensembles (GERAL)  ------------------"
+            print "\n"
         for ens in self.ensembles:
-            print "    ", ens.label
+            print "        ", ens.label
             #print ens.mat_confusao_geral
-            print "        ", ens.mat_confusao_geral.stats('simples')
+            #TODO: colocar pra descobrir sozinho os custos
+            print "            ", ens.mat_confusao_geral.stats('simples', [1, 5])
         
 
 
