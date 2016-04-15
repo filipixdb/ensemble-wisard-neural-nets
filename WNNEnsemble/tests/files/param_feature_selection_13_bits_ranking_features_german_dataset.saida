@@ -1,0 +1,372 @@
+
+Parametrizacao: feature_selection_13_bits_ranking_features
+
+  execucao: 249
+
+    Bagging
+
+
+      Single Learners (GERAL)   ------------------
+
+
+        wisard - neuronios= 32 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+            [('accuracy', '0.740'), ('avg_f1_score', '0.721'), ('custo', '0.150')]
+        wisard - neuronios= 30 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19]
+            [('accuracy', '0.744'), ('avg_f1_score', '0.727'), ('custo', '0.150')]
+        wisard - neuronios= 29 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 18, 19]
+            [('accuracy', '0.746'), ('avg_f1_score', '0.730'), ('custo', '0.149')]
+        wisard - neuronios= 27 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 18, 19]
+            [('accuracy', '0.747'), ('avg_f1_score', '0.734'), ('custo', '0.156')]
+        wisard - neuronios= 26 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 18, 19]
+            [('accuracy', '0.745'), ('avg_f1_score', '0.733'), ('custo', '0.163')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.749'), ('avg_f1_score', '0.738'), ('custo', '0.162')]
+        wisard - neuronios= 23 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14, 18, 19]
+            [('accuracy', '0.748'), ('avg_f1_score', '0.738'), ('custo', '0.163')]
+        wisard - neuronios= 21 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14, 18]
+            [('accuracy', '0.745'), ('avg_f1_score', '0.735'), ('custo', '0.167')]
+        wisard - neuronios= 20 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14]
+            [('accuracy', '0.744'), ('avg_f1_score', '0.737'), ('custo', '0.176')]
+        wisard - neuronios= 18 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 9, 10, 11, 14]
+            [('accuracy', '0.740'), ('avg_f1_score', '0.735'), ('custo', '0.185')]
+        wisard - neuronios= 16 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 10, 11, 14]
+            [('accuracy', '0.741'), ('avg_f1_score', '0.736'), ('custo', '0.185')]
+        wisard - neuronios= 15 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 7, 10, 11, 14]
+            [('accuracy', '0.733'), ('avg_f1_score', '0.728'), ('custo', '0.196')]
+        wisard - neuronios= 13 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 7, 10, 11]
+            [('accuracy', '0.712'), ('avg_f1_score', '0.709'), ('custo', '0.217')]
+        wisard - neuronios= 12 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 7, 11]
+            [('accuracy', '0.685'), ('avg_f1_score', '0.687'), ('custo', '0.259')]
+        wisard - neuronios= 10 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 7]
+            [('accuracy', '0.630'), ('avg_f1_score', '0.642'), ('custo', '0.345')]
+        wisard - neuronios= 9 - endereco= 13 - rank= answers - features= [0, 1, 3, 5, 7]
+            [('accuracy', '0.587'), ('avg_f1_score', '0.604'), ('custo', '0.422')]
+        wisard - neuronios= 7 - endereco= 13 - rank= answers - features= [0, 1, 3, 5]
+            [('accuracy', '0.535'), ('avg_f1_score', '0.547'), ('custo', '0.534')]
+        wisard - neuronios= 6 - endereco= 13 - rank= answers - features= [0, 3, 5]
+            [('accuracy', '0.421'), ('avg_f1_score', '0.383'), ('custo', '0.733')]
+        wisard - neuronios= 4 - endereco= 13 - rank= answers - features= [0, 5]
+            [('accuracy', '0.308'), ('avg_f1_score', '0.158'), ('custo', '0.908')]
+        wisard - neuronios= 2 - endereco= 13 - rank= answers - features= [0]
+            [('accuracy', '0.300'), ('avg_f1_score', '0.138'), ('custo', '0.921')]
+
+    AdaBoost
+
+
+------------------------------------
+
+testando onde deu errado
+
+
+
+Parametrizacao: feature_selection_13_bits_ranking_features
+
+  execucao: 249
+
+    Bagging
+
+
+      Single Learners (GERAL)   ------------------
+
+
+        wisard - neuronios= 26 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 18, 19]
+            [('accuracy', '0.745'), ('avg_f1_score', '0.734'), ('custo', '0.163')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.750'), ('avg_f1_score', '0.739'), ('custo', '0.162')]
+        wisard - neuronios= 23 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14, 18, 19]
+            [('accuracy', '0.749'), ('avg_f1_score', '0.739'), ('custo', '0.163')]
+        wisard - neuronios= 18 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 9, 10, 11, 14]
+            [('accuracy', '0.740'), ('avg_f1_score', '0.735'), ('custo', '0.185')]
+        wisard - neuronios= 16 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 10, 11, 14]
+            [('accuracy', '0.741'), ('avg_f1_score', '0.736'), ('custo', '0.186')]
+
+    AdaBoost
+
+
+-----------------------------------------
+
+
+
+
+Parametrizacao: feature_selection_13_bits_ranking_features
+
+  execucao: 399
+
+    Bagging
+
+
+      Single Learners (GERAL)   ------------------
+
+
+        wisard - neuronios= 32 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+            [('accuracy', '0.740'), ('avg_f1_score', '0.722'), ('custo', '0.150')]
+        wisard - neuronios= 30 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19]
+            [('accuracy', '0.745'), ('avg_f1_score', '0.728'), ('custo', '0.150')]
+        wisard - neuronios= 29 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 18, 19]
+            [('accuracy', '0.746'), ('avg_f1_score', '0.730'), ('custo', '0.150')]
+        wisard - neuronios= 27 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 18, 19]
+            [('accuracy', '0.748'), ('avg_f1_score', '0.735'), ('custo', '0.156')]
+        wisard - neuronios= 26 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 18, 19]
+            [('accuracy', '0.745'), ('avg_f1_score', '0.734'), ('custo', '0.163')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.749'), ('avg_f1_score', '0.738'), ('custo', '0.163')]
+        wisard - neuronios= 23 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14, 18, 19]
+            [('accuracy', '0.748'), ('avg_f1_score', '0.739'), ('custo', '0.164')]
+        wisard - neuronios= 21 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14, 18]
+            [('accuracy', '0.745'), ('avg_f1_score', '0.735'), ('custo', '0.167')]
+        wisard - neuronios= 20 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14]
+            [('accuracy', '0.741'), ('avg_f1_score', '0.734'), ('custo', '0.178')]
+        wisard - neuronios= 18 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 9, 10, 11, 14]
+            [('accuracy', '0.739'), ('avg_f1_score', '0.734'), ('custo', '0.186')]
+        wisard - neuronios= 16 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 10, 11, 14]
+            [('accuracy', '0.741'), ('avg_f1_score', '0.736'), ('custo', '0.186')]
+        wisard - neuronios= 15 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 7, 10, 11, 14]
+            [('accuracy', '0.731'), ('avg_f1_score', '0.727'), ('custo', '0.196')]
+        wisard - neuronios= 13 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 7, 10, 11]
+            [('accuracy', '0.713'), ('avg_f1_score', '0.710'), ('custo', '0.216')]
+        wisard - neuronios= 12 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 7, 11]
+            [('accuracy', '0.684'), ('avg_f1_score', '0.686'), ('custo', '0.261')]
+        wisard - neuronios= 10 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 7]
+            [('accuracy', '0.629'), ('avg_f1_score', '0.641'), ('custo', '0.345')]
+        wisard - neuronios= 9 - endereco= 13 - rank= answers - features= [0, 1, 3, 5, 7]
+            [('accuracy', '0.585'), ('avg_f1_score', '0.602'), ('custo', '0.426')]
+        wisard - neuronios= 7 - endereco= 13 - rank= answers - features= [0, 1, 3, 5]
+            [('accuracy', '0.534'), ('avg_f1_score', '0.546'), ('custo', '0.536')]
+        wisard - neuronios= 6 - endereco= 13 - rank= answers - features= [0, 3, 5]
+            [('accuracy', '0.421'), ('avg_f1_score', '0.382'), ('custo', '0.734')]
+        wisard - neuronios= 4 - endereco= 13 - rank= answers - features= [0, 5]
+            [('accuracy', '0.307'), ('avg_f1_score', '0.158'), ('custo', '0.909')]
+        wisard - neuronios= 2 - endereco= 13 - rank= answers - features= [0]
+            [('accuracy', '0.300'), ('avg_f1_score', '0.138'), ('custo', '0.921')]
+
+    AdaBoost
+
+
+----------------------------------------------
+
+testando somente onde ficou estranho
+
+
+
+
+Parametrizacao: feature_selection_13_bits_ranking_features
+
+  execucao: 399
+
+    Bagging
+
+
+      Single Learners (GERAL)   ------------------
+
+
+        wisard - neuronios= 26 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 16, 18, 19]
+            [('accuracy', '0.746'), ('avg_f1_score', '0.734'), ('custo', '0.159')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.750'), ('avg_f1_score', '0.739'), ('custo', '0.161')]
+        wisard - neuronios= 18 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 10, 11, 14]
+            [('accuracy', '0.740'), ('avg_f1_score', '0.733'), ('custo', '0.181')]
+        wisard - neuronios= 16 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 10, 11, 14]
+            [('accuracy', '0.742'), ('avg_f1_score', '0.737'), ('custo', '0.184')]
+
+    AdaBoost
+
+----------------------------------------------
+
+possibilidades para eliminacao das features 8, 12, 16 (17 e 15 ja eliminadas)
+
+
+
+
+Parametrizacao: feature_selection_13_bits_ranking_features
+
+  execucao: 399
+
+    Bagging
+
+
+      Single Learners (GERAL)   ------------------
+
+
+        wisard - neuronios= 29 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 18, 19]
+            [('accuracy', '0.746'), ('avg_f1_score', '0.730'), ('custo', '0.150')]
+        wisard - neuronios= 27 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 18, 19]
+            [('accuracy', '0.747'), ('avg_f1_score', '0.734'), ('custo', '0.156')]
+        wisard - neuronios= 26 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 18, 19]
+            [('accuracy', '0.746'), ('avg_f1_score', '0.734'), ('custo', '0.162')]
+        wisard - neuronios= 27 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 18, 19]
+            [('accuracy', '0.748'), ('avg_f1_score', '0.735'), ('custo', '0.155')]
+        wisard - neuronios= 26 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 16, 18, 19]
+            [('accuracy', '0.747'), ('avg_f1_score', '0.735'), ('custo', '0.159')]
+        wisard - neuronios= 27 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 18, 19]
+            [('accuracy', '0.744'), ('avg_f1_score', '0.731'), ('custo', '0.158')]
+        wisard - neuronios= 26 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 18, 19]
+            [('accuracy', '0.745'), ('avg_f1_score', '0.733'), ('custo', '0.162')]
+        wisard - neuronios= 27 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 18, 19]
+            [('accuracy', '0.744'), ('avg_f1_score', '0.730'), ('custo', '0.158')]
+        wisard - neuronios= 26 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.743'), ('avg_f1_score', '0.730'), ('custo', '0.160')]
+        wisard - neuronios= 27 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 16, 18, 19]
+            [('accuracy', '0.747'), ('avg_f1_score', '0.733'), ('custo', '0.153')]
+        wisard - neuronios= 26 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 16, 18, 19]
+            [('accuracy', '0.747'), ('avg_f1_score', '0.735'), ('custo', '0.159')]
+        wisard - neuronios= 27 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 16, 18, 19]
+            [('accuracy', '0.748'), ('avg_f1_score', '0.734'), ('custo', '0.152')]
+        wisard - neuronios= 26 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.744'), ('avg_f1_score', '0.731'), ('custo', '0.160')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.750'), ('avg_f1_score', '0.739'), ('custo', '0.161')]
+
+    AdaBoost
+
+
+---------------------------------------------------------
+
+
+
+Parametrizacao: feature_selection_13_bits_ranking_features
+
+  execucao: 399
+
+    Bagging
+
+
+      Single Learners (GERAL)   ------------------
+
+
+        wisard - neuronios= 21 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14, 18]
+            [('accuracy', '0.745'), ('avg_f1_score', '0.735'), ('custo', '0.167')]
+        wisard - neuronios= 20 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14]
+            [('accuracy', '0.743'), ('avg_f1_score', '0.736'), ('custo', '0.177')]
+        wisard - neuronios= 18 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 9, 10, 11, 14]
+            [('accuracy', '0.739'), ('avg_f1_score', '0.733'), ('custo', '0.186')]
+        wisard - neuronios= 20 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14]
+            [('accuracy', '0.742'), ('avg_f1_score', '0.735'), ('custo', '0.177')]
+        wisard - neuronios= 18 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 10, 11, 14]
+            [('accuracy', '0.740'), ('avg_f1_score', '0.734'), ('custo', '0.180')]
+        wisard - neuronios= 20 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 9, 10, 11, 14, 18]
+            [('accuracy', '0.739'), ('avg_f1_score', '0.731'), ('custo', '0.178')]
+        wisard - neuronios= 18 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 9, 10, 11, 14]
+            [('accuracy', '0.739'), ('avg_f1_score', '0.734'), ('custo', '0.186')]
+        wisard - neuronios= 20 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 9, 10, 11, 14, 18]
+            [('accuracy', '0.739'), ('avg_f1_score', '0.731'), ('custo', '0.178')]
+        wisard - neuronios= 18 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 10, 11, 14, 18]
+            [('accuracy', '0.737'), ('avg_f1_score', '0.730'), ('custo', '0.180')]
+        wisard - neuronios= 20 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 10, 11, 14, 18]
+            [('accuracy', '0.739'), ('avg_f1_score', '0.730'), ('custo', '0.176')]
+        wisard - neuronios= 18 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 10, 11, 14]
+            [('accuracy', '0.740'), ('avg_f1_score', '0.733'), ('custo', '0.181')]
+        wisard - neuronios= 20 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 10, 11, 14, 18]
+            [('accuracy', '0.739'), ('avg_f1_score', '0.731'), ('custo', '0.176')]
+        wisard - neuronios= 18 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 10, 11, 14, 18]
+            [('accuracy', '0.736'), ('avg_f1_score', '0.729'), ('custo', '0.181')]
+        wisard - neuronios= 16 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 10, 11, 14]
+            [('accuracy', '0.741'), ('avg_f1_score', '0.736'), ('custo', '0.185')]
+
+    AdaBoost
+
+
+-----------------------------------------
+
+
+
+
+
+Parametrizacao: feature_selection_13_bits_ranking_features
+
+  execucao: 399
+
+    Bagging
+
+
+      Single Learners (GERAL)   ------------------
+
+
+        wisard - neuronios= 18 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 10, 11, 14]
+            [('accuracy', '0.740'), ('avg_f1_score', '0.733'), ('custo', '0.180')]
+        wisard - neuronios= 16 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 10, 11, 14]
+            [('accuracy', '0.742'), ('avg_f1_score', '0.737'), ('custo', '0.185')]
+        wisard - neuronios= 15 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 7, 10, 11, 14]
+            [('accuracy', '0.732'), ('avg_f1_score', '0.727'), ('custo', '0.196')]
+        wisard - neuronios= 16 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 10, 11, 14]
+            [('accuracy', '0.741'), ('avg_f1_score', '0.736'), ('custo', '0.185')]
+        wisard - neuronios= 15 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 10, 11]
+            [('accuracy', '0.721'), ('avg_f1_score', '0.717'), ('custo', '0.205')]
+        wisard - neuronios= 16 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 6, 7, 10, 11, 14]
+            [('accuracy', '0.736'), ('avg_f1_score', '0.731'), ('custo', '0.187')]
+        wisard - neuronios= 15 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 7, 10, 11, 14]
+            [('accuracy', '0.731'), ('avg_f1_score', '0.727'), ('custo', '0.197')]
+        wisard - neuronios= 16 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 6, 7, 10, 11, 14]
+            [('accuracy', '0.737'), ('avg_f1_score', '0.731'), ('custo', '0.187')]
+        wisard - neuronios= 15 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 6, 7, 10, 11]
+            [('accuracy', '0.721'), ('avg_f1_score', '0.716'), ('custo', '0.204')]
+        wisard - neuronios= 16 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 10, 11]
+            [('accuracy', '0.731'), ('avg_f1_score', '0.725'), ('custo', '0.193')]
+        wisard - neuronios= 15 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 7, 10, 11]
+            [('accuracy', '0.721'), ('avg_f1_score', '0.716'), ('custo', '0.205')]
+        wisard - neuronios= 16 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 10, 11]
+            [('accuracy', '0.732'), ('avg_f1_score', '0.726'), ('custo', '0.192')]
+        wisard - neuronios= 15 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 6, 7, 10, 11]
+            [('accuracy', '0.722'), ('avg_f1_score', '0.718'), ('custo', '0.203')]
+        wisard - neuronios= 13 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 7, 10, 11]
+            [('accuracy', '0.712'), ('avg_f1_score', '0.709'), ('custo', '0.216')]
+
+    AdaBoost
+
+-------------------------------------------------------------------
+
+
+
+
+Parametrizacao: feature_selection_13_bits_ranking_features
+
+  execucao: 299
+
+    Bagging
+
+
+      Single Learners (GERAL)   ------------------
+
+
+        wisard - neuronios= 32 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+            [('accuracy', '0.740'), ('avg_f1_score', '0.721'), ('custo', '0.150')]
+        wisard - neuronios= 30 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19]
+            [('accuracy', '0.745'), ('avg_f1_score', '0.728'), ('custo', '0.150')]
+        wisard - neuronios= 29 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 18, 19]
+            [('accuracy', '0.746'), ('avg_f1_score', '0.730'), ('custo', '0.149')]
+        wisard - neuronios= 27 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 16, 18, 19]
+            [('accuracy', '0.747'), ('avg_f1_score', '0.733'), ('custo', '0.152')]
+        wisard - neuronios= 26 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 16, 18, 19]
+            [('accuracy', '0.748'), ('avg_f1_score', '0.735'), ('custo', '0.158')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.750'), ('avg_f1_score', '0.740'), ('custo', '0.161')]
+        wisard - neuronios= 23 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14, 18, 19]
+            [('accuracy', '0.748'), ('avg_f1_score', '0.738'), ('custo', '0.163')]
+        wisard - neuronios= 21 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14, 18]
+            [('accuracy', '0.746'), ('avg_f1_score', '0.736'), ('custo', '0.166')]
+        wisard - neuronios= 20 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 14]
+            [('accuracy', '0.743'), ('avg_f1_score', '0.735'), ('custo', '0.177')]
+        wisard - neuronios= 18 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 10, 11, 14]
+            [('accuracy', '0.740'), ('avg_f1_score', '0.733'), ('custo', '0.181')]
+        wisard - neuronios= 16 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 6, 7, 10, 11, 14]
+            [('accuracy', '0.737'), ('avg_f1_score', '0.731'), ('custo', '0.187')]
+        wisard - neuronios= 15 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 7, 10, 11, 14]
+            [('accuracy', '0.731'), ('avg_f1_score', '0.727'), ('custo', '0.197')]
+        wisard - neuronios= 13 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 7, 10, 11]
+            [('accuracy', '0.711'), ('avg_f1_score', '0.708'), ('custo', '0.218')]
+        wisard - neuronios= 12 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 7, 11]
+            [('accuracy', '0.684'), ('avg_f1_score', '0.687'), ('custo', '0.261')]
+        wisard - neuronios= 10 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 5, 7]
+            [('accuracy', '0.630'), ('avg_f1_score', '0.642'), ('custo', '0.344')]
+        wisard - neuronios= 9 - endereco= 13 - rank= answers - features= [0, 1, 3, 5, 7]
+            [('accuracy', '0.583'), ('avg_f1_score', '0.601'), ('custo', '0.428')]
+        wisard - neuronios= 7 - endereco= 13 - rank= answers - features= [0, 1, 3, 5]
+            [('accuracy', '0.534'), ('avg_f1_score', '0.546'), ('custo', '0.536')]
+        wisard - neuronios= 6 - endereco= 13 - rank= answers - features= [0, 3, 5]
+            [('accuracy', '0.421'), ('avg_f1_score', '0.382'), ('custo', '0.734')]
+        wisard - neuronios= 4 - endereco= 13 - rank= answers - features= [0, 5]
+            [('accuracy', '0.307'), ('avg_f1_score', '0.158'), ('custo', '0.908')]
+        wisard - neuronios= 2 - endereco= 13 - rank= answers - features= [0]
+            [('accuracy', '0.300'), ('avg_f1_score', '0.138'), ('custo', '0.921')]
+
+    AdaBoost
+

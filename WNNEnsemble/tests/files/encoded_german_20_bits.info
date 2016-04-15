@@ -1,0 +1,9 @@
+classes=2
+tamanho_features=24,20,20,24,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+parametrizacoes:
+ensemble_features_iguais_15_features_11_learners
+ensemble_features_iguais_15_features_12_learners
+ensemble_features_iguais_15_features_13_learners
+ensemble_features_iguais_15_features_14_learners
+ensemble_features_iguais_15_features_15_learners
+fim
