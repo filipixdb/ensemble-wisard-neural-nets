@@ -424,3 +424,6 @@ Parametrizacao: ensemble_features_iguais_15_features_28_learners
             [('accuracy', '0.762'), ('avg_f1_score', '0.752'), ('custo', '0.150')]
         Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= proporcaoDiferenca+ativacao
             [('accuracy', '0.765'), ('avg_f1_score', '0.746'), ('custo', '0.126')]
+
+Melhor Bagging: 0.764
+Melhor Boost: 0.765

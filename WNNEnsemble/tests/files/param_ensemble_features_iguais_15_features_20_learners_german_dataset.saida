@@ -95,6 +95,7 @@ Parametrizacao: ensemble_features_iguais_15_features_20_learners
             [('accuracy', '0.756'), ('avg_f1_score', '0.725'), ('custo', '0.111')]
         Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= ativacao
             [('accuracy', '0.762'), ('avg_f1_score', '0.740'), ('custo', '0.122')]
+
         Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= porcentagem+ativacao
             [('accuracy', '0.761'), ('avg_f1_score', '0.738'), ('custo', '0.119')]
         Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= proporcao+ativacao
@@ -180,6 +181,7 @@ Parametrizacao: ensemble_features_iguais_15_features_20_learners
         Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= proporcao+ativacao
             [('accuracy', '0.760'), ('avg_f1_score', '0.735'), ('custo', '0.117')]
         Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= proporcaoDiferenca+ativacao
+
             [('accuracy', '0.758'), ('avg_f1_score', '0.728'), ('custo', '0.110')]
         Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= nenhum
             [('accuracy', '0.760'), ('avg_f1_score', '0.740'), ('custo', '0.127')]
@@ -392,3 +394,6 @@ Parametrizacao: ensemble_features_iguais_15_features_20_learners
             [('accuracy', '0.762'), ('avg_f1_score', '0.751'), ('custo', '0.150')]
         Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= proporcaoDiferenca+ativacao
             [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.127')]
+
+Melhor Bagging: 0.762
+Melhor Boost: 0.764
