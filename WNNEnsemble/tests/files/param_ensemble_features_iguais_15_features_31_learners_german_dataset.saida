@@ -1,0 +1,438 @@
+
+Parametrizacao: ensemble_features_iguais_15_features_31_learners
+
+  execucao: 99
+
+    Bagging
+
+
+      Base Learners   -----------------
+
+
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.727'), ('avg_f1_score', '0.711'), ('custo', '0.169')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.731'), ('avg_f1_score', '0.714'), ('custo', '0.161')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.739'), ('avg_f1_score', '0.725'), ('custo', '0.160')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.730'), ('avg_f1_score', '0.717'), ('custo', '0.171')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.735'), ('avg_f1_score', '0.727'), ('custo', '0.181')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.745'), ('avg_f1_score', '0.732'), ('custo', '0.159')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.727'), ('avg_f1_score', '0.721'), ('custo', '0.193')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.745'), ('avg_f1_score', '0.734'), ('custo', '0.163')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.729'), ('avg_f1_score', '0.714'), ('custo', '0.169')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.730'), ('avg_f1_score', '0.714'), ('custo', '0.166')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.732'), ('avg_f1_score', '0.719'), ('custo', '0.169')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.737'), ('avg_f1_score', '0.725'), ('custo', '0.168')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.738'), ('avg_f1_score', '0.724'), ('custo', '0.163')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.719'), ('avg_f1_score', '0.713'), ('custo', '0.201')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.730'), ('avg_f1_score', '0.710'), ('custo', '0.155')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.720'), ('avg_f1_score', '0.703'), ('custo', '0.173')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.725'), ('avg_f1_score', '0.707'), ('custo', '0.166')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.727'), ('avg_f1_score', '0.713'), ('custo', '0.172')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.750'), ('avg_f1_score', '0.737'), ('custo', '0.153')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.715'), ('avg_f1_score', '0.699'), ('custo', '0.178')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.733'), ('avg_f1_score', '0.716'), ('custo', '0.161')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.717'), ('avg_f1_score', '0.700'), ('custo', '0.176')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.728'), ('avg_f1_score', '0.718'), ('custo', '0.183')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.730'), ('avg_f1_score', '0.721'), ('custo', '0.183')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.742'), ('avg_f1_score', '0.726'), ('custo', '0.154')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.713'), ('avg_f1_score', '0.694'), ('custo', '0.173')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.735'), ('avg_f1_score', '0.717'), ('custo', '0.156')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.732'), ('avg_f1_score', '0.718'), ('custo', '0.167')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.713'), ('avg_f1_score', '0.698'), ('custo', '0.182')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.715'), ('avg_f1_score', '0.703'), ('custo', '0.189')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.719'), ('avg_f1_score', '0.700'), ('custo', '0.168')]
+
+      Ensembles (GERAL)  ------------------
+
+
+        Ensemble voting= majority  tipo_erro= nenhum  tipo_intensidade= nenhum
+            [('accuracy', '0.762'), ('avg_f1_score', '0.741'), ('custo', '0.124')]
+        Ensemble voting= majority  tipo_erro= nenhum  tipo_intensidade= porcentagem
+            [('accuracy', '0.761'), ('avg_f1_score', '0.739'), ('custo', '0.122')]
+        Ensemble voting= majority  tipo_erro= nenhum  tipo_intensidade= proporcao
+            [('accuracy', '0.759'), ('avg_f1_score', '0.735'), ('custo', '0.118')]
+        Ensemble voting= majority  tipo_erro= nenhum  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.756'), ('avg_f1_score', '0.726'), ('custo', '0.110')]
+        Ensemble voting= majority  tipo_erro= nenhum  tipo_intensidade= ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.741'), ('custo', '0.121')]
+        Ensemble voting= majority  tipo_erro= nenhum  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.762'), ('avg_f1_score', '0.739'), ('custo', '0.119')]
+        Ensemble voting= majority  tipo_erro= nenhum  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.736'), ('custo', '0.116')]
+        Ensemble voting= majority  tipo_erro= nenhum  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.759'), ('avg_f1_score', '0.729'), ('custo', '0.110')]
+        Ensemble voting= weightedClassifiers  tipo_erro= nenhum  tipo_intensidade= nenhum
+            [('accuracy', '0.762'), ('avg_f1_score', '0.741'), ('custo', '0.124')]
+        Ensemble voting= weightedClassifiers  tipo_erro= nenhum  tipo_intensidade= porcentagem
+            [('accuracy', '0.761'), ('avg_f1_score', '0.739'), ('custo', '0.122')]
+        Ensemble voting= weightedClassifiers  tipo_erro= nenhum  tipo_intensidade= proporcao
+            [('accuracy', '0.760'), ('avg_f1_score', '0.735'), ('custo', '0.118')]
+        Ensemble voting= weightedClassifiers  tipo_erro= nenhum  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.757'), ('avg_f1_score', '0.726'), ('custo', '0.110')]
+        Ensemble voting= weightedClassifiers  tipo_erro= nenhum  tipo_intensidade= ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.741'), ('custo', '0.121')]
+        Ensemble voting= weightedClassifiers  tipo_erro= nenhum  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.762'), ('avg_f1_score', '0.739'), ('custo', '0.119')]
+        Ensemble voting= weightedClassifiers  tipo_erro= nenhum  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.736'), ('custo', '0.117')]
+        Ensemble voting= weightedClassifiers  tipo_erro= nenhum  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.759'), ('avg_f1_score', '0.729'), ('custo', '0.110')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= nenhum
+            [('accuracy', '0.762'), ('avg_f1_score', '0.741'), ('custo', '0.124')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= porcentagem
+            [('accuracy', '0.761'), ('avg_f1_score', '0.739'), ('custo', '0.122')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= proporcao
+            [('accuracy', '0.760'), ('avg_f1_score', '0.735'), ('custo', '0.118')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.757'), ('avg_f1_score', '0.726'), ('custo', '0.110')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.741'), ('custo', '0.121')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.762'), ('avg_f1_score', '0.739'), ('custo', '0.119')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.736'), ('custo', '0.117')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.759'), ('avg_f1_score', '0.729'), ('custo', '0.110')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao  tipo_intensidade= nenhum
+            [('accuracy', '0.762'), ('avg_f1_score', '0.741'), ('custo', '0.124')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao  tipo_intensidade= porcentagem
+            [('accuracy', '0.761'), ('avg_f1_score', '0.739'), ('custo', '0.122')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao  tipo_intensidade= proporcao
+            [('accuracy', '0.760'), ('avg_f1_score', '0.735'), ('custo', '0.118')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.757'), ('avg_f1_score', '0.726'), ('custo', '0.110')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao  tipo_intensidade= ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.741'), ('custo', '0.121')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.762'), ('avg_f1_score', '0.739'), ('custo', '0.119')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.736'), ('custo', '0.116')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.759'), ('avg_f1_score', '0.729'), ('custo', '0.110')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca  tipo_intensidade= nenhum
+            [('accuracy', '0.762'), ('avg_f1_score', '0.741'), ('custo', '0.124')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca  tipo_intensidade= porcentagem
+            [('accuracy', '0.761'), ('avg_f1_score', '0.739'), ('custo', '0.122')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca  tipo_intensidade= proporcao
+            [('accuracy', '0.760'), ('avg_f1_score', '0.735'), ('custo', '0.119')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.757'), ('avg_f1_score', '0.726'), ('custo', '0.110')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca  tipo_intensidade= ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.742'), ('custo', '0.121')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.762'), ('avg_f1_score', '0.739'), ('custo', '0.119')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.737'), ('custo', '0.117')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.759'), ('avg_f1_score', '0.729'), ('custo', '0.110')]
+        Ensemble voting= weightedClassifiers  tipo_erro= ativacao  tipo_intensidade= nenhum
+            [('accuracy', '0.762'), ('avg_f1_score', '0.741'), ('custo', '0.124')]
+        Ensemble voting= weightedClassifiers  tipo_erro= ativacao  tipo_intensidade= porcentagem
+            [('accuracy', '0.761'), ('avg_f1_score', '0.739'), ('custo', '0.122')]
+        Ensemble voting= weightedClassifiers  tipo_erro= ativacao  tipo_intensidade= proporcao
+            [('accuracy', '0.759'), ('avg_f1_score', '0.735'), ('custo', '0.118')]
+        Ensemble voting= weightedClassifiers  tipo_erro= ativacao  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.757'), ('avg_f1_score', '0.726'), ('custo', '0.110')]
+        Ensemble voting= weightedClassifiers  tipo_erro= ativacao  tipo_intensidade= ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.741'), ('custo', '0.121')]
+        Ensemble voting= weightedClassifiers  tipo_erro= ativacao  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.762'), ('avg_f1_score', '0.739'), ('custo', '0.119')]
+        Ensemble voting= weightedClassifiers  tipo_erro= ativacao  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.736'), ('custo', '0.116')]
+        Ensemble voting= weightedClassifiers  tipo_erro= ativacao  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.759'), ('avg_f1_score', '0.729'), ('custo', '0.110')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem+ativacao  tipo_intensidade= nenhum
+            [('accuracy', '0.762'), ('avg_f1_score', '0.741'), ('custo', '0.124')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem+ativacao  tipo_intensidade= porcentagem
+            [('accuracy', '0.761'), ('avg_f1_score', '0.739'), ('custo', '0.122')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem+ativacao  tipo_intensidade= proporcao
+            [('accuracy', '0.759'), ('avg_f1_score', '0.735'), ('custo', '0.118')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem+ativacao  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.757'), ('avg_f1_score', '0.726'), ('custo', '0.110')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem+ativacao  tipo_intensidade= ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.742'), ('custo', '0.121')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem+ativacao  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.762'), ('avg_f1_score', '0.739'), ('custo', '0.119')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem+ativacao  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.736'), ('custo', '0.116')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem+ativacao  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.759'), ('avg_f1_score', '0.729'), ('custo', '0.110')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= nenhum
+            [('accuracy', '0.762'), ('avg_f1_score', '0.741'), ('custo', '0.124')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= porcentagem
+            [('accuracy', '0.761'), ('avg_f1_score', '0.739'), ('custo', '0.122')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= proporcao
+            [('accuracy', '0.760'), ('avg_f1_score', '0.735'), ('custo', '0.118')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.757'), ('avg_f1_score', '0.726'), ('custo', '0.110')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.742'), ('custo', '0.121')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.762'), ('avg_f1_score', '0.739'), ('custo', '0.119')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.736'), ('custo', '0.116')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.759'), ('avg_f1_score', '0.729'), ('custo', '0.110')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= nenhum
+            [('accuracy', '0.762'), ('avg_f1_score', '0.741'), ('custo', '0.124')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= porcentagem
+            [('accuracy', '0.761'), ('avg_f1_score', '0.739'), ('custo', '0.122')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= proporcao
+            [('accuracy', '0.760'), ('avg_f1_score', '0.735'), ('custo', '0.119')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.757'), ('avg_f1_score', '0.726'), ('custo', '0.110')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.742'), ('custo', '0.121')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.762'), ('avg_f1_score', '0.739'), ('custo', '0.119')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.737'), ('custo', '0.117')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.759'), ('avg_f1_score', '0.729'), ('custo', '0.110')]
+
+    AdaBoost
+
+
+      Base Learners   -----------------
+
+
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.739'), ('avg_f1_score', '0.724'), ('custo', '0.158')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.739'), ('avg_f1_score', '0.735'), ('custo', '0.190')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.703'), ('avg_f1_score', '0.700'), ('custo', '0.226')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.698'), ('avg_f1_score', '0.695'), ('custo', '0.229')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.680'), ('avg_f1_score', '0.682'), ('custo', '0.260')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.714'), ('avg_f1_score', '0.712'), ('custo', '0.218')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.709'), ('avg_f1_score', '0.708'), ('custo', '0.226')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.714'), ('avg_f1_score', '0.714'), ('custo', '0.225')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.696'), ('avg_f1_score', '0.700'), ('custo', '0.256')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.696'), ('avg_f1_score', '0.695'), ('custo', '0.235')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.736'), ('avg_f1_score', '0.735'), ('custo', '0.205')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.690'), ('avg_f1_score', '0.692'), ('custo', '0.253')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.704'), ('avg_f1_score', '0.702'), ('custo', '0.227')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.696'), ('avg_f1_score', '0.696'), ('custo', '0.240')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.692'), ('avg_f1_score', '0.692'), ('custo', '0.244')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.688'), ('avg_f1_score', '0.692'), ('custo', '0.262')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.688'), ('avg_f1_score', '0.689'), ('custo', '0.249')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.704'), ('avg_f1_score', '0.703'), ('custo', '0.229')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.697'), ('avg_f1_score', '0.699'), ('custo', '0.245')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.707'), ('avg_f1_score', '0.708'), ('custo', '0.235')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.686'), ('avg_f1_score', '0.690'), ('custo', '0.263')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.703'), ('avg_f1_score', '0.706'), ('custo', '0.246')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.674'), ('avg_f1_score', '0.677'), ('custo', '0.268')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.700'), ('avg_f1_score', '0.702'), ('custo', '0.244')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.688'), ('avg_f1_score', '0.690'), ('custo', '0.254')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.686'), ('avg_f1_score', '0.688'), ('custo', '0.255')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.682'), ('avg_f1_score', '0.682'), ('custo', '0.251')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.701'), ('avg_f1_score', '0.703'), ('custo', '0.242')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.680'), ('avg_f1_score', '0.684'), ('custo', '0.267')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.687'), ('avg_f1_score', '0.687'), ('custo', '0.246')]
+        wisard - neuronios= 24 - endereco= 13 - rank= answers - features= [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 18, 19]
+            [('accuracy', '0.704'), ('avg_f1_score', '0.706'), ('custo', '0.243')]
+
+      Ensembles (GERAL)  ------------------
+
+
+        Ensemble voting= majority  tipo_erro= nenhum  tipo_intensidade= nenhum
+            [('accuracy', '0.759'), ('avg_f1_score', '0.752'), ('custo', '0.161')]
+        Ensemble voting= majority  tipo_erro= nenhum  tipo_intensidade= porcentagem
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.159')]
+        Ensemble voting= majority  tipo_erro= nenhum  tipo_intensidade= proporcao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.751'), ('custo', '0.153')]
+        Ensemble voting= majority  tipo_erro= nenhum  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.764'), ('avg_f1_score', '0.744'), ('custo', '0.126')]
+        Ensemble voting= majority  tipo_erro= nenhum  tipo_intensidade= ativacao
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= majority  tipo_erro= nenhum  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.752'), ('custo', '0.155')]
+        Ensemble voting= majority  tipo_erro= nenhum  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.762'), ('avg_f1_score', '0.751'), ('custo', '0.150')]
+        Ensemble voting= majority  tipo_erro= nenhum  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.126')]
+        Ensemble voting= weightedClassifiers  tipo_erro= nenhum  tipo_intensidade= nenhum
+            [('accuracy', '0.759'), ('avg_f1_score', '0.752'), ('custo', '0.161')]
+        Ensemble voting= weightedClassifiers  tipo_erro= nenhum  tipo_intensidade= porcentagem
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= weightedClassifiers  tipo_erro= nenhum  tipo_intensidade= proporcao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.752'), ('custo', '0.153')]
+        Ensemble voting= weightedClassifiers  tipo_erro= nenhum  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.126')]
+        Ensemble voting= weightedClassifiers  tipo_erro= nenhum  tipo_intensidade= ativacao
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= weightedClassifiers  tipo_erro= nenhum  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.752'), ('custo', '0.154')]
+        Ensemble voting= weightedClassifiers  tipo_erro= nenhum  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.762'), ('avg_f1_score', '0.751'), ('custo', '0.150')]
+        Ensemble voting= weightedClassifiers  tipo_erro= nenhum  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.764'), ('avg_f1_score', '0.745'), ('custo', '0.126')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= nenhum
+            [('accuracy', '0.759'), ('avg_f1_score', '0.752'), ('custo', '0.161')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= porcentagem
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= proporcao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.752'), ('custo', '0.153')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.126')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= ativacao
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.752'), ('custo', '0.154')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.762'), ('avg_f1_score', '0.751'), ('custo', '0.150')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.126')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao  tipo_intensidade= nenhum
+            [('accuracy', '0.759'), ('avg_f1_score', '0.752'), ('custo', '0.161')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao  tipo_intensidade= porcentagem
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao  tipo_intensidade= proporcao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.752'), ('custo', '0.153')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.126')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao  tipo_intensidade= ativacao
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.752'), ('custo', '0.154')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.762'), ('avg_f1_score', '0.751'), ('custo', '0.150')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.126')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca  tipo_intensidade= nenhum
+            [('accuracy', '0.759'), ('avg_f1_score', '0.752'), ('custo', '0.162')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca  tipo_intensidade= porcentagem
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca  tipo_intensidade= proporcao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.752'), ('custo', '0.154')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.127')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca  tipo_intensidade= ativacao
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.752'), ('custo', '0.155')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.762'), ('avg_f1_score', '0.751'), ('custo', '0.151')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.127')]
+        Ensemble voting= weightedClassifiers  tipo_erro= ativacao  tipo_intensidade= nenhum
+            [('accuracy', '0.759'), ('avg_f1_score', '0.752'), ('custo', '0.161')]
+        Ensemble voting= weightedClassifiers  tipo_erro= ativacao  tipo_intensidade= porcentagem
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= weightedClassifiers  tipo_erro= ativacao  tipo_intensidade= proporcao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.752'), ('custo', '0.153')]
+        Ensemble voting= weightedClassifiers  tipo_erro= ativacao  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.126')]
+        Ensemble voting= weightedClassifiers  tipo_erro= ativacao  tipo_intensidade= ativacao
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= weightedClassifiers  tipo_erro= ativacao  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.752'), ('custo', '0.154')]
+        Ensemble voting= weightedClassifiers  tipo_erro= ativacao  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.751'), ('custo', '0.150')]
+        Ensemble voting= weightedClassifiers  tipo_erro= ativacao  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.126')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem+ativacao  tipo_intensidade= nenhum
+            [('accuracy', '0.759'), ('avg_f1_score', '0.752'), ('custo', '0.161')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem+ativacao  tipo_intensidade= porcentagem
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem+ativacao  tipo_intensidade= proporcao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.752'), ('custo', '0.153')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem+ativacao  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.126')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem+ativacao  tipo_intensidade= ativacao
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem+ativacao  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.752'), ('custo', '0.154')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem+ativacao  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.762'), ('avg_f1_score', '0.751'), ('custo', '0.150')]
+        Ensemble voting= weightedClassifiers  tipo_erro= porcentagem+ativacao  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.126')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= nenhum
+            [('accuracy', '0.759'), ('avg_f1_score', '0.752'), ('custo', '0.161')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= porcentagem
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= proporcao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.752'), ('custo', '0.153')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.126')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= ativacao
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.752'), ('custo', '0.154')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.762'), ('avg_f1_score', '0.751'), ('custo', '0.150')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcao+ativacao  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.126')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= nenhum
+            [('accuracy', '0.759'), ('avg_f1_score', '0.752'), ('custo', '0.161')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= porcentagem
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= proporcao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.751'), ('custo', '0.154')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= proporcaoDiferenca
+            [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.127')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= ativacao
+            [('accuracy', '0.760'), ('avg_f1_score', '0.752'), ('custo', '0.158')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= porcentagem+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.752'), ('custo', '0.155')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= proporcao+ativacao
+            [('accuracy', '0.761'), ('avg_f1_score', '0.751'), ('custo', '0.151')]
+        Ensemble voting= weightedClassifiers  tipo_erro= proporcaoDiferenca+ativacao  tipo_intensidade= proporcaoDiferenca+ativacao
+            [('accuracy', '0.763'), ('avg_f1_score', '0.744'), ('custo', '0.127')]
