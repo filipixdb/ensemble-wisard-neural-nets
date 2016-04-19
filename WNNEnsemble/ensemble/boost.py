@@ -4,6 +4,7 @@ fazer os metodos para rodar o treino e o test do boost
 
 import numpy as np
 import wann.util as util
+from copy import copy
 
 
 class EnsembleAlgorithm(object):
@@ -42,7 +43,6 @@ class EnsembleAlgorithm(object):
                 erro += inst_treino.peso
                 
         return erro, set_corretas
-
 
 
     def avalia_instancias_nao_treinadas(self, instancias_nao_treinadas, base_learner, n_learner):
@@ -129,7 +129,6 @@ class EnsembleAlgorithm(object):
         return erros
 
     
-    
     def atualiza_peso_learner(self, erros, n_learner):
         
         for ens in self.ensembles:
@@ -140,9 +139,6 @@ class EnsembleAlgorithm(object):
             log_inverso_beta = np.log(inverso_beta)
             
             ens.guarda_peso(n_learner, log_inverso_beta)
-            
-        #print " Erro: ", erro, "    Inverso Beta: ", inverso_beta, "    Log Inverso Beta: ", log_inverso_beta
-
 
 
     def exibe_resultados(self):
@@ -194,8 +190,6 @@ class EnsembleAlgorithm(object):
             #TODO: colocar pra descobrir sozinho os custos
             print "            ", ens.mat_confusao_geral.stats('simples', [1, 5])
         
-
-
 
 
     def salva_resultados(self):
@@ -250,10 +244,6 @@ class EnsembleAlgorithm(object):
         
 
 
-
-
-
-
     def calcula_confianca_voto(self, resposta, n_neuronios):
         
         ativacao = 0.0
@@ -291,9 +281,6 @@ class EnsembleAlgorithm(object):
 
 
 
-
-
-
     def avalia_base_learner(self, fold, learner, n_learner):
         # avaliar o learner no conjunto de test do fold
         responder = getattr(learner.classificador, learner.rank_method)
@@ -303,7 +290,6 @@ class EnsembleAlgorithm(object):
             resposta = responder(inst_test.dict_representacoes['base'+str(n_learner)])
             rank = util.ranked(resposta) # rank recebe varias tuplas ordenadas ('classe', somaRespostasDosDiscriminadores)
             
-            #TODO: colocar pra pegar a confianca da forma desejada
             confiancas, ativacao = self.calcula_confianca_voto(resposta, learner.n_neurons)
             
             '''
@@ -343,15 +329,9 @@ class EnsembleAlgorithm(object):
                 else:
                     print "Erro, tipo_intensidade nao existe -> ", ens.tipo_intensidade
                 
-                ens.guarda_voto(n_learner, n_inst, rank[0][0], intensidade)
                 
-                '''
-                if ens.com_confiancas == True:
-                    ens.guarda_voto(n_learner, n_inst, rank[0][0], confianca*ativados)
-                    #print "Resposta: ", resposta, "    Confianca: ", confiancaCorreta, "    Ativados: ", ativadosCorreto, "    Conf*Ativ: ", confiancaCorreta*ativadosCorreto
-                else:
-                    ens.guarda_voto(n_learner, n_inst, rank[0][0], 1)
-                '''
+                ens.votos[n_inst][n_learner] = rank[0][0]
+                ens.intensidades[n_inst][n_learner] = intensidade
 
 
 
@@ -377,7 +357,6 @@ class EnsembleAlgorithm(object):
             learner.mat_confusao_geral.add(inst_test.classe, rank[0][0], 1)
             
 
-
     def avalia_ensembles(self, fold):
 
         for ens in self.ensembles:
@@ -393,39 +372,21 @@ class EnsembleAlgorithm(object):
                 ens.mat_confusao_geral.add(y1, y2, 1)
 
 
-
-
     def treina_base_learner(self, fold, base_learner, n_learner, com_repeticao):
         # samplear
         tam_sample = (len(fold.inst_treino) * self.tam_treino)
         pesos = fold.retorna_pesos()
         
         sample = np.random.choice(fold.inst_treino, tam_sample, replace=com_repeticao, p=pesos)
-        nao_treinadas = []
         
         gravar = base_learner.classificador.record
-        
-        '''
-        for inst in fold.inst_treino:
-            if inst in sample:
-                gravar(inst.dict_representacoes['base'+str(n_learner)], inst.classe)
-            else:
-                nao_treinadas.append(inst)
-        '''
-        
         for inst in sample:
             gravar(inst.dict_representacoes['base'+str(n_learner)], inst.classe)
         
         nao_treinadas = [inst for inst in set(fold.inst_treino) - set(sample)]
         
-        
-        '''
-        # itera na parte sampleada do conj treino
-        for inst in sample:
-            base_learner.classificador.record(base_learner.encoder(inst.junta_features(base_learner.selected_features)), inst.classe)
-        '''
-        
         return nao_treinadas
+
 
     def treina_single_learner(self, fold, single_learner, n_learner):
         # itera em todo conj treino

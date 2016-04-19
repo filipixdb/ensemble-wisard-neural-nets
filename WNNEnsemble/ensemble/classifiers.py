@@ -215,22 +215,9 @@ class Ensemble(object):
         self.combined_votes = self.agregador.predict()
         
     def inicia_votos_e_pesos(self, n_learners, n_instancias):
-        self.votos = []
-        self.intensidades = []
-        for _ in xrange(n_instancias):
-            learners = []
-            confs = []
-            for l in xrange(n_learners):
-                x = 0
-                learners.append(x)
-                confs.append(float(x))
-            self.votos.append(learners)
-            self.intensidades.append(confs)
-        
-        self.pesos_learners = []
-        for _ in xrange(n_learners):
-            p = 0.0
-            self.pesos_learners.append(p)
+        self.votos = [[0] * n_learners for _ in xrange(n_instancias)]
+        self.intensidades = [[0.0] * n_learners for _ in xrange(n_instancias)]
+        self.pesos_learners = [0.0]*n_learners        
         
     def guarda_voto(self, learner, instancia, voto, confianca):
         self.votos[int(instancia)][int(learner)] = int(voto)

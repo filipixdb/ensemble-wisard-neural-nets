@@ -35,10 +35,14 @@ class Instancia(object):
         return features
     
     def junta_features(self, indices):
+        
+        return ''.join([self.features[i] for i in indices])
+        '''
         saida = ""
         for i in indices:
             saida += self.features[int(i)]
         return saida
+        '''
     
     def salva_representacao(self, key, representacao):
         self.dict_representacoes[key] = representacao
@@ -81,23 +85,21 @@ class DataSet(object):
 
     def cria_folds(self, data, tam_features, n_folds = 10):
         # criar os folds
+        '''
         self.folds = []
         for f in xrange(n_folds):
             self.folds.append(Fold([], [], f))
+        '''    
+        self.folds = [Fold([], [], f) for f in xrange(n_folds)]
+
+        instancias = [Instancia(classe, representacao, tam_features, identificador=numero) for (numero, classe, representacao) in data]
         
-        
-        for i, entrada in enumerate(data):
-            numero, classe, representacao = entrada
-            instancia = Instancia(classe, representacao, tam_features, identificador=numero)
-            
-            # adicionar nos folds
-            for f in xrange(n_folds):
-                if (i % n_folds) == f:
-                    self.folds[f].adiciona_instancia(copy(instancia), 'teste')
-                else:
-                    self.folds[f].adiciona_instancia(copy(instancia), 'treino')
+        for f in xrange(n_folds):
+            self.folds[f].inst_treino = [copy(inst) for i,inst in enumerate(instancias) if (i % n_folds) != f]
+            self.folds[f].inst_test = [copy(inst) for i,inst in enumerate(instancias) if (i % n_folds) == f]
         
         self.reseta_pesos()
+
         
     def reseta_pesos(self):
         for fold in self.folds:
