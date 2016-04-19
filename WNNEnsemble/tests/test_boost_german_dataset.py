@@ -81,28 +81,6 @@ def main():
             
             executa_algoritmo("AdaBoost", dataset, n_folds, [], configs_base_learners_escolhidos, matrizes_ensemble['AdaBoost'], tamanho_treino_boost, com_repeticao_boost, mesmo_mapping_boost, exibe_resultados)
 
-    
-    '''
-    for x in range(n_params):
-        print "\nParams ", x, " ========================================"
-        # ler configs dos single e base learners
-        configs_single_learners, configs_base_learners = frdr.le_parametros('../tests/files/'+arquivo+'.params'+str(x))
-        
-        # aqui criar as matrizes de confusao dos dois ensembles dos dois algoritmos
-        matrizes_ensemble = e_clss.cria_matriz_confusao_geral_ensemble()
-        
-    
-        for n_folds in list_n_folds:
-            print "\nFolds = ", n_folds
-            # criar o dataset e folds
-            dataset = DataSet(data, tam_features, n_folds, n_classes, nome='german dataset')
-            
-            print "\n  Bagging"
-            executa_algoritmo("Bagging", dataset, n_folds, configs_single_learners, configs_base_learners, matrizes_ensemble['Bagging'], 0.3, False)
-            
-            print "\n  AdaBoost"
-            executa_algoritmo("AdaBoost", dataset, n_folds, [], configs_base_learners, matrizes_ensemble['AdaBoost'], 0.5, False)
-    '''
 
 
 def executa_algoritmo(algoritmo, dataset, n_folds, configs_single_learners, configs_base_learners, matrizes_ensemble, amostragem, repeticao, mapping_igual, exibe_resultados):

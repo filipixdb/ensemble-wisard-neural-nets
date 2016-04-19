@@ -5,6 +5,7 @@ Estruturas de um dataset
   infos das features
   etc
 '''
+from copy import copy
 
 class Instancia(object):
     
@@ -12,6 +13,7 @@ class Instancia(object):
         #fazer auto gerar identificador unico
         self.classe = classe
         self.representacao = representacao
+        self.dict_representacoes = {}
         self.tam_features = tam_features
         self.peso = peso
         
@@ -37,6 +39,9 @@ class Instancia(object):
         for i in indices:
             saida += self.features[int(i)]
         return saida
+    
+    def salva_representacao(self, key, representacao):
+        self.dict_representacoes[key] = representacao
 
 class Fold(object):
     
@@ -88,9 +93,9 @@ class DataSet(object):
             # adicionar nos folds
             for f in xrange(n_folds):
                 if (i % n_folds) == f:
-                    self.folds[f].adiciona_instancia(instancia, 'teste')
+                    self.folds[f].adiciona_instancia(copy(instancia), 'teste')
                 else:
-                    self.folds[f].adiciona_instancia(instancia, 'treino')
+                    self.folds[f].adiciona_instancia(copy(instancia), 'treino')
         
         self.reseta_pesos()
         

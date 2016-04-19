@@ -23,13 +23,13 @@ def main(nome_arquivo):
     
     with open(nome_arquivo) as arq:
         linha = arq.readline()
-        while linha[4:-1] != 'Bagging\r':
+        while (linha[4:-1] != 'Bagging\r') and (linha[4:-1] != 'Bagging'):
             linha = arq.readline()
         #lendo o Bagging
         while linha[6:6+9] != 'Ensembles':
             linha = arq.readline()
         #lendo os ensembles do bagging
-        while linha[4:-1] != 'AdaBoost\r':
+        while (linha[4:-1] != 'AdaBoost\r') and (linha[4:-1] != 'AdaBoost'):
             if linha[15:15+8] == 'accuracy':
                 linha = linha[12:-1]
                 lista = ast.literal_eval(linha)

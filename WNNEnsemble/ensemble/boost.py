@@ -18,18 +18,21 @@ class EnsembleAlgorithm(object):
         self.mostra_resultados = mostra_resultados
         self.com_repeticao = com_repeticao
 
+        self.salva_representacoes_instancias()
 
     def executa_folds(self):
         raise NotImplementedError("Please Implement this method")
 
     
-    def avalia_instancias_treino(self, fold, base_learner):
+    def avalia_instancias_treino(self, fold, base_learner, n_learner):
         erro = 0.0
         set_corretas = set()
+        responder = getattr(base_learner.classificador, base_learner.rank_method)
         # itera nas instancias de treino pra ver quais devem aumentar ou diminuir o pesos
         for inst_treino in fold.inst_treino:
             #classifica
-            resposta = getattr(base_learner.classificador, base_learner.rank_method)(base_learner.encoder(inst_treino.junta_features(base_learner.selected_features)))
+            #resposta = getattr(base_learner.classificador, base_learner.rank_method)(base_learner.encoder(inst_treino.junta_features(base_learner.selected_features)))
+            resposta = responder(inst_treino.dict_representacoes['base'+str(n_learner)])
             rank = util.ranked(resposta) # rank recebe varias tuplas ordenadas ('classe', somaRespostasDosDiscriminadores)
 
             # guardar instancias corretas, calcular erro
@@ -42,7 +45,7 @@ class EnsembleAlgorithm(object):
 
 
 
-    def avalia_instancias_nao_treinadas(self, instancias_nao_treinadas, base_learner):
+    def avalia_instancias_nao_treinadas(self, instancias_nao_treinadas, base_learner, n_learner):
         erro = 0.0
         erroPorcentagem = 0.0
         erroProporcao = 0.0
@@ -75,9 +78,11 @@ class EnsembleAlgorithm(object):
         certas = 0.0
         erradas = 0.0
         
+        responder = getattr(base_learner.classificador, base_learner.rank_method)
         for inst in instancias_nao_treinadas:
             #classifica
-            resposta = getattr(base_learner.classificador, base_learner.rank_method)(base_learner.encoder(inst.junta_features(base_learner.selected_features)))
+            #resposta = getattr(base_learner.classificador, base_learner.rank_method)(base_learner.encoder(inst.junta_features(base_learner.selected_features)))
+            resposta = responder(inst.dict_representacoes['base'+str(n_learner)])
             rank = util.ranked(resposta) # rank recebe varias tuplas ordenadas ('classe', somaRespostasDosDiscriminadores)
 
             confiancas, ativacao = self.calcula_confianca_voto(resposta, base_learner.n_neurons)
@@ -291,9 +296,11 @@ class EnsembleAlgorithm(object):
 
     def avalia_base_learner(self, fold, learner, n_learner):
         # avaliar o learner no conjunto de test do fold
+        responder = getattr(learner.classificador, learner.rank_method)
         for n_inst, inst_test in enumerate(fold.inst_test):
             #classifica
-            resposta = getattr(learner.classificador, learner.rank_method)(learner.encoder(inst_test.junta_features(learner.selected_features)))
+            #resposta = getattr(learner.classificador, learner.rank_method)(learner.encoder(inst_test.junta_features(learner.selected_features)))
+            resposta = responder(inst_test.dict_representacoes['base'+str(n_learner)])
             rank = util.ranked(resposta) # rank recebe varias tuplas ordenadas ('classe', somaRespostasDosDiscriminadores)
             
             #TODO: colocar pra pegar a confianca da forma desejada
@@ -350,9 +357,10 @@ class EnsembleAlgorithm(object):
 
     def avalia_single_learner(self, fold, learner, n_learner):
         # avaliar o learner no conjunto de test do fold
+        responder = getattr(learner.classificador, learner.rank_method)
         for n_inst, inst_test in enumerate(fold.inst_test):
             #classifica
-            resposta = getattr(learner.classificador, learner.rank_method)(learner.encoder(inst_test.junta_features(learner.selected_features)))
+            resposta = responder(inst_test.dict_representacoes['single'+str(n_learner)])
             rank = util.ranked(resposta) # rank recebe varias tuplas ordenadas ('classe', somaRespostasDosDiscriminadores)
             
             '''
@@ -387,7 +395,7 @@ class EnsembleAlgorithm(object):
 
 
 
-    def treina_base_learner(self, fold, base_learner, com_repeticao):
+    def treina_base_learner(self, fold, base_learner, n_learner, com_repeticao):
         # samplear
         tam_sample = (len(fold.inst_treino) * self.tam_treino)
         pesos = fold.retorna_pesos()
@@ -395,11 +403,21 @@ class EnsembleAlgorithm(object):
         sample = np.random.choice(fold.inst_treino, tam_sample, replace=com_repeticao, p=pesos)
         nao_treinadas = []
         
+        gravar = base_learner.classificador.record
+        
+        '''
         for inst in fold.inst_treino:
             if inst in sample:
-                base_learner.classificador.record(base_learner.encoder(inst.junta_features(base_learner.selected_features)), inst.classe)
+                gravar(inst.dict_representacoes['base'+str(n_learner)], inst.classe)
             else:
                 nao_treinadas.append(inst)
+        '''
+        
+        for inst in sample:
+            gravar(inst.dict_representacoes['base'+str(n_learner)], inst.classe)
+        
+        nao_treinadas = [inst for inst in set(fold.inst_treino) - set(sample)]
+        
         
         '''
         # itera na parte sampleada do conj treino
@@ -409,16 +427,33 @@ class EnsembleAlgorithm(object):
         
         return nao_treinadas
 
-    def treina_single_learner(self, fold, single_learner):
+    def treina_single_learner(self, fold, single_learner, n_learner):
         # itera em todo conj treino
         for inst_treino in fold.inst_treino:
-            single_learner.classificador.record(single_learner.encoder(inst_treino.junta_features(single_learner.selected_features)), inst_treino.classe)
+            single_learner.classificador.record(inst_treino.dict_representacoes['single'+str(n_learner)], inst_treino.classe)
 
     def reseta_classificadores(self, learners):
         # itera na lista de learners para reseta-los a cada fold
         for learner in learners:
             learner.reseta_classificador()
 
+
+    def salva_representacoes_instancias(self):
+        for n_learner, learner in enumerate(self.single_learners):
+            encode = learner.encoder
+            features = learner.selected_features
+            for fold in self.dataset.folds:
+                for inst in fold.inst_test + fold.inst_treino:
+                    representacao = encode(inst.junta_features(features))
+                    inst.salva_representacao('single'+str(n_learner), representacao)
+        for n_learner, learner in enumerate(self.base_learners):
+            encode = learner.encoder
+            features = learner.selected_features
+            for fold in self.dataset.folds:
+                for inst in fold.inst_test + fold.inst_treino:
+                    representacao = encode(inst.junta_features(features))
+                    inst.salva_representacao('base'+str(n_learner), representacao)
+                    
 
 class AdaBoost(EnsembleAlgorithm):
     
@@ -443,7 +478,7 @@ class AdaBoost(EnsembleAlgorithm):
             
             # treinar e avaliar os single learners
             for n_single_learner, single_learner in enumerate(self.single_learners):
-                self.treina_single_learner(fold, single_learner)
+                self.treina_single_learner(fold, single_learner, n_single_learner)
                 self.avalia_single_learner(fold, single_learner, n_single_learner)
             
             
@@ -452,15 +487,15 @@ class AdaBoost(EnsembleAlgorithm):
             
             for n_learner, base_learner in enumerate(self.base_learners):
                 
-                instancias_nao_treinadas = self.treina_base_learner(fold, base_learner, self.com_repeticao)
+                instancias_nao_treinadas = self.treina_base_learner(fold, base_learner, n_learner, self.com_repeticao)
 
-                erroConjTreino, set_corretas = self.avalia_instancias_treino(fold, base_learner)
+                erroConjTreino, set_corretas = self.avalia_instancias_treino(fold, base_learner, n_learner)
                 
                 
                 #TODO: remover esta gambiarra
                 #instancias_nao_treinadas = fold.inst_treino
 
-                erros = self.avalia_instancias_nao_treinadas(instancias_nao_treinadas, base_learner)
+                erros = self.avalia_instancias_nao_treinadas(instancias_nao_treinadas, base_learner, n_learner)
                 self.atualiza_peso_learner(erros, n_learner)
                 
                 # nao pode ser antes de avaliar as instancias nao treinadas
@@ -514,7 +549,7 @@ class Bagging(EnsembleAlgorithm):
             
             # treinar e avaliar os single learners
             for n_single_learner, single_learner in enumerate(self.single_learners):
-                self.treina_single_learner(fold, single_learner)
+                self.treina_single_learner(fold, single_learner, n_single_learner)
                 self.avalia_single_learner(fold, single_learner, n_single_learner)
                         
             for ens in self.ensembles:
@@ -523,7 +558,7 @@ class Bagging(EnsembleAlgorithm):
             
             for n_learner, base_learner in enumerate(self.base_learners):
                 
-                instancias_nao_treinadas = self.treina_base_learner(fold, base_learner, self.com_repeticao)
+                instancias_nao_treinadas = self.treina_base_learner(fold, base_learner, n_learner, self.com_repeticao)
 
                 # calcular o erro do classificador no conj de treino
                 #erroConjTreino, _ = self.avalia_instancias_treino(fold, base_learner)
@@ -532,7 +567,7 @@ class Bagging(EnsembleAlgorithm):
                 #instancias_nao_treinadas = fold.inst_treino
                 
                 # calcular o erro nas instancias nao treinadas
-                erros = self.avalia_instancias_nao_treinadas(instancias_nao_treinadas, base_learner)
+                erros = self.avalia_instancias_nao_treinadas(instancias_nao_treinadas, base_learner, n_learner)
                 
                 self.atualiza_peso_learner(erros, n_learner)
                 
