@@ -73,27 +73,33 @@ def main(nome_arquivo):
     print "Resultados:"
     print "  Bagging"
     print "    Acc"
+    print "      maior = ", max(valores_bagging_acc)
     print "      media = ", metricas_bagging_acc['media']
     print "      variancia = ", metricas_bagging_acc['variancia']
     print "      desvio = ", metricas_bagging_acc['desvio']
     print "    F1"
+    print "      maior = ", max(valores_bagging_f1)
     print "      media = ", metricas_bagging_f1['media']
     print "      variancia = ", metricas_bagging_f1['variancia']
     print "      desvio = ", metricas_bagging_f1['desvio']
     print "    Custo"
+    print "      menor = ", min(valores_bagging_custo)
     print "      media = ", metricas_bagging_custo['media']
     print "      variancia = ", metricas_bagging_custo['variancia']
     print "      desvio = ", metricas_bagging_custo['desvio']
     print "  Boost"
     print "    Acc"
+    print "      maior = ", max(valores_boost_acc)
     print "      media = ", metricas_boost_acc['media']
     print "      variancia = ", metricas_boost_acc['variancia']
     print "      desvio = ", metricas_boost_acc['desvio']
     print "    F1"
+    print "      maior = ", max(valores_boost_f1)
     print "      media = ", metricas_boost_f1['media']
     print "      variancia = ", metricas_boost_f1['variancia']
     print "      desvio = ", metricas_boost_f1['desvio']
     print "    Custo"
+    print "      menor = ", min(valores_boost_custo)
     print "      media = ", metricas_boost_custo['media']
     print "      variancia = ", metricas_boost_custo['variancia']
     print "      desvio = ", metricas_boost_custo['desvio']
