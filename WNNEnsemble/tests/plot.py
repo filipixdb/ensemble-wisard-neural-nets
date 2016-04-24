@@ -2,6 +2,8 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib import cm
+from matplotlib.colors import Normalize
 
 
 '''
@@ -26,18 +28,47 @@ tam_endereco = tam_endereco[1:]
 
 acuracia = [0.306, 0.336, 0.381, 0.430, 0.507, 0.580, 0.636, 0.681, 0.704, 0.725, 0.731, 0.740, 0.742, 0.742, 0.741, 0.739, 0.742, 0.729, 0.730, 0.730, 0.725, 0.712, 0.699, 0.686, 0.683, 0.647, 0.645, 0.622, 0.625, 0.587]
 
-plt.plot(tam_endereco, acuracia, 'ro', linestyle='-', label="WiSARD")
-plt.axis([0, 31, 0, 1])
+plt.plot(tam_endereco, acuracia, 'ro', linestyle='-', label="Single WiSARD")
+plt.axis([0, 31, 0.1, 0.8])
 
 plt.xlabel(u"Address size")
 plt.ylabel(u"Accuracy")
 
 plt.title("General accuracy")
 
-plt.legend()
+plt.legend(loc='lower right')
 plt.show()
 
 '''
+
+
+
+'''
+#plotar o f1 de acordo com tamanho do endereco
+#single learner com todas as features
+
+tam_endereco = list(xrange(31))
+tam_endereco = tam_endereco[1:]
+
+f1 = [0.153, 0.232, 0.330, 0.418, 0.520, 0.597, 0.647, 0.681, 0.697, 0.711, 0.715, 0.722, 0.723, 0.723, 0.724, 0.724, 0.729, 0.717, 0.721, 0.723, 0.719, 0.711, 0.702, 0.693, 0.690, 0.660, 0.658, 0.638, 0.640, 0.604]
+
+plt.plot(tam_endereco, f1, 'ro', linestyle='-', label="Single WiSARD")
+plt.axis([0, 31, 0.1, 0.8])
+
+plt.xlabel(u"Address size")
+plt.ylabel(u"Average F1 score")
+
+plt.title("Average F1 score")
+
+plt.legend(loc='lower right')
+plt.show()
+
+'''
+
+
+
+
+
 
 '''
 # plotar desempenho de acordo com numero de features
@@ -48,20 +79,42 @@ numero_features = numero_features[1:]
 
 acuracia = [ 0.3, 0.307, 0.421, 0.534, 0.583, 0.630, 0.684, 0.711, 0.731, 0.737, 0.740, 0.743, 0.746, 0.748, 0.75, 0.748, 0.747, 0.746, 0.745, 0.740]
 
-plt.plot(numero_features, acuracia, 'ro', linestyle='-', label="WiSARD")
-plt.axis([0, 21, 0, 1])
+plt.plot(numero_features, acuracia, 'ro', linestyle='-', label='Single WiSARD')
+plt.axis([0, 21, 0.1, 0.8])
 
 plt.xlabel(u"Number of features")
 plt.ylabel(u"Accuracy")
 
 plt.title("General accuracy")
 
-plt.legend()
+plt.legend(loc='lower right')
 plt.show()
+
 '''
 
 
-#TODO: revisar para plotar os acima tbm para o f1
+'''
+# plotar f1 de acordo com numero de features
+# single learner com 13 bits de endereco
+
+numero_features = list(xrange(21))
+numero_features = numero_features[1:]
+
+f1 = [0.138, 0.158, 0.382, 0.546, 0.601, 0.642, 0.687, 0.708, 0.727, 0.731, 0.733, 0.735, 0.736, 0.738, 0.740, 0.735, 0.733, 0.730, 0.728, 0.721]
+
+plt.plot(numero_features, f1, 'ro', linestyle='-', label='Single WiSARD')
+plt.axis([0, 21, 0.1, 0.8])
+
+plt.xlabel(u"Number of features")
+plt.ylabel(u"Average F1 score")
+
+plt.title("Average F1 score")
+
+plt.legend(loc='lower right')
+plt.show()
+
+'''
+
 
 
 
@@ -76,17 +129,17 @@ acc_boost = np.array([0.7434, 0.7523, 0.7509, 0.7545, 0.7561, 0.7575, 0.7577, 0.
 
 plt.plot(n_learners, acc_bagging, 'ro', linestyle='-', label="Bagging")
 plt.plot(n_learners, acc_boost, 'b^', linestyle='-', label="Boost")
-plt.axis([0, 33, 0.7, 0.8])
+plt.axis([0, 33, 0.7, 0.78])
 
 plt.xlabel(u"Total base learners")
 plt.ylabel(u"Accuracy")
 
 plt.title("Ensemble mean accuracy")
 
-plt.legend()
+plt.legend(loc='lower right')
 plt.show()
-
 '''
+
 
 
 '''
@@ -99,22 +152,22 @@ melhor_acc_boost = np.array([0.751, 0.757, 0.758, 0.760, 0.761, 0.763, 0.763, 0.
 
 plt.plot(n_learners, melhor_acc_bagging, 'ro', linestyle='-', label="Bagging")
 plt.plot(n_learners, melhor_acc_boost, 'b^', linestyle='-', label="Boost")
-plt.axis([0, 33, 0.7, 0.8])
+plt.axis([0, 33, 0.70, 0.78])
 
 plt.xlabel(u"Total base learners")
 plt.ylabel(u"Accuracy")
 
 plt.title("Ensemble best accuracy")
 
-plt.legend()
+plt.legend(loc='lower right')
 plt.show()
 
 '''
 
 
 
-
 '''
+
 #plotar f1 medio de acordo com o numero de learners
 #ensemble features iguais treino 0.5 sem repeticao
 
@@ -124,14 +177,14 @@ f1_boost = np.array([0.7289, 0.7401, 0.7386, 0.7429, 0.7438, 0.7457, 0.7456, 0.7
 
 plt.plot(n_learners, f1_bagging, 'ro', linestyle='-', label="Bagging")
 plt.plot(n_learners, f1_boost, 'b^', linestyle='-', label="Boost")
-plt.axis([0, 33, 0.7, 0.8])
+plt.axis([0, 33, 0.7, 0.78])
 
 plt.xlabel(u"Total base learners")
 plt.ylabel(u"Average F1 score")
 
 plt.title("Ensemble mean average F1 score")
 
-plt.legend()
+plt.legend(loc='lower right')
 plt.show()
 
 '''
@@ -147,14 +200,14 @@ melhor_f1_boost = np.array([0.733, 0.741, 0.742, 0.745, 0.747, 0.747, 0.748, 0.7
 
 plt.plot(n_learners, melhor_f1_bagging, 'ro', linestyle='-', label="Bagging")
 plt.plot(n_learners, melhor_f1_boost, 'b^', linestyle='-', label="Boost")
-plt.axis([0, 33, 0.7, 0.8])
+plt.axis([0, 33, 0.70, 0.78])
 
 plt.xlabel(u"Total base learners")
 plt.ylabel(u"Average F1 score")
 
 plt.title("Ensemble best average F1 score")
 
-plt.legend()
+plt.legend(loc='lower right')
 plt.show()
 
 '''
@@ -169,42 +222,43 @@ plt.show()
 #plotar o desempenho medio de acordo com o tamanho do treino
 #ensemble features iguais 9 learners
 
-tamanho_treino = np.array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
-acc_bagging = np.array([0.7435, 0.7519, 0.757, 0.76, 0.7624, 0.7652, 0.7649, 0.7650, 0.7677])
-acc_boost = np.array([0.7315, 0.743, 0.7492, 0.7546, 0.7590, 0.7603, 0.7644, 0.7656, 0.7677])
+tamanho_treino = np.array([0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95])
+acc_bagging = np.array([0.7335, 0.7435, 0.7483, 0.7519, 0.7550, 0.757, 0.7584, 0.76, 0.7618, 0.7624, 0.7643, 0.7652, 0.7663, 0.7649, 0.7653, 0.7650, 0.7674, 0.7677, 0.7676])
+acc_boost = np.array([0.7228, 0.7315, 0.7385, 0.743, 0.7473, 0.7492, 0.7535, 0.7546, 0.7564, 0.7590, 0.7583, 0.7603, 0.7621, 0.7644, 0.7650, 0.7656, 0.7681, 0.7677, 0.7666])
 
 plt.plot(tamanho_treino, acc_bagging, 'ro', linestyle='-', label="Bagging")
 plt.plot(tamanho_treino, acc_boost, 'b^', linestyle='-', label="Boost")
-plt.axis([0, 1, 0.7, 0.8])
+plt.axis([0, 1, 0.70, 0.78])
 
 plt.xlabel(u"Training sample")
 plt.ylabel(u"Accuracy")
 
 plt.title("Ensemble mean accuracy")
 
-plt.legend()
+plt.legend(loc='lower right')
 plt.show()
 
 '''
+
 
 '''
 #plotar melhor desempenho de acordo com o tamanho do treino
 #ensemble features iguais 9 learners
 
-tamanho_treino = np.array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
-melhor_acc_bagging = np.array([0.746, 0.754, 0.759, 0.761, 0.763, 0.766, 0.766, 0.765, 0.768])
-melhor_acc_boost = np.array([0.741, 0.752, 0.756, 0.760, 0.763, 0.764, 0.766, 0.766, 0.768])
+tamanho_treino = np.array([0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95])
+melhor_acc_bagging = np.array([0.738, 0.746, 0.750, 0.754, 0.757, 0.759, 0.760, 0.761, 0.763, 0.763, 0.765, 0.766, 0.767, 0.766, 0.766, 0.765, 0.768, 0.768, 0.768])
+melhor_acc_boost = np.array([0.734, 0.741, 0.748, 0.752, 0.756, 0.756, 0.760, 0.760, 0.761, 0.763, 0.763, 0.764, 0.765, 0.766, 0.767, 0.766, 0.769, 0.768, 0.767])
 
 plt.plot(tamanho_treino, melhor_acc_bagging, 'ro', linestyle='-', label="Bagging")
 plt.plot(tamanho_treino, melhor_acc_boost, 'b^', linestyle='-', label="Boost")
-plt.axis([0, 1, 0.7, 0.8])
+plt.axis([0, 1, 0.70, 0.78])
 
 plt.xlabel(u"Training sample")
 plt.ylabel(u"Accuracy")
 
 plt.title("Ensemble best accuracy")
 
-plt.legend()
+plt.legend(loc='lower right')
 plt.show()
 
 '''
@@ -217,20 +271,20 @@ plt.show()
 #plotar f1 medio de acordo com o tamanho do treino
 #ensemble features iguais 9 learners
 
-tamanho_treino = np.array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
-f1_bagging = np.array([0.7158, 0.7267, 0.7334, 0.7378, 0.7421, 0.7459, 0.7472, 0.7481, 0.7516])
-f1_boost = np.array([0.7172, 0.7299, 0.737, 0.7431, 0.7473, 0.7488, 0.7509, 0.7503, 0.7517])
+tamanho_treino = np.array([0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95])
+f1_bagging = np.array([0.7057, 0.7158, 0.7215, 0.7267, 0.7302, 0.7334, 0.7358, 0.7378, 0.7409, 0.7421, 0.7445, 0.7459, 0.7481, 0.7472, 0.7479, 0.7481, 0.7507, 0.7516, 0.7520])
+f1_boost = np.array([0.7055, 0.7172, 0.7244, 0.7299, 0.7352, 0.737, 0.7417, 0.7431, 0.7453, 0.7473, 0.7465, 0.7488, 0.7496, 0.7509, 0.7504, 0.7503, 0.7523, 0.7517, 0.7508])
 
 plt.plot(tamanho_treino, f1_bagging, 'ro', linestyle='-', label="Bagging")
 plt.plot(tamanho_treino, f1_boost, 'b^', linestyle='-', label="Boost")
-plt.axis([0, 1, 0.7, 0.8])
+plt.axis([0, 1, 0.7, 0.78])
 
 plt.xlabel(u"Training sample")
 plt.ylabel(u"Average F1 score")
 
 plt.title("Ensemble mean average F1 score")
 
-plt.legend()
+plt.legend(loc='lower right')
 plt.show()
 
 '''
@@ -240,21 +294,64 @@ plt.show()
 #plotar melhor f1 de acordo com o tamanho do treino
 #ensemble features iguais 9 learners
 
-tamanho_treino = np.array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
-melhor_f1_bagging = np.array([0.723, 0.731, 0.737, 0.741, 0.745, 0.750, 0.750, 0.751, 0.755])
-melhor_f1_boost = np.array([0.723, 0.735, 0.739, 0.745, 0.749, 0.751, 0.753, 0.753, 0.755])
+tamanho_treino = np.array([0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95])
+melhor_f1_bagging = np.array([0.712, 0.723, 0.727, 0.731, 0.735, 0.737, 0.739, 0.741, 0.745, 0.745, 0.748, 0.750, 0.751, 0.750, 0.750, 0.751, 0.754, 0.755, 0.755])
+melhor_f1_boost = np.array([0.714, 0.723, 0.730, 0.735, 0.739, 0.739, 0.744, 0.745, 0.747, 0.749, 0.748, 0.751, 0.753, 0.753, 0.753, 0.753, 0.755, 0.755, 0.754])
 
 plt.plot(tamanho_treino, melhor_f1_bagging, 'ro', linestyle='-', label="Bagging")
 plt.plot(tamanho_treino, melhor_f1_boost, 'b^', linestyle='-', label="Boost")
-plt.axis([0, 1, 0.7, 0.8])
+plt.axis([0, 1, 0.7, 0.78])
 
 plt.xlabel(u"Training sample")
 plt.ylabel(u"Average F1 score")
 
 plt.title("Ensemble best average F1 score")
 
-plt.legend()
+plt.legend(loc='lower right')
 plt.show()
 
 '''
 
+
+
+
+
+acc_bagging = np.array([[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.7375, 0.7474, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.7371, 0.7445, 0.7508, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.7354, 0.7457, 0.7533, 0.7559, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.7330, 0.7447, 0.7514, 0.7554, 0.7619, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.7169, 0.7333, 0.7449, 0.7514, 0.7530, 0.7600, 0.7619, 0.7614, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.7166, 0.7314, 0.7418, 0.7489, 0.7527, 0.7599, 0.7602, 0.7579, 0.7613, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.7160, 0.7321, 0.7427, 0.7484, 0.7519, 0.7593, 0.7594, 0.7620, 0.7618, 0.7638, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.7190, 0.7345, 0.7424, 0.7475, 0.7521, 0.7559, 0.7596, 0.7611, 0.7626, 0.7618, 0.7625, 0.0, 0.0, 0.0, 0.0],
+[0.7207, 0.7346, 0.7437, 0.7478, 0.7515, 0.7573, 0.7573, 0.7582, 0.7610, 0.7622, 0.7600, 0.7585, 0.0, 0.0, 0.0],
+[0.7164, 0.7343, 0.7406, 0.7463, 0.7495, 0.7565, 0.7564, 0.7570, 0.7589, 0.7585, 0.7587, 0.7579, 0.7594, 0.0, 0.0],
+[0.7141, 0.7309, 0.7393, 0.7444, 0.7487, 0.7518, 0.7549, 0.7574, 0.7551, 0.7547, 0.7541, 0.7574, 0.7562, 0.7569, 0.0]])
+
+
+fig = plt.figure()
+mapa = fig.add_subplot(111)
+
+norm = Normalize(vmin = 0.70, vmax = 0.77, clip = False)
+
+cmap = cm.get_cmap(None, None)
+cmap.set_under('w')
+
+ticks_x = [x+1 for x in range(15)]
+ticks_y = [y+1 for y in range(15)]
+plt.xticks(ticks_x)
+plt.yticks(ticks_y)
+
+mapa.grid(True, which='both')
+imagem = mapa.imshow(acc_bagging, interpolation='none', cmap=cmap, norm=norm, extent=[0.5,15.5,15.5,0.5])
+plt.colorbar(imagem)
+
+plt.xlabel("Selected features")
+plt.ylabel("Available features")
+plt.title("Bagging mean accuracy heatmap")
+
+plt.show()
