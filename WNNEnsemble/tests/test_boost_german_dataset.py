@@ -59,6 +59,7 @@ def main():
             if n_base_learners == None:
                 configs_base_learners_escolhidos = configs_base_learners
             else:
+                #TODO: estah sempre ordenando os base learners, no boost isso influencia
                 configs_base_learners_escolhidos = [ configs_base_learners[i] for i in sorted(random.sample(xrange(len(configs_base_learners)), n_base_learners)) ]
     
     
@@ -74,13 +75,15 @@ def main():
             executa_algoritmo("Bagging", dataset, n_folds, configs_single_learners, configs_base_learners_escolhidos, matrizes_ensemble['Bagging'], tamanho_treino_bagging, com_repeticao_bagging, mesmo_mapping_bagging, exibe_resultados)
             
             
+            #TODO: descomentar o codigo, testando sem o boost
+            '''
             print "\n    AdaBoost"
             if exibe_resultados:
                 with open(arq_saida, 'a') as arq:
                     arq.write("\n    AdaBoost\n")
             
             executa_algoritmo("AdaBoost", dataset, n_folds, [], configs_base_learners_escolhidos, matrizes_ensemble['AdaBoost'], tamanho_treino_boost, com_repeticao_boost, mesmo_mapping_boost, exibe_resultados)
-
+            '''
 
 
 def executa_algoritmo(algoritmo, dataset, n_folds, configs_single_learners, configs_base_learners, matrizes_ensemble, amostragem, repeticao, mapping_igual, exibe_resultados):
@@ -93,7 +96,9 @@ def executa_algoritmo(algoritmo, dataset, n_folds, configs_single_learners, conf
     ensembles = []
     if len(base_learners) > 0:
         
-        tipos_voto = ['majority', 'weightedClassifiers']
+        #TODO: descomentar, testando 100 porcento treino
+        #tipos_voto = ['majority', 'weightedClassifiers']
+        tipos_voto = ['majority']#TODO: comentar essa linha
         tipos_erro = ['nenhum', 'porcentagem', 'proporcao', 'proporcaoDiferenca', 'ativacao', 'porcentagem+ativacao', 'proporcao+ativacao', 'proporcaoDiferenca+ativacao']
         tipos_intensidade = ['nenhum', 'porcentagem', 'proporcao', 'proporcaoDiferenca', 'ativacao', 'porcentagem+ativacao', 'proporcao+ativacao', 'proporcaoDiferenca+ativacao']
         

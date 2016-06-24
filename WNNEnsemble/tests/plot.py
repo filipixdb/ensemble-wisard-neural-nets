@@ -138,8 +138,8 @@ plt.title("Ensemble mean accuracy")
 
 plt.legend(loc='lower right')
 plt.show()
-'''
 
+'''
 
 
 '''
@@ -166,8 +166,8 @@ plt.show()
 
 
 
-'''
 
+'''
 #plotar f1 medio de acordo com o numero de learners
 #ensemble features iguais treino 0.5 sem repeticao
 
@@ -188,6 +188,7 @@ plt.legend(loc='lower right')
 plt.show()
 
 '''
+
 
 
 '''
@@ -239,6 +240,7 @@ plt.legend(loc='lower right')
 plt.show()
 
 '''
+
 
 
 '''
@@ -502,5 +504,299 @@ plt.title("Boost best accuracy heatmap")
 
 plt.show()
 
+'''
+
+
+
+'''
+#plotar f1 combinando features
+#ensemble 9 learners
+#5 features fixas
+
+f1_bagging = np.array([[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.7265, 0.7346, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.7272, 0.7323, 0.7376, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.7260, 0.7334, 0.7401, 0.7419, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.7231, 0.7326, 0.7380, 0.7407, 0.7453, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.7116, 0.7245, 0.7333, 0.7384, 0.7387, 0.7441, 0.7447, 0.7427, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.7108, 0.7230, 0.7307, 0.7362, 0.7391, 0.7437, 0.7427, 0.7392, 0.7415, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.7106, 0.7234, 0.7317, 0.7355, 0.7376, 0.7432, 0.7412, 0.7427, 0.7408, 0.7418, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.7137, 0.7260, 0.7311, 0.7337, 0.7369, 0.7383, 0.7399, 0.7405, 0.7403, 0.7380, 0.7376, 0.0, 0.0, 0.0, 0.0],
+[0.7145, 0.7256, 0.7322, 0.7344, 0.7372, 0.7403, 0.7376, 0.7375, 0.7391, 0.7398, 0.7344, 0.7320, 0.0, 0.0, 0.0],
+[0.7206, 0.7252, 0.7285, 0.7327, 0.7353, 0.7397, 0.7374, 0.7367, 0.7371, 0.7353, 0.7329, 0.7309, 0.7294, 0.0, 0.0],
+[0.7090, 0.7216, 0.7283, 0.7312, 0.7340, 0.7346, 0.7361, 0.7372, 0.7328, 0.7314, 0.7273, 0.7298, 0.7247, 0.7247, 0.0]])
+
+
+fig = plt.figure()
+mapa = fig.add_subplot(111)
+
+norm = Normalize(vmin = 0.6900, vmax = 0.7700, clip = False)
+
+cmap = cm.get_cmap(None, None)
+cmap.set_under('w')
+
+ticks_x = [x+1 for x in range(15)]
+ticks_y = [y+1 for y in range(15)]
+plt.xticks(ticks_x)
+plt.yticks(ticks_y)
+
+mapa.grid(True, which='both')
+imagem = mapa.imshow(f1_bagging, interpolation='none', cmap=cmap, norm=norm, extent=[0.5,15.5,15.5,0.5])
+plt.colorbar(imagem)
+
+plt.xlabel("Selected features")
+plt.ylabel("Available features")
+plt.title("Bagging mean average F1 score heatmap")
+
+plt.show()
+
+'''
+
+
+'''
+#plotar f1 combinando features
+#ensemble 9 learners
+#5 features fixas
+
+f1_boost = np.array([[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.7179, 0.7284, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.7189, 0.7277, 0.7382, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.7171, 0.7247, 0.7352, 0.7386, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.7156, 0.7264, 0.7314, 0.7351, 0.7408, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.6966, 0.7128, 0.7235, 0.7337, 0.7364, 0.7393, 0.7402, 0.7440, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.6937, 0.7116, 0.7223, 0.7291, 0.7320, 0.7418, 0.7393, 0.7393, 0.7443, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.6921, 0.7119, 0.7232, 0.7310, 0.7320, 0.7388, 0.7388, 0.7436, 0.7417, 0.7453, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.6961, 0.7139, 0.7232, 0.7293, 0.7338, 0.7373, 0.7414, 0.7421, 0.7467, 0.7444, 0.7440, 0.0, 0.0, 0.0, 0.0],
+[0.6937, 0.7119, 0.7234, 0.7285, 0.7303, 0.7352, 0.7332, 0.7416, 0.7399, 0.7446, 0.7426, 0.7437, 0.0, 0.0, 0.0],
+[0.6945, 0.7114, 0.7170, 0.7286, 0.7317, 0.7354, 0.7325, 0.7357, 0.7383, 0.7396, 0.7407, 0.7394, 0.7421, 0.0, 0.0],
+[0.6919, 0.7116, 0.7180, 0.7250, 0.7279, 0.7319, 0.7336, 0.7342, 0.7347, 0.7349, 0.7349, 0.7363, 0.7384, 0.7396, 0.0]])
+
+
+fig = plt.figure()
+mapa = fig.add_subplot(111)
+
+norm = Normalize(vmin = 0.6900, vmax = 0.7700, clip = False)
+
+cmap = cm.get_cmap(None, None)
+cmap.set_under('w')
+
+ticks_x = [x+1 for x in range(15)]
+ticks_y = [y+1 for y in range(15)]
+plt.xticks(ticks_x)
+plt.yticks(ticks_y)
+
+mapa.grid(True, which='both')
+imagem = mapa.imshow(f1_boost, interpolation='none', cmap=cmap, norm=norm, extent=[0.5,15.5,15.5,0.5])
+plt.colorbar(imagem)
+
+plt.xlabel("Selected features")
+plt.ylabel("Available features")
+plt.title("Boost mean average F1 score heatmap")
+
+plt.show()
+
+'''
+
+
+'''
+#plotar melhor f1 combinando features
+#ensemble 9 learners
+#5 features fixas
+
+melhor_f1_bagging = np.array([[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.731, 0.737, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.730, 0.734, 0.740, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.730, 0.735, 0.742, 0.745, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.727, 0.736, 0.740, 0.743, 0.749, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.718, 0.730, 0.737, 0.741, 0.741, 0.746, 0.747, 0.746, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.717, 0.726, 0.733, 0.738, 0.742, 0.746, 0.746, 0.742, 0.746, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.716, 0.728, 0.734, 0.738, 0.740, 0.746, 0.744, 0.745, 0.744, 0.746, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.721, 0.730, 0.734, 0.736, 0.739, 0.741, 0.743, 0.743, 0.744, 0.742, 0.741, 0.0, 0.0, 0.0, 0.0],
+[0.720, 0.729, 0.735, 0.737, 0.739, 0.742, 0.741, 0.741, 0.743, 0.744, 0.739, 0.736, 0.0, 0.0, 0.0],
+[0.718, 0.729, 0.731, 0.735, 0.739, 0.741, 0.741, 0.741, 0.741, 0.739, 0.737, 0.735, 0.733, 0.0, 0.0],
+[0.715, 0.725, 0.731, 0.734, 0.736, 0.738, 0.740, 0.741, 0.737, 0.736, 0.731, 0.733, 0.729, 0.730, 0.0]])
+
+
+fig = plt.figure()
+mapa = fig.add_subplot(111)
+
+norm = Normalize(vmin = 0.6900, vmax = 0.7700, clip = False)
+
+cmap = cm.get_cmap(None, None)
+cmap.set_under('w')
+
+ticks_x = [x+1 for x in range(15)]
+ticks_y = [y+1 for y in range(15)]
+plt.xticks(ticks_x)
+plt.yticks(ticks_y)
+
+mapa.grid(True, which='both')
+imagem = mapa.imshow(melhor_f1_bagging, interpolation='none', cmap=cmap, norm=norm, extent=[0.5,15.5,15.5,0.5])
+plt.colorbar(imagem)
+
+plt.xlabel("Selected features")
+plt.ylabel("Available features")
+plt.title("Bagging best average F1 score heatmap")
+
+plt.show()
+
+'''
+
+
+'''
+#plotar melhor f1 combinando features
+#ensemble 9 learners
+#5 features fixas
+
+melhor_f1_boost = np.array([[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.724, 0.733, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.725, 0.730, 0.742, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.724, 0.729, 0.739, 0.742, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.0, 0.723, 0.732, 0.735, 0.739, 0.743, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.712, 0.722, 0.730, 0.738, 0.741, 0.744, 0.743, 0.746, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.707, 0.720, 0.729, 0.732, 0.735, 0.745, 0.742, 0.742, 0.747, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.705, 0.720, 0.728, 0.735, 0.734, 0.742, 0.741, 0.746, 0.744, 0.747, 0.0, 0.0, 0.0, 0.0, 0.0],
+[0.708, 0.719, 0.727, 0.732, 0.737, 0.740, 0.744, 0.746, 0.750, 0.747, 0.746, 0.0, 0.0, 0.0, 0.0],
+[0.707, 0.719, 0.728, 0.733, 0.734, 0.739, 0.735, 0.744, 0.742, 0.747, 0.744, 0.746, 0.0, 0.0, 0.0],
+[0.706, 0.720, 0.722, 0.731, 0.735, 0.738, 0.734, 0.738, 0.741, 0.742, 0.743, 0.742, 0.744, 0.0, 0.0],
+[0.703, 0.718, 0.723, 0.728, 0.731, 0.735, 0.738, 0.737, 0.738, 0.738, 0.738, 0.739, 0.741, 0.742, 0.0]])
+
+
+fig = plt.figure()
+mapa = fig.add_subplot(111)
+
+norm = Normalize(vmin = 0.6900, vmax = 0.7700, clip = False)
+
+cmap = cm.get_cmap(None, None)
+cmap.set_under('w')
+
+ticks_x = [x+1 for x in range(15)]
+ticks_y = [y+1 for y in range(15)]
+plt.xticks(ticks_x)
+plt.yticks(ticks_y)
+
+mapa.grid(True, which='both')
+imagem = mapa.imshow(melhor_f1_boost, interpolation='none', cmap=cmap, norm=norm, extent=[0.5,15.5,15.5,0.5])
+plt.colorbar(imagem)
+
+plt.xlabel("Selected features")
+plt.ylabel("Available features")
+plt.title("Boost best average F1 score heatmap")
+
+plt.show()
+
+'''
+
+
+######
+# a05_b10_c04
+######
+
+
+
+'''
+#plotar o desempenho medio de acordo com o tamanho do treino
+#ensemble a05_b10_c04 9 learners
+
+tamanho_treino = np.array([0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95])
+acc_bagging = np.array([0.7320, 0.7453, 0.7502, 0.7539, 0.7559, 0.7593, 0.7590, 0.7590, 0.7634, 0.7638, 0.7644, 0.7642, 0.7666, 0.7662, 0.7650, 0.7656, 0.7676, 0.7669, 0.7690])
+acc_boost = np.array([0.7213, 0.7316, 0.7394, 0.7418, 0.7467, 0.7508, 0.7503, 0.7519, 0.7532, 0.7584, 0.7595, 0.7587, 0.7608, 0.7634, 0.7623, 0.7650, 0.7666, 0.7661, 0.7665])
+
+plt.plot(tamanho_treino, acc_bagging, 'ro', linestyle='-', label="Bagging")
+plt.plot(tamanho_treino, acc_boost, 'b^', linestyle='-', label="Boost")
+plt.axis([0, 1, 0.70, 0.78])
+
+plt.xlabel(u"Training sample")
+plt.ylabel(u"Accuracy")
+
+plt.title("Ensemble mean accuracy")
+
+plt.legend(loc='lower right')
+plt.show()
+'''
+
+
+
+
+'''
+#plotar melhor desempenho de acordo com o tamanho do treino
+#ensemble a05_b10_c04 9 learners
+
+tamanho_treino = np.array([0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95])
+melhor_acc_bagging = np.array([0.737, 0.748, 0.753, 0.756, 0.758, 0.762, 0.761, 0.761, 0.765, 0.765, 0.766, 0.765, 0.767, 0.767, 0.766, 0.767, 0.769, 0.768, 0.770])
+melhor_acc_boost = np.array([0.731, 0.742, 0.750, 0.752, 0.756, 0.760, 0.759, 0.760, 0.758, 0.764, 0.765, 0.764, 0.766, 0.767, 0.765, 0.767, 0.769, 0.767, 0.769])
+
+plt.plot(tamanho_treino, melhor_acc_bagging, 'ro', linestyle='-', label="Bagging")
+plt.plot(tamanho_treino, melhor_acc_boost, 'b^', linestyle='-', label="Boost")
+plt.axis([0, 1, 0.70, 0.78])
+
+plt.xlabel(u"Training sample")
+plt.ylabel(u"Accuracy")
+
+plt.title("Ensemble best accuracy")
+
+plt.legend(loc='lower right')
+plt.show()
+'''
+
+
+
+
+
+
+'''
+#plotar f1 medio de acordo com o tamanho do treino
+#ensemble a05_b10_c04 9 learners
+
+tamanho_treino = np.array([0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95])
+f1_bagging = np.array([0.7037, 0.7176, 0.7227, 0.7276, 0.7297, 0.7347, 0.7351, 0.7357, 0.7411, 0.7418, 0.7435, 0.7436, 0.7464, 0.7464, 0.7460, 0.7468, 0.7490, 0.7491, 0.7515])
+f1_boost = np.array([0.7039, 0.7173, 0.7252, 0.7287, 0.7335, 0.7379, 0.7379, 0.7392, 0.7407, 0.7453, 0.7465, 0.7460, 0.7470, 0.7487, 0.7463, 0.7481, 0.7492, 0.7485, 0.7493])
+
+plt.plot(tamanho_treino, f1_bagging, 'ro', linestyle='-', label="Bagging")
+plt.plot(tamanho_treino, f1_boost, 'b^', linestyle='-', label="Boost")
+plt.axis([0, 1, 0.7, 0.78])
+
+plt.xlabel(u"Training sample")
+plt.ylabel(u"Average F1 score")
+
+plt.title("Ensemble mean average F1 score")
+
+plt.legend(loc='lower right')
+plt.show()
+'''
+
+
+
+'''
+#plotar melhor f1 de acordo com o tamanho do treino
+#ensemble a05_b10_c04 9 learners
+
+tamanho_treino = np.array([0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95])
+melhor_f1_bagging = np.array([0.710, 0.724, 0.729, 0.733, 0.734, 0.739, 0.739, 0.739, 0.745, 0.746, 0.747, 0.747, 0.749, 0.750, 0.749, 0.750, 0.752, 0.752, 0.755])
+melhor_f1_boost = np.array([0.711, 0.724, 0.731, 0.734, 0.738, 0.741, 0.741, 0.742, 0.743, 0.747, 0.749, 0.748, 0.749, 0.751, 0.749, 0.751, 0.751, 0.752, 0.752])
+
+plt.plot(tamanho_treino, melhor_f1_bagging, 'ro', linestyle='-', label="Bagging")
+plt.plot(tamanho_treino, melhor_f1_boost, 'b^', linestyle='-', label="Boost")
+plt.axis([0, 1, 0.7, 0.78])
+
+plt.xlabel(u"Training sample")
+plt.ylabel(u"Average F1 score")
+
+plt.title("Ensemble best average F1 score")
+
+plt.legend(loc='lower right')
+plt.show()
 '''
 
