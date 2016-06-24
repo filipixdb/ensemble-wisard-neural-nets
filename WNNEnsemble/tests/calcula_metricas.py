@@ -29,7 +29,8 @@ def main(nome_arquivo):
         while linha[6:6+9] != 'Ensembles':
             linha = arq.readline()
         #lendo os ensembles do bagging
-        while (linha[4:-1] != 'AdaBoost\r') and (linha[4:-1] != 'AdaBoost'):
+        #TODO: remover ultimo and, usado pro 100 porcento treino
+        while (linha[4:-1] != 'AdaBoost\r') and (linha[4:-1] != 'AdaBoost'):# and (linha != ''):
             if linha[15:15+8] == 'accuracy':
                 linha = linha[12:-1]
                 lista = ast.literal_eval(linha)
@@ -42,6 +43,9 @@ def main(nome_arquivo):
                 valores_bagging_f1.append(f1)
                 valores_bagging_custo.append(custo)
             linha = arq.readline()
+        
+        #TODO: remover comentario, usando pro 100 porcento treino
+        #'''
         #lendo Boost
         while linha[6:6+9] != 'Ensembles':
             linha = arq.readline()
@@ -60,14 +64,18 @@ def main(nome_arquivo):
                 valores_boost_custo.append(custo)
             linha = arq.readline()
         #leu tudo
+        #'''
     
     metricas_bagging_acc = metr.media_variancia_desvio(valores_bagging_acc)
     metricas_bagging_f1 = metr.media_variancia_desvio(valores_bagging_f1)
     metricas_bagging_custo = metr.media_variancia_desvio(valores_bagging_custo)
     
+    #TODO:remover comentario, usando pra 100 porcento treino
+    #'''
     metricas_boost_acc = metr.media_variancia_desvio(valores_boost_acc)
     metricas_boost_f1 = metr.media_variancia_desvio(valores_boost_f1)
     metricas_boost_custo = metr.media_variancia_desvio(valores_boost_custo)
+    #'''
 
     
     print "Resultados:"
@@ -87,6 +95,9 @@ def main(nome_arquivo):
     print "      media = ", "{0:.4f}".format(metricas_bagging_custo['media'])
     print "      variancia = ", metricas_bagging_custo['variancia']
     print "      desvio = ", metricas_bagging_custo['desvio']
+    
+    #TODO: remover comentario, usando pra 100 porcento treino
+    #'''
     print "  Boost"
     print "    Acc"
     print "      maior = ", max(valores_boost_acc)
@@ -103,7 +114,7 @@ def main(nome_arquivo):
     print "      media = ", "{0:.4f}".format(metricas_boost_custo['media'])
     print "      variancia = ", metricas_boost_custo['variancia']
     print "      desvio = ", metricas_boost_custo['desvio']
-    
+    #'''
     
 
 if __name__ == '__main__':

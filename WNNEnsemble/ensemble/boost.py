@@ -118,15 +118,15 @@ class EnsembleAlgorithm(object):
         #print "Acuracia: ", (certas/(certas+erradas)), "    Peso Certas: ", totalPesos-erro, "    Peso Erradas: ", erro, "    Total Pesos: ", totalPesos, "    Erro Percentual: ", erro/totalPesos
         
         #TODO: remover condicao, coloquei pra testar treino 100 porcento
-        if len(instancias_nao_treinadas) > 0:
-            erros['nenhum'] = erradas/(certas+erradas)
-            erros['porcentagem'] = erroPorcentagem/totalPesosPorcentagem
-            erros['proporcao'] = erroProporcao/totalPesosProporcao
-            erros['proporcaoDiferenca'] = erroProporcaoDiferenca/totalPesosProporcaoDiferenca
-            erros['ativacao'] = erroAtivacao/totalPesosAtivacao
-            erros['porcentagem+ativacao'] = erroPorcentagemAtivacao/totalPesosPorcentagemAtivacao
-            erros['proporcao+ativacao'] = erroProporcaoAtivacao/totalPesosProporcaoAtivacao
-            erros['proporcaoDiferenca+ativacao'] = erroProporcaoDiferencaAtivacao/totalPesosProporcaoDiferencaAtivacao
+        #if len(instancias_nao_treinadas) > 0:
+        erros['nenhum'] = erradas/(certas+erradas)
+        erros['porcentagem'] = erroPorcentagem/totalPesosPorcentagem
+        erros['proporcao'] = erroProporcao/totalPesosProporcao
+        erros['proporcaoDiferenca'] = erroProporcaoDiferenca/totalPesosProporcaoDiferenca
+        erros['ativacao'] = erroAtivacao/totalPesosAtivacao
+        erros['porcentagem+ativacao'] = erroPorcentagemAtivacao/totalPesosPorcentagemAtivacao
+        erros['proporcao+ativacao'] = erroProporcaoAtivacao/totalPesosProporcaoAtivacao
+        erros['proporcaoDiferenca+ativacao'] = erroProporcaoDiferencaAtivacao/totalPesosProporcaoDiferencaAtivacao
         
         return erros
 
@@ -138,7 +138,7 @@ class EnsembleAlgorithm(object):
             
             if erro == 0:
                 #TODO: descomentar, comentei pra testar treino 100 porcento
-                #print "Erro zero .."
+                print "Erro zero .."
                 erro = 0.0001
             
             beta = erro/(1.0-erro)

@@ -75,15 +75,15 @@ def main():
             executa_algoritmo("Bagging", dataset, n_folds, configs_single_learners, configs_base_learners_escolhidos, matrizes_ensemble['Bagging'], tamanho_treino_bagging, com_repeticao_bagging, mesmo_mapping_bagging, exibe_resultados)
             
             
-            #TODO: descomentar o codigo, testando sem o boost
-            '''
+            #TODO: descomentar o codigo, testando sem o boost pro 100 porcento treino
+            
             print "\n    AdaBoost"
             if exibe_resultados:
                 with open(arq_saida, 'a') as arq:
                     arq.write("\n    AdaBoost\n")
             
             executa_algoritmo("AdaBoost", dataset, n_folds, [], configs_base_learners_escolhidos, matrizes_ensemble['AdaBoost'], tamanho_treino_boost, com_repeticao_boost, mesmo_mapping_boost, exibe_resultados)
-            '''
+            
 
 
 def executa_algoritmo(algoritmo, dataset, n_folds, configs_single_learners, configs_base_learners, matrizes_ensemble, amostragem, repeticao, mapping_igual, exibe_resultados):
@@ -97,8 +97,8 @@ def executa_algoritmo(algoritmo, dataset, n_folds, configs_single_learners, conf
     if len(base_learners) > 0:
         
         #TODO: descomentar, testando 100 porcento treino
-        #tipos_voto = ['majority', 'weightedClassifiers']
-        tipos_voto = ['majority']#TODO: comentar essa linha
+        tipos_voto = ['majority', 'weightedClassifiers']
+        #tipos_voto = ['majority']#TODO: comentar essa linha
         tipos_erro = ['nenhum', 'porcentagem', 'proporcao', 'proporcaoDiferenca', 'ativacao', 'porcentagem+ativacao', 'proporcao+ativacao', 'proporcaoDiferenca+ativacao']
         tipos_intensidade = ['nenhum', 'porcentagem', 'proporcao', 'proporcaoDiferenca', 'ativacao', 'porcentagem+ativacao', 'proporcao+ativacao', 'proporcaoDiferenca+ativacao']
         
