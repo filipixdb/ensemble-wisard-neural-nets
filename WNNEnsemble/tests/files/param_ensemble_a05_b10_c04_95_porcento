@@ -1,5 +1,5 @@
 folds=10
-execucoes=30
+execucoes=100
 single_learners:
 params_ensemble:
 tamanho_treino_bagging=0.95
